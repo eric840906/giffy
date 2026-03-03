@@ -132,7 +132,7 @@ export function ImageSequence({ images, onReorder, onRemove }: ImageSequenceProp
               type="button"
               onClick={() => onRemove(index)}
               aria-label={`${t('imagesToGif.removeImage')}: ${file.name}`}
-              className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white opacity-0 shadow-md transition-opacity group-hover:opacity-100 hover:bg-red-600"
+              className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white shadow-md transition-opacity sm:opacity-0 sm:group-hover:opacity-100 hover:bg-red-600"
             >
               X
             </button>
