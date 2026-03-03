@@ -132,7 +132,11 @@ export function VideoToGif() {
    * @param isPreview - If true, generates a lower-resolution preview for speed
    */
   const handleConvert = useCallback(async (isPreview = false) => {
-    if (!videoFile || !loaded || endTime <= startTime) return;
+    console.log('[convert] called', { videoFile: !!videoFile, loaded, startTime, endTime });
+    if (!videoFile || !loaded || endTime <= startTime) {
+      console.log('[convert] early return — conditions not met');
+      return;
+    }
 
     abortRef.current = false;
     setIsConverting(true);
@@ -150,58 +154,31 @@ export function VideoToGif() {
       const inputName = 'input' + videoFile.name.substring(videoFile.name.lastIndexOf('.'));
       const outputName = 'output.gif';
 
+      console.log('[convert] writing input file...');
       await ffmpeg.writeFile(inputName, await fetchFile(videoFile));
-      if (abortRef.current) return;
+      if (abortRef.current) { console.log('[convert] aborted after writeFile'); return; }
 
       const duration = endTime - startTime;
       const outputWidth = isPreview ? Math.min(width, 320) : width;
       const outputFps = isPreview ? Math.min(fps, 8) : fps;
-      const colorCount = qualityToColorCount(quality);
 
-      // Try two-pass palette approach for better quality, fall back to single-pass
-      let ret: number;
-      const paletteName = 'palette.png';
-      let usedPalette = false;
+      console.log('[convert] exec params:', { duration, outputWidth, outputFps, isPreview });
 
-      // Pass 1: generate optimized palette
-      ret = await ffmpeg.exec([
+      // Single-pass conversion (most compatible with ffmpeg.wasm)
+      const ret = await ffmpeg.exec([
         '-ss', startTime.toString(),
         '-t', duration.toString(),
         '-i', inputName,
-        '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos,palettegen=max_colors=${colorCount}`,
-        '-y', paletteName,
+        '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos`,
+        '-y', outputName,
       ]);
-      if (abortRef.current) return;
-
-      if (ret === 0) {
-        // Pass 2: generate GIF using palette
-        ret = await ffmpeg.exec([
-          '-ss', startTime.toString(),
-          '-t', duration.toString(),
-          '-i', inputName,
-          '-i', paletteName,
-          '-filter_complex', `[0:v]fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos[x];[x][1:v]paletteuse`,
-          '-y', outputName,
-        ]);
-        if (abortRef.current) return;
-        usedPalette = ret === 0;
-      }
-
-      // Fallback: single-pass conversion
-      if (!usedPalette) {
-        ret = await ffmpeg.exec([
-          '-ss', startTime.toString(),
-          '-t', duration.toString(),
-          '-i', inputName,
-          '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos`,
-          '-y', outputName,
-        ]);
-        if (abortRef.current) return;
-        if (ret !== 0) throw new Error(`ffmpeg exited with code ${ret}`);
-      }
+      console.log('[convert] exec returned:', ret);
+      if (abortRef.current) { console.log('[convert] aborted after exec'); return; }
+      if (ret !== 0) throw new Error(`ffmpeg exited with code ${ret}`);
 
       const data = await ffmpeg.readFile(outputName);
-      if (abortRef.current) return;
+      if (abortRef.current) { console.log('[convert] aborted after readFile'); return; }
+      console.log('[convert] output size:', data.length, 'bytes');
 
       const blob = new Blob([data], { type: 'image/gif' });
       setOutputGif(blob);
@@ -209,9 +186,8 @@ export function VideoToGif() {
       // Clean up ffmpeg temp files to free memory
       await ffmpeg.deleteFile(inputName);
       await ffmpeg.deleteFile(outputName);
-      try { await ffmpeg.deleteFile(paletteName); } catch { /* may not exist */ }
     } catch (err) {
-      console.error('Conversion failed:', err);
+      console.error('[convert] failed:', err);
       if (!abortRef.current) {
         setConversionError(t('videoToGif.error'));
       }

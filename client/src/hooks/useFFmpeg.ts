@@ -15,6 +15,7 @@ import { toBlobURL } from '@ffmpeg/util';
  */
 export function useFFmpeg() {
   const ffmpegRef = useRef(new FFmpeg());
+  const loadingRef = useRef(false);
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -23,11 +24,13 @@ export function useFFmpeg() {
   /**
    * Loads ffmpeg.wasm from the unpkg CDN.
    * No-ops if already loaded or currently loading.
+   * Uses a ref guard to prevent duplicate calls (React strict mode).
    * Updates progress state during download (~30MB).
    * Sets error state if loading fails.
    */
   const load = useCallback(async () => {
-    if (loaded || loading) return;
+    if (loaded || loadingRef.current) return;
+    loadingRef.current = true;
 
     setLoading(true);
     setProgress(0);
@@ -45,22 +48,27 @@ export function useFFmpeg() {
     try {
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
 
-      // Download core JS first (~114KB, fast)
+      console.log('[ffmpeg] downloading core JS...');
       const coreURL = await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript');
+      console.log('[ffmpeg] core JS ready');
 
-      // Download WASM (~32MB, slow — show progress)
+      console.log('[ffmpeg] downloading WASM (~32MB)...');
       const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm', onDownloadProgress);
+      console.log('[ffmpeg] WASM ready');
 
+      console.log('[ffmpeg] calling ffmpeg.load()...');
       await ffmpeg.load({ coreURL, wasmURL });
+      console.log('[ffmpeg] loaded successfully!');
       setLoaded(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to load ffmpeg';
       setError(message);
-      console.error('Failed to load ffmpeg:', err);
+      console.error('[ffmpeg] FAILED to load:', err);
     } finally {
+      loadingRef.current = false;
       setLoading(false);
     }
-  }, [loaded, loading]);
+  }, [loaded]);
 
   return {
     ffmpeg: ffmpegRef.current,
