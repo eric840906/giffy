@@ -127,7 +127,8 @@ export function VideoTrim() {
     ffmpeg.on('progress', onProgress);
 
     try {
-      const inputName = 'input' + videoFile.name.substring(videoFile.name.lastIndexOf('.'));
+      const ext = videoFile.name?.includes('.') ? videoFile.name.substring(videoFile.name.lastIndexOf('.')) : '.mp4';
+      const inputName = 'input' + ext;
       const outputName = 'output.mp4';
       const duration = endTime - startTime;
 

@@ -160,7 +160,7 @@ export function VideoCrop() {
     ffmpeg.on('progress', onProgress);
 
     try {
-      const ext = videoFile.name.substring(videoFile.name.lastIndexOf('.'));
+      const ext = videoFile.name?.includes('.') ? videoFile.name.substring(videoFile.name.lastIndexOf('.')) : '.mp4';
       const inputName = 'input' + ext;
       const outputName = 'cropped.mp4';
 
