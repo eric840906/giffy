@@ -129,5 +129,15 @@
     "outputSize": "輸出大小：{{size}}",
     "error": "處理失敗，請重試",
     "originalSize": "原始大小：{{width}} × {{height}}"
+  },
+  "videoTrim": {
+    "title": "影片裁切（時間）",
+    "uploadPrompt": "上傳影片以裁切時間",
+    "trim": "裁切",
+    "trimProgress": "裁切中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "裁切結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "裁切失敗，請重試"
   }
 }

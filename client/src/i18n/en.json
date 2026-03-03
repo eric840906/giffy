@@ -129,5 +129,15 @@
     "outputSize": "Output size: {{size}}",
     "error": "Processing failed, please try again",
     "originalSize": "Original size: {{width}} × {{height}}"
+  },
+  "videoTrim": {
+    "title": "Video Trim",
+    "uploadPrompt": "Upload a video to trim",
+    "trim": "Trim",
+    "trimProgress": "Trimming {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Trim Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Trimming failed, please try again"
   }
 }
