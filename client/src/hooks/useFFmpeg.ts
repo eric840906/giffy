@@ -35,18 +35,23 @@ export function useFFmpeg() {
 
     const ffmpeg = ffmpegRef.current;
 
-    const onProgress = ({ progress: p }: { progress: number }) => {
-      setProgress(Math.round(p * 100));
+    /** Track download progress across both files (~32MB total, wasm is ~99%) */
+    const onDownloadProgress = ({ received, total }: { url: string; received: number; total: number }) => {
+      if (total > 0) {
+        setProgress(Math.round((received / total) * 100));
+      }
     };
-
-    ffmpeg.on('progress', onProgress);
 
     try {
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-      await ffmpeg.load({
-        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
-      });
+
+      // Download core JS first (~114KB, fast)
+      const coreURL = await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript');
+
+      // Download WASM (~32MB, slow — show progress)
+      const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm', onDownloadProgress);
+
+      await ffmpeg.load({ coreURL, wasmURL });
       setLoaded(true);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to load ffmpeg';
@@ -54,7 +59,6 @@ export function useFFmpeg() {
       console.error('Failed to load ffmpeg:', err);
     } finally {
       setLoading(false);
-      ffmpeg.off('progress', onProgress);
     }
   }, [loaded, loading]);
 

@@ -34,7 +34,7 @@ function qualityToColorCount(q: number): number {
 export function VideoToGif() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
+  const { ffmpeg, loaded, loading: ffmpegLoading, progress: ffmpegProgress, error: ffmpegError, load } = useFFmpeg();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   /** Ref to abort in-flight ffmpeg operations on unmount */
@@ -220,7 +220,10 @@ export function VideoToGif() {
       {/* FFmpeg loading state */}
       {!loaded && (
         <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
-          {ffmpegError || t('videoToGif.loadingFFmpeg')}
+          {ffmpegError
+            || (ffmpegLoading && ffmpegProgress > 0
+              ? t('ffmpeg.loadingProgress', { progress: ffmpegProgress })
+              : t('videoToGif.loadingFFmpeg'))}
         </div>
       )}
 
