@@ -89,5 +89,26 @@
     "result": "轉換結果",
     "outputSize": "輸出大小：{{size}}",
     "error": "轉換失敗，請重試"
+  },
+  "imagesToGif": {
+    "title": "圖片合成 GIF",
+    "uploadPrompt": "上傳多張圖片來合成 GIF 動畫",
+    "settings": "輸出設定",
+    "delay": "每幀延遲",
+    "delayMs": "{{delay}} 毫秒",
+    "width": "寬度 (px)",
+    "quality": "品質",
+    "preview": "預覽動畫",
+    "stopPreview": "停止預覽",
+    "generate": "生成 GIF",
+    "generateProgress": "生成中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "生成結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "生成失敗，請重試",
+    "dragToReorder": "拖拉排序",
+    "removeImage": "移除圖片",
+    "imageCount": "{{count}} 張圖片",
+    "addMore": "新增更多圖片"
   }
 }

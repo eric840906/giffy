@@ -89,5 +89,26 @@
     "result": "Conversion Result",
     "outputSize": "Output size: {{size}}",
     "error": "Conversion failed, please try again"
+  },
+  "imagesToGif": {
+    "title": "Images to GIF",
+    "uploadPrompt": "Upload multiple images to create a GIF animation",
+    "settings": "Output Settings",
+    "delay": "Frame Delay",
+    "delayMs": "{{delay}} ms",
+    "width": "Width (px)",
+    "quality": "Quality",
+    "preview": "Preview Animation",
+    "stopPreview": "Stop Preview",
+    "generate": "Generate GIF",
+    "generateProgress": "Generating {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Generation failed, please try again",
+    "dragToReorder": "Drag to reorder",
+    "removeImage": "Remove image",
+    "imageCount": "{{count}} images",
+    "addMore": "Add more images"
   }
 }
