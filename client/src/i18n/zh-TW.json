@@ -110,5 +110,24 @@
     "removeImage": "移除圖片",
     "imageCount": "{{count}} 張圖片",
     "addMore": "新增更多圖片"
+  },
+  "gifCropResize": {
+    "title": "GIF 裁切/縮放",
+    "uploadPrompt": "上傳 GIF 以進行裁切或縮放",
+    "settings": "輸出設定",
+    "crop": "裁切區域",
+    "cropHint": "在圖片上拖拉選擇裁切區域",
+    "resetCrop": "重設裁切",
+    "resize": "調整大小",
+    "width": "寬度 (px)",
+    "height": "高度 (px)",
+    "lockAspectRatio": "鎖定比例",
+    "apply": "套用",
+    "applyProgress": "處理中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "處理結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "處理失敗，請重試",
+    "originalSize": "原始大小：{{width}} × {{height}}"
   }
 }

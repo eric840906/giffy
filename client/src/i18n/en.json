@@ -110,5 +110,24 @@
     "removeImage": "Remove image",
     "imageCount": "{{count}} images",
     "addMore": "Add more images"
+  },
+  "gifCropResize": {
+    "title": "GIF Crop/Resize",
+    "uploadPrompt": "Upload a GIF to crop or resize",
+    "settings": "Output Settings",
+    "crop": "Crop Area",
+    "cropHint": "Drag on the image to select crop area",
+    "resetCrop": "Reset Crop",
+    "resize": "Resize",
+    "width": "Width (px)",
+    "height": "Height (px)",
+    "lockAspectRatio": "Lock Aspect Ratio",
+    "apply": "Apply",
+    "applyProgress": "Processing {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Processing failed, please try again",
+    "originalSize": "Original size: {{width}} × {{height}}"
   }
 }
