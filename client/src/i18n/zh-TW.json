@@ -139,5 +139,18 @@
     "result": "裁切結果",
     "outputSize": "輸出大小：{{size}}",
     "error": "裁切失敗，請重試"
+  },
+  "videoCrop": {
+    "title": "影片裁切（畫面）",
+    "uploadPrompt": "上傳影片以裁切畫面區域",
+    "cropHint": "在畫面上拖拉選擇裁切區域",
+    "resetCrop": "重設裁切",
+    "crop": "裁切區域",
+    "cropProgress": "裁切中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "裁切結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "裁切失敗，請重試",
+    "originalSize": "原始大小：{{width}} × {{height}}"
   }
 }

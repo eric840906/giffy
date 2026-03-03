@@ -139,5 +139,18 @@
     "result": "Trim Result",
     "outputSize": "Output size: {{size}}",
     "error": "Trimming failed, please try again"
+  },
+  "videoCrop": {
+    "title": "Video Crop",
+    "uploadPrompt": "Upload a video to crop the frame area",
+    "cropHint": "Drag on the frame to select crop area",
+    "resetCrop": "Reset Crop",
+    "crop": "Crop Area",
+    "cropProgress": "Cropping {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Crop Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Cropping failed, please try again",
+    "originalSize": "Original size: {{width}} × {{height}}"
   }
 }

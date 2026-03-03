@@ -5,6 +5,7 @@ import { VideoToGif } from './pages/gif/VideoToGif';
 import { ImagesToGif } from './pages/gif/ImagesToGif';
 import { GifCropResize } from './pages/gif/GifCropResize';
 import { VideoTrim } from './pages/video/VideoTrim';
+import { VideoCrop } from './pages/video/VideoCrop';
 
 /**
  * Root application component with routing.
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/gif/images-to-gif" element={<ImagesToGif />} />
           <Route path="/gif/crop-resize" element={<GifCropResize />} />
           <Route path="/video/trim" element={<VideoTrim />} />
+          <Route path="/video/crop" element={<VideoCrop />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
