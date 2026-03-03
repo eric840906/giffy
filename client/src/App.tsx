@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { Home } from './pages/Home/Home';
 import { VideoToGif } from './pages/gif/VideoToGif';
+import { ImagesToGif } from './pages/gif/ImagesToGif';
 
 /**
  * Root application component with routing.
@@ -14,6 +15,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/gif/video-to-gif" element={<VideoToGif />} />
+          <Route path="/gif/images-to-gif" element={<ImagesToGif />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
