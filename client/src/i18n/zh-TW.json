@@ -69,5 +69,24 @@
     "loading": "正在載入處理引擎...",
     "loadingProgress": "載入中 {{progress}}%",
     "ready": "處理引擎已就緒"
+  },
+  "videoToGif": {
+    "title": "影片轉 GIF",
+    "uploadPrompt": "上傳影片以開始轉換",
+    "timeRange": "時間範圍",
+    "start": "起點",
+    "end": "終點",
+    "duration": "長度",
+    "settings": "輸出設定",
+    "width": "寬度 (px)",
+    "fps": "每秒幀數 (FPS)",
+    "quality": "品質",
+    "preview": "預覽",
+    "convert": "轉換",
+    "converting": "轉換中...",
+    "convertProgress": "轉換中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "轉換結果",
+    "outputSize": "輸出大小：{{size}}"
   }
 }

@@ -69,5 +69,24 @@
     "loading": "Loading processing engine...",
     "loadingProgress": "Loading {{progress}}%",
     "ready": "Processing engine ready"
+  },
+  "videoToGif": {
+    "title": "Video to GIF",
+    "uploadPrompt": "Upload a video to start converting",
+    "timeRange": "Time Range",
+    "start": "Start",
+    "end": "End",
+    "duration": "Duration",
+    "settings": "Output Settings",
+    "width": "Width (px)",
+    "fps": "Frames Per Second (FPS)",
+    "quality": "Quality",
+    "preview": "Preview",
+    "convert": "Convert",
+    "converting": "Converting...",
+    "convertProgress": "Converting {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Conversion Result",
+    "outputSize": "Output size: {{size}}"
   }
 }
