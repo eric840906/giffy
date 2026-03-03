@@ -132,7 +132,7 @@ export function VideoToGif() {
    * @param isPreview - If true, generates a lower-resolution preview for speed
    */
   const handleConvert = useCallback(async (isPreview = false) => {
-    if (!videoFile || !loaded) return;
+    if (!videoFile || !loaded || endTime <= startTime) return;
 
     abortRef.current = false;
     setIsConverting(true);
@@ -149,7 +149,6 @@ export function VideoToGif() {
     try {
       const inputName = 'input' + videoFile.name.substring(videoFile.name.lastIndexOf('.'));
       const outputName = 'output.gif';
-      const paletteName = 'palette.png';
 
       await ffmpeg.writeFile(inputName, await fetchFile(videoFile));
       if (abortRef.current) return;
@@ -159,28 +158,47 @@ export function VideoToGif() {
       const outputFps = isPreview ? Math.min(fps, 8) : fps;
       const colorCount = qualityToColorCount(quality);
 
+      // Try two-pass palette approach for better quality, fall back to single-pass
+      let ret: number;
+      const paletteName = 'palette.png';
+      let usedPalette = false;
+
       // Pass 1: generate optimized palette
-      await ffmpeg.exec([
-        '-i', inputName,
+      ret = await ffmpeg.exec([
         '-ss', startTime.toString(),
         '-t', duration.toString(),
+        '-i', inputName,
         '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos,palettegen=max_colors=${colorCount}`,
-        '-y',
-        paletteName,
+        '-y', paletteName,
       ]);
       if (abortRef.current) return;
 
-      // Pass 2: generate GIF using palette
-      await ffmpeg.exec([
-        '-i', inputName,
-        '-i', paletteName,
-        '-ss', startTime.toString(),
-        '-t', duration.toString(),
-        '-lavfi', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos [x]; [x][1:v] paletteuse`,
-        '-y',
-        outputName,
-      ]);
-      if (abortRef.current) return;
+      if (ret === 0) {
+        // Pass 2: generate GIF using palette
+        ret = await ffmpeg.exec([
+          '-ss', startTime.toString(),
+          '-t', duration.toString(),
+          '-i', inputName,
+          '-i', paletteName,
+          '-filter_complex', `[0:v]fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos[x];[x][1:v]paletteuse`,
+          '-y', outputName,
+        ]);
+        if (abortRef.current) return;
+        usedPalette = ret === 0;
+      }
+
+      // Fallback: single-pass conversion
+      if (!usedPalette) {
+        ret = await ffmpeg.exec([
+          '-ss', startTime.toString(),
+          '-t', duration.toString(),
+          '-i', inputName,
+          '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos`,
+          '-y', outputName,
+        ]);
+        if (abortRef.current) return;
+        if (ret !== 0) throw new Error(`ffmpeg exited with code ${ret}`);
+      }
 
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
@@ -191,7 +209,7 @@ export function VideoToGif() {
       // Clean up ffmpeg temp files to free memory
       await ffmpeg.deleteFile(inputName);
       await ffmpeg.deleteFile(outputName);
-      await ffmpeg.deleteFile(paletteName);
+      try { await ffmpeg.deleteFile(paletteName); } catch { /* may not exist */ }
     } catch (err) {
       console.error('Conversion failed:', err);
       if (!abortRef.current) {
@@ -328,7 +346,7 @@ export function VideoToGif() {
             <div className="mt-2 flex flex-col gap-2">
               <button
                 onClick={() => handleConvert(true)}
-                disabled={isConverting || !loaded}
+                disabled={isConverting || !loaded || endTime <= startTime}
                 className="w-full rounded-xl border border-purple-300 px-4 py-2 text-sm font-medium text-purple-600 transition-colors hover:bg-purple-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-950/20"
                 aria-label={t('videoToGif.preview')}
               >
@@ -336,7 +354,7 @@ export function VideoToGif() {
               </button>
               <button
                 onClick={() => handleConvert(false)}
-                disabled={isConverting || !loaded}
+                disabled={isConverting || !loaded || endTime <= startTime}
                 className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('videoToGif.convert')}
               >
