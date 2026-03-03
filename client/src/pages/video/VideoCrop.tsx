@@ -5,6 +5,7 @@ import { fetchFile } from '@ffmpeg/util';
 import { Upload } from '../../components/Upload/Upload';
 import { CropOverlay } from '../../components/CropOverlay/CropOverlay';
 import type { CropRect } from '../../components/CropOverlay/CropOverlay';
+import { VideoControls } from '../../components/VideoControls/VideoControls';
 import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
@@ -95,10 +96,26 @@ export function VideoCrop() {
   }, [videoUrl]);
 
   /**
-   * Extract the first frame from the loaded video.
-   * Draws the video to an offscreen canvas and converts to a data URL.
-   * Sets frameWidth/frameHeight from the video's natural dimensions and
-   * initialises the crop rectangle to the full frame.
+   * Extract the current frame from the video element.
+   * Draws the video to an offscreen canvas and updates frameUrl.
+   */
+  const extractFrame = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || video.videoWidth === 0 || video.videoHeight === 0) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    setFrameUrl(canvas.toDataURL('image/png'));
+  }, []);
+
+  /**
+   * Handle initial video load.
+   * Extracts the first frame, sets dimensions, and initialises crop to full frame.
    */
   const handleVideoLoaded = useCallback(() => {
     const video = videoRef.current;
@@ -106,24 +123,13 @@ export function VideoCrop() {
 
     const w = video.videoWidth;
     const h = video.videoHeight;
-
     if (w === 0 || h === 0) return;
 
-    // Draw the first frame to an offscreen canvas
-    const canvas = document.createElement('canvas');
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    ctx.drawImage(video, 0, 0, w, h);
-    const dataUrl = canvas.toDataURL('image/png');
-
-    setFrameUrl(dataUrl);
     setFrameWidth(w);
     setFrameHeight(h);
     setCrop({ x: 0, y: 0, width: w, height: h });
-  }, []);
+    extractFrame();
+  }, [extractFrame]);
 
   /**
    * Handle crop rectangle change from CropOverlay.
@@ -264,6 +270,9 @@ export function VideoCrop() {
                   crop={crop}
                   onChange={handleCropChange}
                 />
+                <div className="mt-3">
+                  <VideoControls videoRef={videoRef} onTimeChange={extractFrame} />
+                </div>
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   {t('videoCrop.originalSize', { width: frameWidth, height: frameHeight })}
                 </p>

@@ -151,6 +151,8 @@
     "result": "Crop Result",
     "outputSize": "Output size: {{size}}",
     "error": "Cropping failed, please try again",
-    "originalSize": "Original size: {{width}} × {{height}}"
+    "originalSize": "Original size: {{width}} × {{height}}",
+    "play": "Play",
+    "pause": "Pause"
   }
 }
