@@ -33,6 +33,7 @@ export function useFFmpeg() {
       await ffmpegRef.current.load({
         coreURL: '/ffmpeg/ffmpeg-core.js',
         wasmURL: '/ffmpeg/ffmpeg-core.wasm',
+        classWorkerURL: '/ffmpeg/ffmpeg-worker.js',
       });
       setLoaded(true);
     } catch (err) {
