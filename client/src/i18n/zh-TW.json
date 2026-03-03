@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Giffy",
+    "subtitle": "GIF / 影片 / 圖片編輯工具"
+  },
+  "nav": {
+    "home": "首頁",
+    "gifTools": "GIF 工具",
+    "videoTools": "影片工具",
+    "imageTools": "圖片工具"
+  },
+  "theme": {
+    "light": "淺色模式",
+    "dark": "深色模式"
+  },
+  "language": {
+    "zhTW": "繁體中文",
+    "en": "English"
+  },
+  "home": {
+    "title": "選擇工具開始編輯",
+    "tools": {
+      "videoToGif": {
+        "name": "影片轉 GIF",
+        "description": "將影片片段轉換為 GIF 動圖"
+      },
+      "imagesToGif": {
+        "name": "圖片合成 GIF",
+        "description": "將多張圖片合成為 GIF 動圖"
+      },
+      "gifCropResize": {
+        "name": "GIF 裁切/縮放",
+        "description": "裁切或調整 GIF 的大小"
+      },
+      "videoTrim": {
+        "name": "影片裁切（時間）",
+        "description": "裁切影片的起始和結束時間"
+      },
+      "videoCrop": {
+        "name": "影片裁切（畫面）",
+        "description": "裁切影片的畫面區域"
+      },
+      "imageConvert": {
+        "name": "圖片格式轉換",
+        "description": "批次轉換 PNG、JPG、WebP 格式"
+      }
+    }
+  },
+  "upload": {
+    "dragDrop": "拖放檔案到這裡",
+    "or": "或",
+    "browse": "選擇檔案",
+    "maxSize": "檔案大小限制：{{size}}MB",
+    "errorTooLarge": "檔案太大！最大允許 {{size}}MB",
+    "errorFormat": "不支援的檔案格式",
+    "fileName": "檔案名稱",
+    "fileSize": "檔案大小"
+  },
+  "preview": {
+    "title": "預覽"
+  },
+  "workflow": {
+    "download": "下載",
+    "continueEdit": "繼續編輯",
+    "sendToTool": "傳到其他工具",
+    "selectTool": "選擇工具"
+  },
+  "ffmpeg": {
+    "loading": "正在載入處理引擎...",
+    "loadingProgress": "載入中 {{progress}}%",
+    "ready": "處理引擎已就緒"
+  }
+}

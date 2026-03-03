@@ -1,0 +1,73 @@
+{
+  "app": {
+    "title": "Giffy",
+    "subtitle": "GIF / Video / Image Editor"
+  },
+  "nav": {
+    "home": "Home",
+    "gifTools": "GIF Tools",
+    "videoTools": "Video Tools",
+    "imageTools": "Image Tools"
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "language": {
+    "zhTW": "繁體中文",
+    "en": "English"
+  },
+  "home": {
+    "title": "Choose a tool to get started",
+    "tools": {
+      "videoToGif": {
+        "name": "Video to GIF",
+        "description": "Convert video clips to animated GIFs"
+      },
+      "imagesToGif": {
+        "name": "Images to GIF",
+        "description": "Combine images into an animated GIF"
+      },
+      "gifCropResize": {
+        "name": "GIF Crop/Resize",
+        "description": "Crop or resize GIF animations"
+      },
+      "videoTrim": {
+        "name": "Video Trim",
+        "description": "Trim video start and end time"
+      },
+      "videoCrop": {
+        "name": "Video Crop",
+        "description": "Crop the video frame area"
+      },
+      "imageConvert": {
+        "name": "Image Convert",
+        "description": "Batch convert PNG, JPG, WebP formats"
+      }
+    }
+  },
+  "upload": {
+    "dragDrop": "Drop files here",
+    "or": "or",
+    "browse": "Browse files",
+    "maxSize": "Max file size: {{size}}MB",
+    "errorTooLarge": "File too large! Maximum {{size}}MB allowed",
+    "errorFormat": "Unsupported file format",
+    "fileName": "File name",
+    "fileSize": "File size"
+  },
+  "preview": {
+    "title": "Preview"
+  },
+  "workflow": {
+    "download": "Download",
+    "continueEdit": "Continue Editing",
+    "sendToTool": "Send to Tool",
+    "selectTool": "Select tool"
+  },
+  "ffmpeg": {
+    "loading": "Loading processing engine...",
+    "loadingProgress": "Loading {{progress}}%",
+    "ready": "Processing engine ready"
+  }
+}
