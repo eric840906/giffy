@@ -232,15 +232,17 @@ export function VideoCrop() {
         </div>
       )}
 
-      {/* Hidden video element for frame extraction */}
+      {/* Offscreen video element for frame extraction (must be rendered, not display:none, for browsers to decode frames) */}
       {videoFile && videoUrl && (
         <video
           ref={videoRef}
           src={videoUrl}
           onLoadedData={handleVideoLoaded}
-          className="hidden"
+          className="absolute h-px w-px overflow-hidden opacity-0 pointer-events-none"
+          style={{ left: '-9999px' }}
           muted
           playsInline
+          preload="auto"
           aria-hidden="true"
         />
       )}
