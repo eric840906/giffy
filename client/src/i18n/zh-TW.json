@@ -87,6 +87,7 @@
     "convertProgress": "轉換中 {{progress}}%",
     "loadingFFmpeg": "正在載入處理引擎...",
     "result": "轉換結果",
-    "outputSize": "輸出大小：{{size}}"
+    "outputSize": "輸出大小：{{size}}",
+    "error": "轉換失敗，請重試"
   }
 }

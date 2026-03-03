@@ -87,6 +87,7 @@
     "convertProgress": "Converting {{progress}}%",
     "loadingFFmpeg": "Loading processing engine...",
     "result": "Conversion Result",
-    "outputSize": "Output size: {{size}}"
+    "outputSize": "Output size: {{size}}",
+    "error": "Conversion failed, please try again"
   }
 }

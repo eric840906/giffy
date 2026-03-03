@@ -17,6 +17,15 @@ const DEFAULTS = {
 };
 
 /**
+ * Map quality (1-100) to color count (16-256) for palette-based GIF generation.
+ * @param q - Quality value from 1 to 100
+ * @returns Number of colors for the palette (16-256)
+ */
+function qualityToColorCount(q: number): number {
+  return Math.round(16 + (q / 100) * (256 - 16));
+}
+
+/**
  * Video to GIF conversion page.
  * Upload video -> select time range -> configure settings -> preview/convert -> download.
  *
@@ -27,6 +36,12 @@ export function VideoToGif() {
   const location = useLocation();
   const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  /** Ref to abort in-flight ffmpeg operations on unmount */
+  const abortRef = useRef(false);
+
+  /** Ref to track whether router state was already handled */
+  const handledStateRef = useRef<File | null>(null);
 
   // Video state
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -46,29 +61,7 @@ export function VideoToGif() {
   const [outputGif, setOutputGif] = useState<Blob | null>(null);
   const [isConverting, setIsConverting] = useState(false);
   const [convertProgress, setConvertProgress] = useState(0);
-
-  /** Load ffmpeg on mount */
-  useEffect(() => {
-    if (!loaded && !ffmpegLoading) {
-      load();
-    }
-  }, [loaded, ffmpegLoading, load]);
-
-  /** Handle file from workflow (passed via router state) */
-  useEffect(() => {
-    const state = location.state as { file?: File; fileName?: string } | null;
-    if (state?.file) {
-      handleFileSelect([state.file]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.state]);
-
-  /** Cleanup video URL on unmount */
-  useEffect(() => {
-    return () => {
-      if (videoUrl) URL.revokeObjectURL(videoUrl);
-    };
-  }, [videoUrl]);
+  const [conversionError, setConversionError] = useState<string | null>(null);
 
   /**
    * Handle video file selection.
@@ -85,6 +78,31 @@ export function VideoToGif() {
     setVideoUrl(url);
     setOutputGif(null);
     setStartTime(0);
+    setConversionError(null);
+  }, [videoUrl]);
+
+  /** Load ffmpeg on mount */
+  useEffect(() => {
+    if (!loaded && !ffmpegLoading) {
+      load();
+    }
+  }, [loaded, ffmpegLoading, load]);
+
+  /** Handle file from workflow (passed via router state) */
+  useEffect(() => {
+    const state = location.state as { file?: File; fileName?: string } | null;
+    if (state?.file && state.file !== handledStateRef.current) {
+      handledStateRef.current = state.file;
+      handleFileSelect([state.file]);
+    }
+  }, [location.state, handleFileSelect]);
+
+  /** Cleanup video URL on unmount and abort in-flight operations */
+  useEffect(() => {
+    return () => {
+      if (videoUrl) URL.revokeObjectURL(videoUrl);
+      abortRef.current = true;
+    };
   }, [videoUrl]);
 
   /**
@@ -109,15 +127,18 @@ export function VideoToGif() {
   }, []);
 
   /**
-   * Convert video to GIF using ffmpeg.wasm.
+   * Convert video to GIF using ffmpeg.wasm with a two-pass palette approach.
+   * Pass 1 generates an optimized palette; pass 2 uses it for the final GIF.
    * @param isPreview - If true, generates a lower-resolution preview for speed
    */
   const handleConvert = useCallback(async (isPreview = false) => {
     if (!videoFile || !loaded) return;
 
+    abortRef.current = false;
     setIsConverting(true);
     setConvertProgress(0);
     setOutputGif(null);
+    setConversionError(null);
 
     const onProgress = ({ progress }: { progress: number }) => {
       setConvertProgress(Math.round(progress * 100));
@@ -128,40 +149,66 @@ export function VideoToGif() {
     try {
       const inputName = 'input' + videoFile.name.substring(videoFile.name.lastIndexOf('.'));
       const outputName = 'output.gif';
+      const paletteName = 'palette.png';
 
       await ffmpeg.writeFile(inputName, await fetchFile(videoFile));
+      if (abortRef.current) return;
 
       const duration = endTime - startTime;
       const outputWidth = isPreview ? Math.min(width, 320) : width;
       const outputFps = isPreview ? Math.min(fps, 8) : fps;
+      const colorCount = qualityToColorCount(quality);
 
+      // Pass 1: generate optimized palette
       await ffmpeg.exec([
         '-i', inputName,
         '-ss', startTime.toString(),
         '-t', duration.toString(),
-        '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos`,
+        '-vf', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos,palettegen=max_colors=${colorCount}`,
+        '-y',
+        paletteName,
+      ]);
+      if (abortRef.current) return;
+
+      // Pass 2: generate GIF using palette
+      await ffmpeg.exec([
+        '-i', inputName,
+        '-i', paletteName,
+        '-ss', startTime.toString(),
+        '-t', duration.toString(),
+        '-lavfi', `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos [x]; [x][1:v] paletteuse`,
         '-y',
         outputName,
       ]);
+      if (abortRef.current) return;
 
       const data = await ffmpeg.readFile(outputName);
+      if (abortRef.current) return;
+
       const blob = new Blob([data], { type: 'image/gif' });
       setOutputGif(blob);
 
       // Clean up ffmpeg temp files to free memory
       await ffmpeg.deleteFile(inputName);
       await ffmpeg.deleteFile(outputName);
+      await ffmpeg.deleteFile(paletteName);
     } catch (err) {
       console.error('Conversion failed:', err);
+      if (!abortRef.current) {
+        setConversionError(t('videoToGif.error'));
+      }
     } finally {
-      setIsConverting(false);
+      if (!abortRef.current) {
+        setIsConverting(false);
+      }
       ffmpeg.off('progress', onProgress);
     }
-  }, [videoFile, loaded, ffmpeg, startTime, endTime, width, fps]);
+  }, [videoFile, loaded, ffmpeg, startTime, endTime, width, fps, quality, t]);
 
   /** Reset output and return to editing */
   const handleContinueEdit = useCallback(() => {
     setOutputGif(null);
+    setConversionError(null);
   }, []);
 
   return (
@@ -198,6 +245,7 @@ export function VideoToGif() {
               controls
               onLoadedMetadata={handleLoadedMetadata}
               className="w-full rounded-xl border border-gray-200 bg-black dark:border-gray-700"
+              aria-label={t('videoToGif.title')}
             />
 
             {videoDuration > 0 && (
@@ -227,7 +275,8 @@ export function VideoToGif() {
                 min={100}
                 max={1920}
                 value={width}
-                onChange={(e) => setWidth(Number(e.target.value))}
+                onChange={(e) => setWidth(Number(e.target.value) || DEFAULTS.width)}
+                onBlur={() => setWidth(Math.max(100, Math.min(1920, width)))}
                 className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
               />
             </div>
@@ -294,6 +343,16 @@ export function VideoToGif() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Conversion error alert */}
+      {conversionError && (
+        <div
+          role="alert"
+          className="rounded-xl bg-red-50 p-4 text-sm text-red-600 dark:bg-red-950/20 dark:text-red-400"
+        >
+          {conversionError}
         </div>
       )}
 

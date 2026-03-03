@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MAX_FILE_SIZE, MAX_FILE_SIZE_MB } from '../../utils/constants';
+import { formatSize } from '../../utils/formatSize';
 
 interface UploadProps {
   /** MIME types to accept, e.g. "video/*", "image/*" */
@@ -83,13 +84,6 @@ export function Upload({
     },
     [validateAndSelect],
   );
-
-  /** Formats bytes to a human-readable size string */
-  const formatSize = (bytes: number) => {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-  };
 
   return (
     <div className="w-full">
