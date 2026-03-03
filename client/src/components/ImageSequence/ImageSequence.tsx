@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface ImageSequenceProps {
@@ -30,20 +30,19 @@ export function ImageSequence({ images, onReorder, onRemove }: ImageSequenceProp
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   /**
-   * Creates object URLs for each image file. The URLs are memoized based on
-   * the images array identity so they are only recreated when images change.
+   * Object URLs for image thumbnails.
+   * Created in useEffect (not useMemo) so they survive React 18 strict mode's
+   * simulated unmount/remount cycle — useEffect re-runs on remount.
    */
-  const objectUrls = useMemo(
-    () => images.map((file) => URL.createObjectURL(file)),
-    [images],
-  );
+  const [objectUrls, setObjectUrls] = useState<string[]>([]);
 
-  /** Revokes all object URLs when they change or component unmounts */
   useEffect(() => {
+    const urls = images.map((file) => URL.createObjectURL(file));
+    setObjectUrls(urls);
     return () => {
-      objectUrls.forEach((url) => URL.revokeObjectURL(url));
+      urls.forEach((url) => URL.revokeObjectURL(url));
     };
-  }, [objectUrls]);
+  }, [images]);
 
   /** Initiates a drag operation, storing the source index */
   const handleDragStart = useCallback((index: number) => {
