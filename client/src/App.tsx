@@ -3,6 +3,7 @@ import { Layout } from './components/Layout/Layout';
 import { Home } from './pages/Home/Home';
 import { VideoToGif } from './pages/gif/VideoToGif';
 import { ImagesToGif } from './pages/gif/ImagesToGif';
+import { GifCropResize } from './pages/gif/GifCropResize';
 
 /**
  * Root application component with routing.
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/gif/video-to-gif" element={<VideoToGif />} />
           <Route path="/gif/images-to-gif" element={<ImagesToGif />} />
+          <Route path="/gif/crop-resize" element={<GifCropResize />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
