@@ -40,6 +40,10 @@
         "name": "Video Crop",
         "description": "Crop the video frame area"
       },
+      "gifSpeed": {
+        "name": "GIF Speed",
+        "description": "Adjust GIF animation speed"
+      },
       "imageConvert": {
         "name": "Image Convert",
         "description": "Batch convert PNG, JPG, WebP formats"
@@ -172,5 +176,19 @@
     "error": "Conversion failed, please try again",
     "originalFormat": "Original",
     "convertedFormat": "Converted"
+  },
+  "gifSpeed": {
+    "title": "GIF Speed",
+    "uploadPrompt": "Upload a GIF to adjust animation speed",
+    "speed": "Speed",
+    "speedMultiplier": "{{speed}}x",
+    "customDelay": "Custom Delay",
+    "delayMs": "{{delay}} ms per frame",
+    "apply": "Apply",
+    "applyProgress": "Processing {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Processing failed, please try again"
   }
 }

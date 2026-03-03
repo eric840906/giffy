@@ -43,6 +43,13 @@ export const TOOLS = [
     accept: 'video/*',
   },
   {
+    id: 'gifSpeed',
+    path: '/gif/speed',
+    icon: '⚡',
+    category: 'gif' as const,
+    accept: 'image/gif',
+  },
+  {
     id: 'imageConvert',
     path: '/image/convert',
     icon: '🔄',

@@ -4,6 +4,7 @@ import { Home } from './pages/Home/Home';
 import { VideoToGif } from './pages/gif/VideoToGif';
 import { ImagesToGif } from './pages/gif/ImagesToGif';
 import { GifCropResize } from './pages/gif/GifCropResize';
+import { GifSpeed } from './pages/gif/GifSpeed';
 import { VideoTrim } from './pages/video/VideoTrim';
 import { VideoCrop } from './pages/video/VideoCrop';
 import { ImageConvert } from './pages/image/ImageConvert';
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/gif/video-to-gif" element={<VideoToGif />} />
           <Route path="/gif/images-to-gif" element={<ImagesToGif />} />
           <Route path="/gif/crop-resize" element={<GifCropResize />} />
+          <Route path="/gif/speed" element={<GifSpeed />} />
           <Route path="/video/trim" element={<VideoTrim />} />
           <Route path="/video/crop" element={<VideoCrop />} />
           <Route path="/image/convert" element={<ImageConvert />} />

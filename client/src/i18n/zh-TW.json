@@ -40,6 +40,10 @@
         "name": "影片裁切（畫面）",
         "description": "裁切影片的畫面區域"
       },
+      "gifSpeed": {
+        "name": "GIF 速度調整",
+        "description": "調整 GIF 動圖的播放速度"
+      },
       "imageConvert": {
         "name": "圖片格式轉換",
         "description": "批次轉換 PNG、JPG、WebP 格式"
@@ -172,5 +176,19 @@
     "error": "轉換失敗，請重試",
     "originalFormat": "原始格式",
     "convertedFormat": "轉換後"
+  },
+  "gifSpeed": {
+    "title": "GIF 速度調整",
+    "uploadPrompt": "上傳 GIF 以調整動畫速度",
+    "speed": "速度",
+    "speedMultiplier": "{{speed}}x",
+    "customDelay": "自訂延遲",
+    "delayMs": "每幀 {{delay}} 毫秒",
+    "apply": "套用",
+    "applyProgress": "處理中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "處理結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "處理失敗，請重試"
   }
 }
