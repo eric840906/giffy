@@ -15,7 +15,6 @@ vi.mock('../../hooks/useFFmpeg', () => ({
     },
     loaded: true,
     loading: false,
-    progress: 0,
     error: null,
     load: vi.fn(),
   }),

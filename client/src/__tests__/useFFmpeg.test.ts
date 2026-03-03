@@ -12,12 +12,6 @@ vi.mock('@ffmpeg/ffmpeg', () => {
   return { FFmpeg };
 });
 
-vi.mock('@ffmpeg/util', () => {
-  return {
-    toBlobURL: vi.fn().mockResolvedValue('blob:mock-url'),
-  };
-});
-
 import { useFFmpeg } from '../hooks/useFFmpeg';
 
 describe('useFFmpeg', () => {
@@ -25,7 +19,6 @@ describe('useFFmpeg', () => {
     const { result } = renderHook(() => useFFmpeg());
     expect(result.current.loaded).toBe(false);
     expect(result.current.loading).toBe(false);
-    expect(result.current.progress).toBe(0);
   });
 
   it('exposes load function', () => {
