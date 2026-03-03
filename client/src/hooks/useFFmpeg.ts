@@ -4,7 +4,8 @@ import { toBlobURL } from '@ffmpeg/util';
 
 /**
  * Hook for managing ffmpeg.wasm lifecycle.
- * Handles loading with progress tracking and exposes the FFmpeg instance.
+ * Loads ffmpeg-core from /public/ffmpeg/ (same origin) to avoid
+ * cross-origin issues with CDN + COEP headers.
  *
  * @returns An object containing:
  *   - ffmpeg: The FFmpeg instance
@@ -22,10 +23,9 @@ export function useFFmpeg() {
   const [error, setError] = useState<string | null>(null);
 
   /**
-   * Loads ffmpeg.wasm from the unpkg CDN.
+   * Loads ffmpeg.wasm from same-origin /ffmpeg/ path.
    * No-ops if already loaded or currently loading.
    * Uses a ref guard to prevent duplicate calls (React strict mode).
-   * Updates progress state during download (~30MB).
    * Sets error state if loading fails.
    */
   const load = useCallback(async () => {
@@ -38,28 +38,21 @@ export function useFFmpeg() {
 
     const ffmpeg = ffmpegRef.current;
 
-    /** Track download progress across both files (~32MB total, wasm is ~99%) */
-    const onDownloadProgress = ({ received, total }: { url: string; received: number; total: number }) => {
-      if (total > 0) {
-        setProgress(Math.round((received / total) * 100));
-      }
-    };
-
     try {
-      const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-
-      console.log('[ffmpeg] downloading core JS...');
+      const baseURL = window.location.origin + '/ffmpeg';
       const coreURL = await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript');
-      console.log('[ffmpeg] core JS ready');
+      const wasmURL = await toBlobURL(
+        `${baseURL}/ffmpeg-core.wasm`,
+        'application/wasm',
+        true,
+        (e: { received: number; total: number }) => {
+          if (e.total > 0) setProgress(Math.round((e.received / e.total) * 100));
+        },
+      );
 
-      console.log('[ffmpeg] downloading WASM (~32MB)...');
-      const wasmURL = await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm', onDownloadProgress);
-      console.log('[ffmpeg] WASM ready');
-
-      console.log('[ffmpeg] calling ffmpeg.load()...');
       await ffmpeg.load({ coreURL, wasmURL });
-      console.log('[ffmpeg] loaded successfully!');
       setLoaded(true);
+      setProgress(100);
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to load ffmpeg';
       setError(message);
