@@ -154,5 +154,23 @@
     "originalSize": "原始大小：{{width}} × {{height}}",
     "play": "播放",
     "pause": "暫停"
+  },
+  "imageConvert": {
+    "title": "圖片格式轉換",
+    "uploadPrompt": "上傳圖片以轉換格式（PNG、JPG、WebP）",
+    "targetFormat": "目標格式",
+    "imageCount": "{{count}} 張圖片",
+    "addMore": "新增更多圖片",
+    "removeImage": "移除圖片",
+    "convert": "全部轉換",
+    "convertProgress": "轉換中 {{current}}/{{total}}...",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "轉換結果",
+    "download": "下載",
+    "downloadAll": "全部下載（ZIP）",
+    "sendToTool": "傳到其他工具",
+    "error": "轉換失敗，請重試",
+    "originalFormat": "原始格式",
+    "convertedFormat": "轉換後"
   }
 }

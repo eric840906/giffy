@@ -154,5 +154,23 @@
     "originalSize": "Original size: {{width}} × {{height}}",
     "play": "Play",
     "pause": "Pause"
+  },
+  "imageConvert": {
+    "title": "Image Convert",
+    "uploadPrompt": "Upload images to convert format (PNG, JPG, WebP)",
+    "targetFormat": "Target Format",
+    "imageCount": "{{count}} images",
+    "addMore": "Add more images",
+    "removeImage": "Remove image",
+    "convert": "Convert All",
+    "convertProgress": "Converting {{current}}/{{total}}...",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Conversion Result",
+    "download": "Download",
+    "downloadAll": "Download All (ZIP)",
+    "sendToTool": "Send to Tool",
+    "error": "Conversion failed, please try again",
+    "originalFormat": "Original",
+    "convertedFormat": "Converted"
   }
 }
