@@ -18,23 +18,28 @@ export function useFFmpeg() {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   /**
    * Loads ffmpeg.wasm from the unpkg CDN.
    * No-ops if already loaded or currently loading.
    * Updates progress state during download (~30MB).
+   * Sets error state if loading fails.
    */
   const load = useCallback(async () => {
     if (loaded || loading) return;
 
     setLoading(true);
     setProgress(0);
+    setError(null);
 
     const ffmpeg = ffmpegRef.current;
 
-    ffmpeg.on('progress', ({ progress: p }) => {
+    const onProgress = ({ progress: p }: { progress: number }) => {
       setProgress(Math.round(p * 100));
-    });
+    };
+
+    ffmpeg.on('progress', onProgress);
 
     try {
       const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
@@ -45,10 +50,12 @@ export function useFFmpeg() {
       });
       setLoaded(true);
     } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to load ffmpeg';
+      setError(message);
       console.error('Failed to load ffmpeg:', err);
-      throw err;
     } finally {
       setLoading(false);
+      ffmpeg.off('progress', onProgress);
     }
   }, [loaded, loading]);
 
@@ -57,6 +64,7 @@ export function useFFmpeg() {
     loaded,
     loading,
     progress,
+    error,
     load,
   };
 }

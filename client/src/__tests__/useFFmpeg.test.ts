@@ -5,6 +5,7 @@ import { describe, it, expect, vi } from 'vitest';
 vi.mock('@ffmpeg/ffmpeg', () => {
   const FFmpeg = vi.fn(function (this: Record<string, unknown>) {
     this.on = vi.fn();
+    this.off = vi.fn();
     this.load = vi.fn().mockResolvedValue(undefined);
     this.loaded = false;
   });
@@ -35,5 +36,10 @@ describe('useFFmpeg', () => {
   it('exposes ffmpeg instance', () => {
     const { result } = renderHook(() => useFFmpeg());
     expect(result.current.ffmpeg).toBeDefined();
+  });
+
+  it('exposes error state as null initially', () => {
+    const { result } = renderHook(() => useFFmpeg());
+    expect(result.current.error).toBeNull();
   });
 });

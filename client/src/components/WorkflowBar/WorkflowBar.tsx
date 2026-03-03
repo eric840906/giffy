@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TOOLS, type ToolId } from '../../utils/constants';
@@ -10,15 +10,40 @@ interface WorkflowBarProps {
   fileName: string;
   /** Current tool ID (excluded from send-to list) */
   currentTool: ToolId | string;
+  /** Optional callback for "Continue Editing" action */
+  onContinueEdit?: () => void;
 }
 
 /**
  * Workflow bar with download, continue editing, and send-to-tool actions.
  * Appears after processing is complete.
  */
-export function WorkflowBar({ file, fileName, currentTool }: WorkflowBarProps) {
+export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: WorkflowBarProps) {
   const { t } = useTranslation();
   const [showTools, setShowTools] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  /** Close dropdown on click-outside or Escape key */
+  useEffect(() => {
+    if (!showTools) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowTools(false);
+      }
+    };
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowTools(false);
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [showTools]);
 
   /** Download the processed file */
   const handleDownload = useCallback(() => {
@@ -42,7 +67,17 @@ export function WorkflowBar({ file, fileName, currentTool }: WorkflowBarProps) {
         {t('workflow.download')}
       </button>
 
-      <div className="relative">
+      {onContinueEdit && (
+        <button
+          onClick={onContinueEdit}
+          className="rounded-xl border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+          aria-label={t('workflow.continueEdit')}
+        >
+          {t('workflow.continueEdit')}
+        </button>
+      )}
+
+      <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setShowTools((v) => !v)}
           className="rounded-xl border border-gray-300 px-5 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"

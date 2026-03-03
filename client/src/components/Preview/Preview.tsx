@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface PreviewProps {
@@ -10,8 +10,8 @@ interface PreviewProps {
 
 /**
  * Preview component that renders image, GIF, or video based on file type.
- * Creates a temporary object URL for the file and revokes it after the
- * image loads to prevent memory leaks.
+ * Creates a temporary object URL for the file and revokes it on cleanup
+ * or when the file changes to prevent memory leaks.
  *
  * @example
  * ```tsx
@@ -21,10 +21,18 @@ interface PreviewProps {
  */
 export function Preview({ file, type }: PreviewProps) {
   const { t } = useTranslation();
+  const [url, setUrl] = useState<string>('');
 
-  const url = useMemo(() => URL.createObjectURL(file), [file]);
+  useEffect(() => {
+    const objectUrl = URL.createObjectURL(file);
+    setUrl(objectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [file]);
+
   const mimeType = type || (file instanceof File ? file.type : '');
   const isVideo = mimeType.startsWith('video/');
+
+  if (!url) return null;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -33,17 +41,12 @@ export function Preview({ file, type }: PreviewProps) {
       </h3>
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-800">
         {isVideo ? (
-          <video
-            src={url}
-            controls
-            className="max-h-96 max-w-full"
-          />
+          <video src={url} controls className="max-h-96 max-w-full" />
         ) : (
           <img
             src={url}
             alt="preview"
             className="max-h-96 max-w-full object-contain"
-            onLoad={() => URL.revokeObjectURL(url)}
           />
         )}
       </div>
