@@ -4,4 +4,5 @@ dist/
 *.local
 .env
 .env.*
-client/public/ffmpeg/
+client/public/ffmpeg/ffmpeg-core.js
+client/public/ffmpeg/ffmpeg-core.wasm
