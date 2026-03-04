@@ -149,8 +149,14 @@ export function VideoConvert() {
       // Video codec
       if (videoCodec === 'h264') {
         args.push('-c:v', 'libx264', '-preset', 'medium');
+        args.push('-crf', String(crf));
       } else {
+        // VP9 needs -b:v 0 for pure CRF mode, and reduced cpu-used/deadline
+        // to keep memory usage within wasm limits
         args.push('-c:v', 'libvpx-vp9');
+        args.push('-b:v', '0', '-crf', String(crf));
+        args.push('-cpu-used', '5', '-deadline', 'realtime');
+        args.push('-row-mt', '0');
       }
 
       // Audio codec
@@ -159,9 +165,6 @@ export function VideoConvert() {
       } else {
         args.push('-c:a', 'libopus', '-b:a', '128k');
       }
-
-      // CRF quality
-      args.push('-crf', String(crf));
 
       // Resolution (if not original)
       if (resolution !== 'original') {
