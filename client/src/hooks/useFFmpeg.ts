@@ -3,7 +3,8 @@ import { FFmpeg } from '@ffmpeg/ffmpeg';
 
 /**
  * Hook for managing ffmpeg.wasm lifecycle.
- * Loads ffmpeg-core from /public/ffmpeg/ (same origin).
+ * Loads ffmpeg-core-mt (multi-thread build) from /public/ffmpeg/ (same origin).
+ * Requires SharedArrayBuffer (COOP/COEP headers set by the server).
  *
  * @returns An object containing:
  *   - ffmpeg: The FFmpeg instance
@@ -19,7 +20,7 @@ export function useFFmpeg() {
   const [error, setError] = useState<string | null>(null);
 
   /**
-   * Loads ffmpeg.wasm from same-origin /ffmpeg/ path.
+   * Loads ffmpeg.wasm (multi-thread build) from same-origin /ffmpeg/ path.
    * Uses a ref guard to prevent duplicate calls (React strict mode).
    */
   const load = useCallback(async () => {
@@ -33,6 +34,7 @@ export function useFFmpeg() {
       await ffmpegRef.current.load({
         coreURL: '/ffmpeg/ffmpeg-core.js',
         wasmURL: '/ffmpeg/ffmpeg-core.wasm',
+        workerURL: '/ffmpeg/ffmpeg-core.worker.js',
         classWorkerURL: '/ffmpeg/ffmpeg-worker.js',
       });
       setLoaded(true);
