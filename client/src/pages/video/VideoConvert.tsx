@@ -145,38 +145,36 @@ export function VideoConvert() {
       await ffmpeg.writeFile(inputName, await fetchFile(videoFile));
       if (abortRef.current) return;
 
-      // Build ffmpeg arguments based on settings.
-      // Use memory-conservative encoding settings for wasm environment:
-      // - ultrafast preset + tune zerolatency (1 ref frame, no B-frames)
-      // - single thread to limit memory allocation
+      // Build ffmpeg arguments.
+      // Use the simplest possible command by default (like VideoCrop does)
+      // to stay within wasm memory limits. Only add explicit codec flags
+      // when the user enables advanced options.
       const args: string[] = ['-i', inputName];
 
-      // Video codec — conservative settings for wasm memory limits
-      if (videoCodec === 'h264') {
-        args.push('-c:v', 'libx264');
-        args.push('-preset', 'ultrafast', '-tune', 'zerolatency');
-        args.push('-crf', String(crf));
-      } else {
-        // VP8 (libvpx) for WebM
-        args.push('-c:v', 'libvpx');
-        args.push('-b:v', '1M', '-crf', String(crf));
-        args.push('-cpu-used', '8', '-deadline', 'realtime');
-      }
+      if (showAdvanced) {
+        // Advanced: explicit codec settings
+        if (videoCodec === 'h264') {
+          args.push('-c:v', 'libx264');
+          args.push('-preset', 'ultrafast', '-tune', 'zerolatency');
+          args.push('-crf', String(crf));
+        } else {
+          args.push('-c:v', 'libvpx');
+          args.push('-b:v', '1M', '-crf', String(crf));
+          args.push('-cpu-used', '8', '-deadline', 'realtime');
+        }
 
-      // Audio codec
-      if (audioCodec === 'aac') {
-        args.push('-c:a', 'aac', '-b:a', '128k');
-      } else {
-        args.push('-c:a', 'libopus', '-b:a', '128k');
-      }
+        if (audioCodec === 'aac') {
+          args.push('-c:a', 'aac', '-b:a', '128k');
+        } else {
+          args.push('-c:a', 'libopus', '-b:a', '128k');
+        }
 
-      // Limit threads to reduce memory usage
-      args.push('-threads', '1');
-
-      // Resolution (if not original)
-      if (resolution !== 'original') {
-        args.push('-vf', `scale=-2:${resolution}`);
+        if (resolution !== 'original') {
+          args.push('-vf', `scale=-2:${resolution}`);
+        }
       }
+      // else: no explicit codec flags — let ffmpeg choose defaults
+      // based on the output file extension (like VideoCrop does)
 
       args.push('-y', outputName);
 
@@ -206,7 +204,7 @@ export function VideoConvert() {
       }
       ffmpeg.off('progress', onProgress);
     }
-  }, [videoFile, loaded, ffmpeg, targetFormat, videoCodec, audioCodec, crf, resolution, t]);
+  }, [videoFile, loaded, ffmpeg, targetFormat, videoCodec, audioCodec, crf, resolution, showAdvanced, t]);
 
   /** Reset output and return to editing */
   const handleContinueEdit = useCallback(() => {
