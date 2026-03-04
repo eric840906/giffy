@@ -13,6 +13,7 @@ import { VideoScreenshot } from './pages/video/VideoScreenshot';
 import { VideoResize } from './pages/video/VideoResize';
 import { ImageConvert } from './pages/image/ImageConvert';
 import { AnimatedImageConvert } from './pages/image/AnimatedImageConvert';
+import { FrameEditor } from './pages/gif/FrameEditor';
 
 /**
  * Root application component with routing.
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/video/resize" element={<VideoResize />} />
           <Route path="/image/convert" element={<ImageConvert />} />
           <Route path="/image/animated-convert" element={<AnimatedImageConvert />} />
+          <Route path="/gif/frame-editor" element={<FrameEditor />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

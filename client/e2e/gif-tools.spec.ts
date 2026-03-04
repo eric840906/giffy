@@ -19,4 +19,10 @@ test.describe('GIF Tools', () => {
     await expect(page.getByText('GIF 裁切/縮放')).toBeVisible();
     await expect(page.getByText('上傳 GIF 以進行裁切或縮放')).toBeVisible();
   });
+
+  test('Frame Editor page loads with upload prompt', async ({ page }) => {
+    await page.goto('/gif/frame-editor');
+    await expect(page.getByText('動圖幀編輯器')).toBeVisible();
+    await expect(page.getByText(/上傳 GIF/)).toBeVisible();
+  });
 });

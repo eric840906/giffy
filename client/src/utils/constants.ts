@@ -93,6 +93,13 @@ export const TOOLS = [
     accept: 'image/gif,image/apng,image/png,image/webp',
     multiple: true,
   },
+  {
+    id: 'frameEditor',
+    path: '/gif/frame-editor',
+    icon: '🖼️',
+    category: 'gif' as const,
+    accept: 'image/gif,image/apng,image/png,image/webp',
+  },
 ] as const;
 
 export type ToolId = (typeof TOOLS)[number]['id'];

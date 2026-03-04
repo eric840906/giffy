@@ -67,6 +67,10 @@
       "animatedConvert": {
         "name": "Animated Image Convert",
         "description": "Convert between GIF, APNG, and animated WebP"
+      },
+      "frameEditor": {
+        "name": "Frame Editor",
+        "description": "Edit GIF/APNG/WebP animations frame by frame"
       }
     }
   },
@@ -306,5 +310,52 @@
     "downloadAll": "Download All (ZIP)",
     "sendToTool": "Send to Tool",
     "error": "Conversion failed, please try again"
+  },
+  "frameEditor": {
+    "title": "Frame Editor",
+    "uploadPrompt": "Upload a GIF / APNG / WebP animation to edit frame by frame",
+    "loadingFFmpeg": "Loading processing engine...",
+    "extracting": "Extracting frames...",
+    "extractProgress": "Extracting {{progress}}%",
+    "frameCount": "{{count}} frames",
+    "frameNumber": "Frame {{num}}",
+    "delayMs": "{{delay}} ms",
+    "selection": "{{count}} frames selected",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "deleteSelected": "Delete Selected",
+    "copySelected": "Copy Selected",
+    "reverseAll": "Reverse Order",
+    "settings": "Settings",
+    "globalDelay": "Global Delay (ms)",
+    "applyToAll": "Apply to All",
+    "speedPresets": "Speed Presets",
+    "speedMultiplier": "{{speed}}x",
+    "loopCount": "Loop Count",
+    "loopInfinite": "Infinite Loop",
+    "loopCustom": "Custom Count",
+    "perFrameDelay": "Per-frame Delay (ms)",
+    "applyToSelected": "Apply to Selected",
+    "outputFormat": "Output Format",
+    "outputSize": "Output Size",
+    "keepOriginal": "Keep Original Size",
+    "customSize": "Custom Size",
+    "width": "Width (px)",
+    "height": "Height (px)",
+    "generate": "Generate",
+    "generateProgress": "Generating {{progress}}%",
+    "result": "Result",
+    "resultSize": "Output size: {{size}}",
+    "error": "Processing failed, please try again",
+    "preview": "Preview",
+    "play": "Play",
+    "pause": "Pause",
+    "stepForward": "Next Frame",
+    "stepBackward": "Previous Frame",
+    "currentFrame": "Frame {{current}}/{{total}}",
+    "stats": "Stats",
+    "totalFrames": "Total Frames",
+    "estimatedSize": "Estimated Size",
+    "dragToReorder": "Drag to reorder"
   }
 }

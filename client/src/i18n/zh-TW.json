@@ -67,6 +67,10 @@
       "animatedConvert": {
         "name": "動圖格式轉換",
         "description": "GIF、APNG、WebP 動圖互轉"
+      },
+      "frameEditor": {
+        "name": "動圖幀編輯器",
+        "description": "逐幀編輯 GIF/APNG/WebP 動圖"
       }
     }
   },
@@ -306,5 +310,52 @@
     "downloadAll": "全部下載（ZIP）",
     "sendToTool": "傳到其他工具",
     "error": "轉換失敗，請重試"
+  },
+  "frameEditor": {
+    "title": "動圖幀編輯器",
+    "uploadPrompt": "上傳 GIF / APNG / WebP 動圖來逐幀編輯",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "extracting": "正在解析幀...",
+    "extractProgress": "解析中 {{progress}}%",
+    "frameCount": "{{count}} 幀",
+    "frameNumber": "第 {{num}} 幀",
+    "delayMs": "{{delay}} ms",
+    "selection": "已選取 {{count}} 幀",
+    "selectAll": "全選",
+    "deselectAll": "取消全選",
+    "deleteSelected": "刪除選取",
+    "copySelected": "複製選取",
+    "reverseAll": "反轉順序",
+    "settings": "設定",
+    "globalDelay": "全域延遲（ms）",
+    "applyToAll": "套用到全部",
+    "speedPresets": "速度預設",
+    "speedMultiplier": "{{speed}}x",
+    "loopCount": "循環次數",
+    "loopInfinite": "無限循環",
+    "loopCustom": "自訂次數",
+    "perFrameDelay": "單幀延遲（ms）",
+    "applyToSelected": "套用到選取",
+    "outputFormat": "輸出格式",
+    "outputSize": "輸出尺寸",
+    "keepOriginal": "維持原始大小",
+    "customSize": "自訂大小",
+    "width": "寬度 (px)",
+    "height": "高度 (px)",
+    "generate": "生成",
+    "generateProgress": "生成中 {{progress}}%",
+    "result": "生成結果",
+    "resultSize": "輸出大小：{{size}}",
+    "error": "處理失敗，請重試",
+    "preview": "預覽",
+    "play": "播放",
+    "pause": "暫停",
+    "stepForward": "下一幀",
+    "stepBackward": "上一幀",
+    "currentFrame": "第 {{current}}/{{total}} 幀",
+    "stats": "統計",
+    "totalFrames": "總幀數",
+    "estimatedSize": "預估大小",
+    "dragToReorder": "拖拉排序"
   }
 }

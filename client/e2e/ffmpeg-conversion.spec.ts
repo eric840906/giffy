@@ -214,6 +214,30 @@ test.describe('Video Screenshot', () => {
   });
 });
 
+test.describe('Frame Editor', () => {
+  test('extracts frames from GIF and generates output', async ({ page }) => {
+    test.setTimeout(180_000);
+    await page.goto('/gif/frame-editor');
+
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
+
+    // Wait for frame extraction to complete (action bar should appear)
+    await expect(page.getByText('全選')).toBeVisible({ timeout: 90_000 });
+
+    // Verify frames were extracted (frame count should be visible)
+    await expect(page.getByText(/\d+ 幀/)).toBeVisible();
+
+    // Click generate
+    const genBtn = page.getByRole('button', { name: /生成/ });
+    await expect(genBtn).toBeEnabled({ timeout: 10_000 });
+    await genBtn.click();
+
+    await expect(page.getByText('生成結果')).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText(/輸出大小/)).toBeVisible();
+  });
+});
+
 test.describe('Animated Image Convert', () => {
   test('converts GIF to APNG', async ({ page }) => {
     test.setTimeout(120_000);
