@@ -146,35 +146,36 @@ export function VideoConvert() {
       if (abortRef.current) return;
 
       // Build ffmpeg arguments.
-      // Use the simplest possible command by default (like VideoCrop does)
-      // to stay within wasm memory limits. Only add explicit codec flags
-      // when the user enables advanced options.
+      // Now using @ffmpeg/core-mt with enough memory for explicit codecs.
+      // Force -threads 1 to avoid slow wasm pthread overhead.
       const args: string[] = ['-i', inputName];
 
-      if (showAdvanced) {
-        // Advanced: explicit codec settings
-        if (videoCodec === 'h264') {
-          args.push('-c:v', 'libx264');
-          args.push('-preset', 'ultrafast', '-tune', 'zerolatency');
-          args.push('-crf', String(crf));
-        } else {
-          args.push('-c:v', 'libvpx');
-          args.push('-b:v', '1M', '-crf', String(crf));
-          args.push('-cpu-used', '8', '-deadline', 'realtime');
-        }
-
-        if (audioCodec === 'aac') {
-          args.push('-c:a', 'aac', '-b:a', '128k');
-        } else {
-          args.push('-c:a', 'libopus', '-b:a', '128k');
-        }
-
-        if (resolution !== 'original') {
-          args.push('-vf', `scale=-2:${resolution}`);
-        }
+      // Video codec
+      if (videoCodec === 'h264') {
+        args.push('-c:v', 'libx264');
+        args.push('-preset', 'ultrafast');
+        args.push('-crf', String(crf));
+      } else {
+        args.push('-c:v', 'libvpx');
+        args.push('-b:v', '1M', '-crf', String(crf));
+        args.push('-cpu-used', '4', '-deadline', 'good');
       }
-      // else: no explicit codec flags — let ffmpeg choose defaults
-      // based on the output file extension (like VideoCrop does)
+
+      // Audio codec
+      if (audioCodec === 'aac') {
+        args.push('-c:a', 'aac', '-b:a', '128k');
+      } else {
+        args.push('-c:a', 'libopus', '-b:a', '128k');
+      }
+
+      // Force single-thread encoding — wasm pthread overhead makes
+      // multi-threaded encoding hang or run extremely slowly
+      args.push('-threads', '1');
+
+      // Resolution (if not original)
+      if (resolution !== 'original') {
+        args.push('-vf', `scale=-2:${resolution}`);
+      }
 
       args.push('-y', outputName);
 
@@ -204,7 +205,7 @@ export function VideoConvert() {
       }
       ffmpeg.off('progress', onProgress);
     }
-  }, [videoFile, loaded, ffmpeg, targetFormat, videoCodec, audioCodec, crf, resolution, showAdvanced, t]);
+  }, [videoFile, loaded, ffmpeg, targetFormat, videoCodec, audioCodec, crf, resolution, t]);
 
   /** Reset output and return to editing */
   const handleContinueEdit = useCallback(() => {
