@@ -300,6 +300,117 @@ Phase 2-4: 影片截圖 → "feat(video): video screenshot capture"
 Phase 2-5: 影片調整大小 → "feat(video): video resize tool"
 Phase 2-6: APNG/WebP 動圖 → "feat(image): APNG and WebP animated image support"
 
+## Phase 3 功能開發
+
+請按照 CLAUDE.md 的五階段流程（架構 → 實作 → 測試 → Review → Commit），依序開發以下功能：
+
+### Phase 3-0：動圖幀編輯器（Frame Editor）
+
+- 支援上傳 GIF / APNG / WebP 動圖
+- 上傳後解析出所有幀，以 grid 縮圖排列顯示
+- 每張幀顯示：縮圖、幀編號、目前延遲時間（ms）
+
+#### 幀操作
+
+- 選取：點擊單張選取，Shift+點擊範圍選取，Ctrl+點擊多選
+- 刪除：選取後按刪除，即時更新 grid
+- 排序：拖拉調整幀順序
+- 複製：選取幀 → 複製到指定位置（可做停格效果）
+- 反轉：一鍵反轉所有幀順序
+
+#### 幀設定
+
+- 全域設定：
+  - 統一延遲時間（ms）
+  - 速度倍率（0.25x / 0.5x / 1x / 1.5x / 2x / 3x）
+  - 循環次數（無限 / 自訂次數）
+- 單幀設定：
+  - 選取特定幀，單獨調整該幀延遲時間
+  - 用途：某些幀想停久一點（例如表情包的最後一幀）
+
+#### 輸出設定
+
+- 輸出格式選擇：GIF / APNG / WebP
+- 輸出尺寸：維持原尺寸 / 自訂寬高
+
+#### 預覽
+
+- 右側或下方有動畫預覽區
+- 即時播放編輯後的效果
+- 播放/暫停/逐幀控制
+
+#### 其他
+
+- 顯示總幀數、預估檔案大小
+- 按「生成」輸出新動圖
+- 顯示 WorkflowBar
+
+### Phase 3-1：G6 GIF 加文字
+
+- 上傳 GIF 後預覽
+- 文字編輯面板：
+  - 輸入文字內容
+  - 字型選擇（提供 5-8 種 Google Fonts，含中文字型）
+  - 字體大小、顏色、描邊顏色、描邊粗細
+  - 粗體 / 斜體
+  - 文字位置：拖拉定位或選擇預設位置（上/中/下 × 左/中/右）
+  - 文字陰影（可開關）
+- 支援多組文字（可加多個文字框）
+- 可設定文字出現的幀範圍（例如只在第 5-15 幀顯示）
+- 按「套用」後顯示結果預覽
+- 顯示 WorkflowBar
+
+### Phase 3-2：V6 影片加濾鏡
+
+- 上傳影片後預覽
+- 提供濾鏡選項：
+  - 亮度（brightness）
+  - 對比度（contrast）
+  - 飽和度（saturation）
+  - 灰階（grayscale）
+  - 復古（sepia）
+  - 模糊（blur）
+  - 銳化（sharpen）
+  - 反轉色（invert）
+- 每個濾鏡有 slider 可調整程度
+- 可同時套用多個濾鏡
+- 按「套用」後顯示結果預覽
+- 顯示 WorkflowBar
+
+### Phase 3-3：I3 圖片壓縮
+
+- 上傳圖片（支援 PNG / JPG / WebP），顯示原始檔案大小和解析度
+- 壓縮選項：
+  - 品質 slider（1-100）
+  - 最大寬度/高度（自動等比縮放）
+  - 輸出格式選擇（維持原格式或轉換）
+- 即時顯示預估壓縮後大小
+- 按「壓縮」後顯示：
+  - 壓縮前 vs 壓縮後的大小比較（含壓縮率百分比）
+  - 前後對比預覽
+- 支援批次壓縮
+- 顯示 WorkflowBar
+
+### 開發順序與 Commit
+
+Phase 3-0: 動圖幀編輯器 → "feat(gif): animated image frame editor with grid view"
+Phase 3-1: GIF 加文字 → "feat(gif): GIF text overlay with multi-text support"
+Phase 3-2: 影片加濾鏡 → "feat(video): video filters with adjustable parameters"
+Phase 3-3: 圖片壓縮 → "feat(image): batch image compression with preview"
+
+### 完成後
+
+1. 每個功能完成五階段後報告結果，進行 playwright E2E 測試後，等我確認才進入下一個
+2. Phase 3 全部完成後，執行所有測試（Phase 1 + 2 + 3），確保 100% 通過
+3. 全部通過後，更新 README.md：
+   - 專案介紹
+   - 功能列表（標註完成狀態）
+   - 技術棧
+   - 本地開發指令（install / dev / test / build）
+   - 部署說明（Vercel）
+   - 螢幕截圖區塊（之後補圖）
+4. Commit: "docs: update README with full feature list and setup guide"
+
 ## UI/UX 設計要求
 
 - 風格：現代、活潑可愛、圓角、有微動畫
