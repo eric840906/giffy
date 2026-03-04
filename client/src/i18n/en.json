@@ -48,6 +48,10 @@
         "name": "GIF Compress",
         "description": "Compress and optimize GIF file size"
       },
+      "videoConvert": {
+        "name": "Video Convert",
+        "description": "Convert MP4, WebM video formats"
+      },
       "imageConvert": {
         "name": "Image Convert",
         "description": "Batch convert PNG, JPG, WebP formats"
@@ -180,6 +184,26 @@
     "error": "Conversion failed, please try again",
     "originalFormat": "Original",
     "convertedFormat": "Converted"
+  },
+  "videoConvert": {
+    "title": "Video Convert",
+    "uploadPrompt": "Upload a video to convert format",
+    "originalInfo": "Original Info",
+    "format": "Format",
+    "targetFormat": "Target Format",
+    "advancedOptions": "Advanced Options",
+    "videoCodec": "Video Codec",
+    "audioCodec": "Audio Codec",
+    "quality": "Quality (CRF)",
+    "qualityHint": "Lower value = higher quality (recommended 18-28)",
+    "resolution": "Resolution",
+    "resolutionOriginal": "Original",
+    "convert": "Convert",
+    "convertProgress": "Converting {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Conversion Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Conversion failed, please try again"
   },
   "gifCompress": {
     "title": "GIF Compress",

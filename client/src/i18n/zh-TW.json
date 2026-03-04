@@ -48,6 +48,10 @@
         "name": "GIF 壓縮/優化",
         "description": "壓縮並優化 GIF 檔案大小"
       },
+      "videoConvert": {
+        "name": "影片轉檔",
+        "description": "轉換 MP4、WebM 影片格式"
+      },
       "imageConvert": {
         "name": "圖片格式轉換",
         "description": "批次轉換 PNG、JPG、WebP 格式"
@@ -180,6 +184,26 @@
     "error": "轉換失敗，請重試",
     "originalFormat": "原始格式",
     "convertedFormat": "轉換後"
+  },
+  "videoConvert": {
+    "title": "影片轉檔",
+    "uploadPrompt": "上傳影片以轉換格式",
+    "originalInfo": "原始資訊",
+    "format": "格式",
+    "targetFormat": "目標格式",
+    "advancedOptions": "進階選項",
+    "videoCodec": "視訊編碼",
+    "audioCodec": "音訊編碼",
+    "quality": "畫質（CRF）",
+    "qualityHint": "數值越低品質越高（建議 18-28）",
+    "resolution": "解析度",
+    "resolutionOriginal": "原始解析度",
+    "convert": "轉換",
+    "convertProgress": "轉換中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "轉換結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "轉換失敗，請重試"
   },
   "gifCompress": {
     "title": "GIF 壓縮/優化",

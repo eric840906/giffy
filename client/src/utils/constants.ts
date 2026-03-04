@@ -57,6 +57,13 @@ export const TOOLS = [
     accept: 'image/gif',
   },
   {
+    id: 'videoConvert',
+    path: '/video/convert',
+    icon: '🔀',
+    category: 'video' as const,
+    accept: 'video/*',
+  },
+  {
     id: 'imageConvert',
     path: '/image/convert',
     icon: '🔄',

@@ -8,6 +8,7 @@ import { GifSpeed } from './pages/gif/GifSpeed';
 import { GifCompress } from './pages/gif/GifCompress';
 import { VideoTrim } from './pages/video/VideoTrim';
 import { VideoCrop } from './pages/video/VideoCrop';
+import { VideoConvert } from './pages/video/VideoConvert';
 import { ImageConvert } from './pages/image/ImageConvert';
 
 /**
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/gif/compress" element={<GifCompress />} />
           <Route path="/video/trim" element={<VideoTrim />} />
           <Route path="/video/crop" element={<VideoCrop />} />
+          <Route path="/video/convert" element={<VideoConvert />} />
           <Route path="/image/convert" element={<ImageConvert />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
