@@ -225,6 +225,81 @@ Phase 1-7: 工作流串接
 3. 支援連續串接（A → B → C）
 4. E2E 測試：影片 → 裁切 → 轉 GIF → 裁切 GIF → 下載
 
+## Phase 2 功能開發
+
+請按照 CLAUDE.md 的五階段流程（架構 → 實作 → 測試 → Review → Commit），依序開發以下功能：
+
+### Phase 2-1：G4 GIF 速度調整
+
+- 上傳 GIF 後預覽原始速度
+- 提供速度倍率選擇：0.25x / 0.5x / 1x / 1.5x / 2x / 3x
+- 也可自訂每幀延遲（毫秒）
+- 按「套用」後顯示結果預覽
+- 顯示 WorkflowBar
+
+### Phase 2-2：G5 GIF 壓縮/優化
+
+- 上傳 GIF，顯示原始檔案大小
+- 提供壓縮選項：
+  - 色彩數量（2-256）
+  - 有損壓縮等級（lossy level）
+  - 移除每 N 幀（降低幀數）
+  - 調整大小（縮小尺寸）
+- 即時顯示預估壓縮後大小
+- 按「壓縮」後顯示：壓縮前 vs 壓縮後的大小比較
+- 顯示 WorkflowBar
+
+### Phase 2-3：V3 影片轉檔（MP4/WebM）
+
+- 上傳影片，顯示原始格式和編碼資訊
+- 選擇目標格式：MP4 / WebM
+- 進階選項（可收合）：
+  - 視訊編碼：H.264 / VP9
+  - 音訊編碼：AAC / Opus
+  - 畫質（CRF 值）
+  - 解析度
+- 顯示轉檔進度條
+- 顯示 WorkflowBar
+
+### Phase 2-4：V4 影片截圖
+
+- 上傳影片，顯示播放器
+- 播放到想要的畫面，按「截圖」擷取當前幀
+- 也可在時間軸上點選特定時間點
+- 輸出格式選擇：PNG / JPG
+- 支援連續截圖（截多張）
+- 每張截圖都可單獨下載或傳到其他工具
+
+### Phase 2-5：V5 影片調整大小
+
+- 上傳影片，顯示原始解析度
+- 提供預設選項：1080p / 720p / 480p / 自訂
+- 可鎖定/解鎖比例
+- 預覽調整後的畫面
+- 顯示 WorkflowBar
+
+### Phase 2-6：I2 APNG / WebP 動圖支援
+
+- 圖片格式轉換工具擴充：新增 APNG 和 WebP 動圖格式
+- 支援：
+  - GIF → APNG
+  - GIF → WebP（動圖）
+  - APNG → GIF
+  - WebP（動圖）→ GIF
+  - APNG ↔ WebP
+- 上傳動圖後可預覽動畫
+- 支援批次轉換
+- 顯示 WorkflowBar
+
+### 開發順序與 Commit
+
+Phase 2-1: GIF 速度調整 → "feat(gif): GIF speed adjustment"
+Phase 2-2: GIF 壓縮優化 → "feat(gif): GIF compression and optimization"
+Phase 2-3: 影片轉檔 → "feat(video): video format converter"
+Phase 2-4: 影片截圖 → "feat(video): video screenshot capture"
+Phase 2-5: 影片調整大小 → "feat(video): video resize tool"
+Phase 2-6: APNG/WebP 動圖 → "feat(image): APNG and WebP animated image support"
+
 ## UI/UX 設計要求
 
 - 風格：現代、活潑可愛、圓角、有微動畫
@@ -253,3 +328,4 @@ Phase 1-7: 工作流串接
 - ffmpeg.wasm 初次載入約 30MB，必須有載入進度提示
 - 處理完的暫存檔要及時呼叫 ffmpeg.FS('unlink') 釋放記憶體
 - 大檔案處理時要顯示進度，不能讓使用者以為當機
+- 每個功能完成五階段後報告結果，等我確認才進入下一個。Phase 2 全部完成後，執行所有測試（包含 Phase 1），確保 100% 通過。
