@@ -172,6 +172,29 @@ test.describe('Image Convert', () => {
   });
 });
 
+test.describe('Video Resize', () => {
+  test('resizes a video to 480p', async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto('/video/resize');
+
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(path.join(fixtures, 'test-video.mp4'));
+
+    // Wait for video to load and settings to appear
+    await expect(page.getByText('預設大小')).toBeVisible({ timeout: 10_000 });
+
+    // Select 480p preset
+    await page.getByLabel(/480p/).click();
+
+    const resizeBtn = page.getByRole('button', { name: /調整大小/ });
+    await expect(resizeBtn).toBeEnabled({ timeout: 60_000 });
+    await resizeBtn.click();
+
+    await expect(page.getByText('調整結果')).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText(/輸出大小/)).toBeVisible();
+  });
+});
+
 test.describe('Video Screenshot', () => {
   test('captures a screenshot from video', async ({ page }) => {
     test.setTimeout(120_000);

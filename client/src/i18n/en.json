@@ -59,6 +59,10 @@
       "videoScreenshot": {
         "name": "Video Screenshot",
         "description": "Capture specific frames from a video"
+      },
+      "videoResize": {
+        "name": "Video Resize",
+        "description": "Resize video resolution and dimensions"
       }
     }
   },
@@ -250,6 +254,23 @@
     "sendToTool": "Send to Tool",
     "error": "Capture failed, please try again",
     "outputSize": "{{size}}"
+  },
+  "videoResize": {
+    "title": "Video Resize",
+    "uploadPrompt": "Upload a video to resize",
+    "originalSize": "Original size: {{width}} × {{height}}",
+    "preset": "Preset Size",
+    "presetOriginal": "Original",
+    "custom": "Custom",
+    "width": "Width (px)",
+    "height": "Height (px)",
+    "lockAspectRatio": "Lock Aspect Ratio",
+    "resize": "Resize",
+    "resizeProgress": "Resizing {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Resize Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Resize failed, please try again"
   },
   "gifSpeed": {
     "title": "GIF Speed",

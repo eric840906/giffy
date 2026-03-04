@@ -71,6 +71,13 @@ export const TOOLS = [
     accept: 'video/*',
   },
   {
+    id: 'videoResize',
+    path: '/video/resize',
+    icon: '📏',
+    category: 'video' as const,
+    accept: 'video/*',
+  },
+  {
     id: 'imageConvert',
     path: '/image/convert',
     icon: '🔄',

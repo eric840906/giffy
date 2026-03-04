@@ -136,6 +136,10 @@ export function VideoConvert() {
         args.push('-vf', `scale=-2:${resolution}`);
       }
 
+      // -threads 1 prevents pthread deadlock in ffmpeg.wasm multi-thread build
+      // when using scale filter with libx264 encoding
+      args.push('-threads', '1');
+
       args.push('-y', outputName);
 
       const ret = await ffmpeg.exec(args);

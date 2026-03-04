@@ -59,6 +59,10 @@
       "videoScreenshot": {
         "name": "影片截圖",
         "description": "擷取影片中的特定畫面"
+      },
+      "videoResize": {
+        "name": "影片調整大小",
+        "description": "調整影片的解析度和尺寸"
       }
     }
   },
@@ -250,6 +254,23 @@
     "sendToTool": "傳到其他工具",
     "error": "擷取失敗，請重試",
     "outputSize": "{{size}}"
+  },
+  "videoResize": {
+    "title": "影片調整大小",
+    "uploadPrompt": "上傳影片以調整解析度",
+    "originalSize": "原始大小：{{width}} × {{height}}",
+    "preset": "預設大小",
+    "presetOriginal": "原始",
+    "custom": "自訂",
+    "width": "寬度 (px)",
+    "height": "高度 (px)",
+    "lockAspectRatio": "鎖定比例",
+    "resize": "調整大小",
+    "resizeProgress": "調整中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "調整結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "調整大小失敗，請重試"
   },
   "gifSpeed": {
     "title": "GIF 速度調整",
