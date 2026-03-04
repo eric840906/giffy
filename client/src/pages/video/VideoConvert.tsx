@@ -11,8 +11,8 @@ import { formatSize } from '../../utils/formatSize';
 /** Target container format for video conversion */
 type TargetFormat = 'mp4' | 'webm';
 
-/** Video codec option */
-type VideoCodec = 'h264' | 'vp9';
+/** Video codec option (VP8 used for WebM — VP9 exceeds wasm memory limits) */
+type VideoCodec = 'h264' | 'vp8';
 
 /** Audio codec option */
 type AudioCodec = 'aac' | 'opus';
@@ -24,7 +24,8 @@ type Resolution = 'original' | '1080' | '720' | '480';
  * Video Format Conversion page.
  * Upload a video -> select target format and optional advanced settings -> convert.
  *
- * Supports MP4 (H.264 + AAC) and WebM (VP9 + Opus) output formats.
+ * Supports MP4 (H.264 + AAC) and WebM (VP8 + Opus) output formats.
+ * VP8 is used instead of VP9 because VP9 exceeds wasm memory limits.
  * Advanced options include codec override, CRF quality, and resolution scaling.
  * All processing happens client-side via ffmpeg.wasm.
  */
@@ -46,6 +47,7 @@ export function VideoConvert() {
   // Conversion settings
   const [targetFormat, setTargetFormat] = useState<TargetFormat>('mp4');
   const [videoCodec, setVideoCodec] = useState<VideoCodec>('h264');
+  // Note: VP8 is used for WebM instead of VP9 due to wasm memory constraints
   const [audioCodec, setAudioCodec] = useState<AudioCodec>('aac');
   const [crf, setCrf] = useState<number>(23);
   const [resolution, setResolution] = useState<Resolution>('original');
@@ -101,7 +103,7 @@ export function VideoConvert() {
   /**
    * Handle target format change.
    * Automatically updates video and audio codec defaults based on the selected format.
-   * MP4 -> H.264 + AAC, WebM -> VP9 + Opus.
+   * MP4 -> H.264 + AAC, WebM -> VP8 + Opus.
    */
   const handleFormatChange = useCallback((format: TargetFormat) => {
     setTargetFormat(format);
@@ -109,7 +111,7 @@ export function VideoConvert() {
       setVideoCodec('h264');
       setAudioCodec('aac');
     } else {
-      setVideoCodec('vp9');
+      setVideoCodec('vp8');
       setAudioCodec('opus');
     }
   }, []);
@@ -151,12 +153,10 @@ export function VideoConvert() {
         args.push('-c:v', 'libx264', '-preset', 'medium');
         args.push('-crf', String(crf));
       } else {
-        // VP9 needs -b:v 0 for pure CRF mode, and reduced cpu-used/deadline
-        // to keep memory usage within wasm limits
-        args.push('-c:v', 'libvpx-vp9');
-        args.push('-b:v', '0', '-crf', String(crf));
-        args.push('-cpu-used', '5', '-deadline', 'realtime');
-        args.push('-row-mt', '0');
+        // VP8 (libvpx) for WebM — VP9 exceeds wasm memory limits
+        args.push('-c:v', 'libvpx');
+        args.push('-b:v', '1M', '-crf', String(crf));
+        args.push('-cpu-used', '4', '-deadline', 'good');
       }
 
       // Audio codec
@@ -342,15 +342,15 @@ export function VideoConvert() {
                         H.264
                       </button>
                       <button
-                        onClick={() => setVideoCodec('vp9')}
+                        onClick={() => setVideoCodec('vp8')}
                         className={`flex-1 rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${
-                          videoCodec === 'vp9'
+                          videoCodec === 'vp8'
                             ? 'bg-purple-600 text-white'
                             : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                         }`}
-                        aria-pressed={videoCodec === 'vp9'}
+                        aria-pressed={videoCodec === 'vp8'}
                       >
-                        VP9
+                        VP8
                       </button>
                     </div>
                   </div>
