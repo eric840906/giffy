@@ -50,11 +50,15 @@
       },
       "videoConvert": {
         "name": "影片轉檔",
-        "description": "轉換 MP4、WebM 影片格式"
+        "description": "將影片轉換為 MP4 格式"
       },
       "imageConvert": {
         "name": "圖片格式轉換",
         "description": "批次轉換 PNG、JPG、WebP 格式"
+      },
+      "videoScreenshot": {
+        "name": "影片截圖",
+        "description": "擷取影片中的特定畫面"
       }
     }
   },
@@ -230,6 +234,22 @@
     "beforeAfter": "{{before}} → {{after}}",
     "savings": "節省 {{percent}}%",
     "error": "壓縮失敗，請重試"
+  },
+  "videoScreenshot": {
+    "title": "影片截圖",
+    "uploadPrompt": "上傳影片以擷取畫面",
+    "outputFormat": "輸出格式",
+    "capture": "擷取截圖",
+    "capturing": "擷取中...",
+    "screenshots": "截圖列表",
+    "screenshotCount": "{{count}} 張截圖",
+    "noScreenshots": "尚未擷取截圖",
+    "timestamp": "{{time}}",
+    "download": "下載",
+    "remove": "移除",
+    "sendToTool": "傳到其他工具",
+    "error": "擷取失敗，請重試",
+    "outputSize": "{{size}}"
   },
   "gifSpeed": {
     "title": "GIF 速度調整",

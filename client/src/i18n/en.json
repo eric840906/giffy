@@ -50,11 +50,15 @@
       },
       "videoConvert": {
         "name": "Video Convert",
-        "description": "Convert MP4, WebM video formats"
+        "description": "Convert videos to MP4 format"
       },
       "imageConvert": {
         "name": "Image Convert",
         "description": "Batch convert PNG, JPG, WebP formats"
+      },
+      "videoScreenshot": {
+        "name": "Video Screenshot",
+        "description": "Capture specific frames from a video"
       }
     }
   },
@@ -230,6 +234,22 @@
     "beforeAfter": "{{before}} → {{after}}",
     "savings": "Saved {{percent}}%",
     "error": "Compression failed, please try again"
+  },
+  "videoScreenshot": {
+    "title": "Video Screenshot",
+    "uploadPrompt": "Upload a video to capture frames",
+    "outputFormat": "Output Format",
+    "capture": "Capture Screenshot",
+    "capturing": "Capturing...",
+    "screenshots": "Screenshots",
+    "screenshotCount": "{{count}} screenshots",
+    "noScreenshots": "No screenshots captured yet",
+    "timestamp": "{{time}}",
+    "download": "Download",
+    "remove": "Remove",
+    "sendToTool": "Send to Tool",
+    "error": "Capture failed, please try again",
+    "outputSize": "{{size}}"
   },
   "gifSpeed": {
     "title": "GIF Speed",

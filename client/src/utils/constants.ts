@@ -64,6 +64,13 @@ export const TOOLS = [
     accept: 'video/*',
   },
   {
+    id: 'videoScreenshot',
+    path: '/video/screenshot',
+    icon: '📸',
+    category: 'video' as const,
+    accept: 'video/*',
+  },
+  {
     id: 'imageConvert',
     path: '/image/convert',
     icon: '🔄',
