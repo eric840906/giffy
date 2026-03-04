@@ -44,6 +44,10 @@
         "name": "GIF Speed",
         "description": "Adjust GIF animation speed"
       },
+      "gifCompress": {
+        "name": "GIF Compress",
+        "description": "Compress and optimize GIF file size"
+      },
       "imageConvert": {
         "name": "Image Convert",
         "description": "Batch convert PNG, JPG, WebP formats"
@@ -176,6 +180,32 @@
     "error": "Conversion failed, please try again",
     "originalFormat": "Original",
     "convertedFormat": "Converted"
+  },
+  "gifCompress": {
+    "title": "GIF Compress",
+    "uploadPrompt": "Upload a GIF to compress or optimize file size",
+    "settings": "Compression Settings",
+    "colors": "Colors",
+    "colorsValue": "{{count}} colors",
+    "lossyLevel": "Lossy Level",
+    "lossyLow": "Low",
+    "lossyMedium": "Medium",
+    "lossyHigh": "High",
+    "dropFrames": "Drop Frames",
+    "dropFramesOff": "Off",
+    "dropFramesEvery": "Drop every {{n}} frames",
+    "resize": "Resize",
+    "width": "Width (px)",
+    "keepOriginalSize": "Keep original size",
+    "originalFileSize": "Original file size: {{size}}",
+    "compress": "Compress",
+    "compressProgress": "Compressing {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Compression Result",
+    "outputSize": "Output size: {{size}}",
+    "beforeAfter": "{{before}} → {{after}}",
+    "savings": "Saved {{percent}}%",
+    "error": "Compression failed, please try again"
   },
   "gifSpeed": {
     "title": "GIF Speed",

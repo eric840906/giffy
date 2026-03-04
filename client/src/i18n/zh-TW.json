@@ -44,6 +44,10 @@
         "name": "GIF 速度調整",
         "description": "調整 GIF 動圖的播放速度"
       },
+      "gifCompress": {
+        "name": "GIF 壓縮/優化",
+        "description": "壓縮並優化 GIF 檔案大小"
+      },
       "imageConvert": {
         "name": "圖片格式轉換",
         "description": "批次轉換 PNG、JPG、WebP 格式"
@@ -176,6 +180,32 @@
     "error": "轉換失敗，請重試",
     "originalFormat": "原始格式",
     "convertedFormat": "轉換後"
+  },
+  "gifCompress": {
+    "title": "GIF 壓縮/優化",
+    "uploadPrompt": "上傳 GIF 以壓縮或優化檔案大小",
+    "settings": "壓縮設定",
+    "colors": "色彩數量",
+    "colorsValue": "{{count}} 色",
+    "lossyLevel": "有損壓縮等級",
+    "lossyLow": "低",
+    "lossyMedium": "中",
+    "lossyHigh": "高",
+    "dropFrames": "移除幀數",
+    "dropFramesOff": "不移除",
+    "dropFramesEvery": "每 {{n}} 幀移除一幀",
+    "resize": "縮小尺寸",
+    "width": "寬度 (px)",
+    "keepOriginalSize": "維持原始大小",
+    "originalFileSize": "原始檔案大小：{{size}}",
+    "compress": "壓縮",
+    "compressProgress": "壓縮中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "壓縮結果",
+    "outputSize": "輸出大小：{{size}}",
+    "beforeAfter": "{{before}} → {{after}}",
+    "savings": "節省 {{percent}}%",
+    "error": "壓縮失敗，請重試"
   },
   "gifSpeed": {
     "title": "GIF 速度調整",

@@ -50,6 +50,13 @@ export const TOOLS = [
     accept: 'image/gif',
   },
   {
+    id: 'gifCompress',
+    path: '/gif/compress',
+    icon: '📦',
+    category: 'gif' as const,
+    accept: 'image/gif',
+  },
+  {
     id: 'imageConvert',
     path: '/image/convert',
     icon: '🔄',
