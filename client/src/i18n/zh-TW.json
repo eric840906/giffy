@@ -77,6 +77,7 @@
     "maxSize": "檔案大小限制：{{size}}MB",
     "errorTooLarge": "檔案太大！最大允許 {{size}}MB",
     "errorFormat": "不支援的檔案格式",
+    "changeFile": "更換檔案",
     "fileName": "檔案名稱",
     "fileSize": "檔案大小"
   },

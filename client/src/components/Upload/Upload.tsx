@@ -33,7 +33,25 @@ export function Upload({
   const maxSizeMB = maxSize / (1024 * 1024);
 
   /**
-   * Validates file sizes and triggers the onFileSelect callback
+   * Check whether a file's MIME type matches the accept string.
+   * Supports wildcards like "video/*" and comma-separated lists.
+   */
+  const matchesAccept = useCallback(
+    (file: File): boolean => {
+      if (!accept) return true;
+      const patterns = accept.split(',').map((s) => s.trim());
+      return patterns.some((pattern) => {
+        if (pattern.endsWith('/*')) {
+          return file.type.startsWith(pattern.replace('/*', '/'));
+        }
+        return file.type === pattern;
+      });
+    },
+    [accept],
+  );
+
+  /**
+   * Validates file types and sizes, then triggers the onFileSelect callback
    * if all files pass validation.
    */
   const validateAndSelect = useCallback(
@@ -42,6 +60,12 @@ export function Upload({
 
       setError(null);
       const fileArray = Array.from(files);
+
+      const invalid = fileArray.find((f) => !matchesAccept(f));
+      if (invalid) {
+        setError(t('upload.errorFormat'));
+        return;
+      }
 
       const oversized = fileArray.find((f) => f.size > maxSize);
       if (oversized) {
@@ -52,7 +76,7 @@ export function Upload({
       setSelectedFiles(fileArray);
       onFileSelect(fileArray);
     },
-    [maxSize, onFileSelect, t],
+    [maxSize, matchesAccept, onFileSelect, t],
   );
 
   /** Handles dragOver to show visual feedback */

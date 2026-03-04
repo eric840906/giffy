@@ -209,6 +209,22 @@ export function VideoCrop() {
     }
   }, [videoFile, loaded, ffmpeg, crop, t]);
 
+  /**
+   * Reset file selection and return to the upload view.
+   * Revokes all object URLs and clears output/error/crop state.
+   */
+  const handleReset = useCallback(() => {
+    if (videoUrl) URL.revokeObjectURL(videoUrl);
+    setVideoFile(null);
+    setVideoUrl('');
+    setOutputVideo(null);
+    setCropError(null);
+    setFrameUrl('');
+    setFrameWidth(0);
+    setFrameHeight(0);
+    setCrop({ x: 0, y: 0, width: 0, height: 0 });
+  }, [videoUrl]);
+
   /** Reset output and return to editing */
   const handleContinueEdit = useCallback(() => {
     setOutputVideo(null);
@@ -235,6 +251,27 @@ export function VideoCrop() {
             {t('videoCrop.uploadPrompt')}
           </p>
           <Upload accept="video/*" onFileSelect={handleFileSelect} />
+        </div>
+      )}
+
+      {/* File info bar with change file button */}
+      {videoFile && (
+        <div className="flex items-center justify-between rounded-xl bg-gray-100 px-4 py-2 dark:bg-gray-800">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">
+              {videoFile.name}
+            </span>
+            <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0">
+              {formatSize(videoFile.size)}
+            </span>
+          </div>
+          <button
+            onClick={handleReset}
+            disabled={isCropping}
+            className="shrink-0 rounded-lg border border-gray-300 px-3 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:opacity-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+          >
+            {t('upload.changeFile')}
+          </button>
         </div>
       )}
 

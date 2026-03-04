@@ -77,6 +77,7 @@
     "maxSize": "Max file size: {{size}}MB",
     "errorTooLarge": "File too large! Maximum {{size}}MB allowed",
     "errorFormat": "Unsupported file format",
+    "changeFile": "Change file",
     "fileName": "File name",
     "fileSize": "File size"
   },

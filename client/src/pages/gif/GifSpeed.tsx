@@ -167,6 +167,18 @@ export function GifSpeed() {
     }
   }, [gifFile, loaded, ffmpeg, speedMode, speedMultiplier, customDelay, t]);
 
+  /**
+   * Reset file selection and return to the upload view.
+   * Revokes all object URLs and clears output/error state.
+   */
+  const handleReset = useCallback(() => {
+    if (gifUrl) URL.revokeObjectURL(gifUrl);
+    setGifFile(null);
+    setGifUrl('');
+    setOutputGif(null);
+    setProcessingError(null);
+  }, [gifUrl]);
+
   /** Reset output and return to editing */
   const handleContinueEdit = useCallback(() => {
     setOutputGif(null);
@@ -193,6 +205,27 @@ export function GifSpeed() {
             {t('gifSpeed.uploadPrompt')}
           </p>
           <Upload accept="image/gif" onFileSelect={handleFileSelect} />
+        </div>
+      )}
+
+      {/* File info bar with change file button */}
+      {gifFile && (
+        <div className="flex items-center justify-between rounded-xl bg-gray-100 px-4 py-2 dark:bg-gray-800">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">
+              {gifFile.name}
+            </span>
+            <span className="text-xs text-gray-500 dark:text-gray-400 shrink-0">
+              {formatSize(gifFile.size)}
+            </span>
+          </div>
+          <button
+            onClick={handleReset}
+            disabled={isProcessing}
+            className="shrink-0 rounded-lg border border-gray-300 px-3 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-200 disabled:opacity-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
+          >
+            {t('upload.changeFile')}
+          </button>
         </div>
       )}
 

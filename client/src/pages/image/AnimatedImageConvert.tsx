@@ -138,14 +138,19 @@ export function AnimatedImageConvert() {
     setConvertError(null);
   }, []);
 
+  /** Accepted MIME types for animated image inputs */
+  const ACCEPTED_TYPES = ['image/gif', 'image/apng', 'image/png', 'image/webp'];
+
   /**
    * Handle additional images being added via "Add more" input.
-   * Appends to the existing images array.
+   * Filters out files that don't match accepted animated image types.
    */
   const handleAddMore = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    setImages((prev) => [...prev, ...Array.from(files)]);
+    const valid = Array.from(files).filter((f) => ACCEPTED_TYPES.includes(f.type));
+    if (valid.length === 0) return;
+    setImages((prev) => [...prev, ...valid]);
     setResults([]);
     // Reset input so the same file can be re-selected
     e.target.value = '';

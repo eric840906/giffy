@@ -99,7 +99,9 @@ describe('VideoConvert', () => {
     uploadVideoFile();
 
     expect(screen.getByText('原始資訊')).toBeInTheDocument();
-    expect(screen.getByText('13 B')).toBeInTheDocument();
+    // File size appears in both the file info bar and the original info section
+    const sizeElements = screen.getAllByText('13 B');
+    expect(sizeElements.length).toBeGreaterThanOrEqual(1);
   });
 
   it('shows MP4 as the output format', () => {

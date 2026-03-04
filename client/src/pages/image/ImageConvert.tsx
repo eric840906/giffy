@@ -140,12 +140,14 @@ export function ImageConvert() {
 
   /**
    * Handle additional images being added via "Add more" input.
-   * Appends to the existing images array.
+   * Filters out non-image files and appends valid ones to the array.
    */
   const handleAddMore = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
-    setImages((prev) => [...prev, ...Array.from(files)]);
+    const valid = Array.from(files).filter((f) => f.type.startsWith('image/'));
+    if (valid.length === 0) return;
+    setImages((prev) => [...prev, ...valid]);
     setResults([]);
     // Reset input so the same file can be re-selected
     e.target.value = '';
