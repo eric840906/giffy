@@ -145,18 +145,22 @@ export function VideoConvert() {
       await ffmpeg.writeFile(inputName, await fetchFile(videoFile));
       if (abortRef.current) return;
 
-      // Build ffmpeg arguments based on settings
+      // Build ffmpeg arguments based on settings.
+      // Use memory-conservative encoding settings for wasm environment:
+      // - ultrafast preset + tune zerolatency (1 ref frame, no B-frames)
+      // - single thread to limit memory allocation
       const args: string[] = ['-i', inputName];
 
-      // Video codec
+      // Video codec — conservative settings for wasm memory limits
       if (videoCodec === 'h264') {
-        args.push('-c:v', 'libx264', '-preset', 'medium');
+        args.push('-c:v', 'libx264');
+        args.push('-preset', 'ultrafast', '-tune', 'zerolatency');
         args.push('-crf', String(crf));
       } else {
-        // VP8 (libvpx) for WebM — VP9 exceeds wasm memory limits
+        // VP8 (libvpx) for WebM
         args.push('-c:v', 'libvpx');
         args.push('-b:v', '1M', '-crf', String(crf));
-        args.push('-cpu-used', '4', '-deadline', 'good');
+        args.push('-cpu-used', '8', '-deadline', 'realtime');
       }
 
       // Audio codec
@@ -165,6 +169,9 @@ export function VideoConvert() {
       } else {
         args.push('-c:a', 'libopus', '-b:a', '128k');
       }
+
+      // Limit threads to reduce memory usage
+      args.push('-threads', '1');
 
       // Resolution (if not original)
       if (resolution !== 'original') {
