@@ -208,9 +208,11 @@ export function ImagesToGif() {
       const vf = `scale=${width}:-1:flags=lanczos`;
 
       // Pass 1: generate optimized palette
+      // Note: -threads 1 prevents pthread deadlocks in ffmpeg.wasm multi-thread build
       let ret = await ffmpeg.exec([
         '-f', 'concat', '-safe', '0', '-i', 'list.txt',
         '-vf', `${vf},palettegen=max_colors=${colorCount}`,
+        '-threads', '1',
         '-y', 'palette.png',
       ]);
       if (abortRef.current) return;
@@ -221,6 +223,9 @@ export function ImagesToGif() {
           '-f', 'concat', '-safe', '0', '-i', 'list.txt',
           '-i', 'palette.png',
           '-filter_complex', `[0:v]${vf}[x];[x][1:v]paletteuse`,
+          '-threads', '1',
+          '-filter_threads', '1',
+          '-filter_complex_threads', '1',
           '-y', 'output.gif',
         ]);
         if (abortRef.current) return;

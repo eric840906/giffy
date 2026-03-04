@@ -125,6 +125,9 @@ export function GifSpeed() {
           '-i', inputName,
           '-filter_complex', `[0:v]setpts=${ptsFactor}*PTS[v]`,
           '-map', '[v]',
+          '-threads', '1',
+          '-filter_threads', '1',
+          '-filter_complex_threads', '1',
           '-y', outputName,
         ];
       } else {

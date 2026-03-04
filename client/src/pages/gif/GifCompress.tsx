@@ -158,9 +158,11 @@ export function GifCompress() {
       const bayerScale = LOSSY_BAYER_SCALE[lossyLevel];
 
       // Pass 1: Generate optimized palette
+      // Note: -threads 1 prevents pthread deadlocks in ffmpeg.wasm multi-thread build
       const pass1Args = [
         '-i', inputName,
         '-vf', `${vfBase}palettegen=max_colors=${colors}:stats_mode=diff`,
+        '-threads', '1',
         '-y', paletteName,
       ];
 
@@ -181,6 +183,9 @@ export function GifCompress() {
         '-i', inputName,
         '-i', paletteName,
         '-filter_complex', filterComplex,
+        '-threads', '1',
+        '-filter_threads', '1',
+        '-filter_complex_threads', '1',
         '-y', outputName,
       ];
 

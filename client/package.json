@@ -13,8 +13,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@ffmpeg/core": "^0.12.6",
-    "@ffmpeg/core-mt": "^0.12.6",
+    "@ffmpeg/core-mt": "0.12.6",
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "i18next": "^25.8.13",

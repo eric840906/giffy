@@ -8,25 +8,21 @@ import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
 import { formatSize } from '../../utils/formatSize';
 
-/** Target container format for video conversion */
-type TargetFormat = 'mp4' | 'webm';
-
-/** Video codec option (VP8 used for WebM — VP9 exceeds wasm memory limits) */
-type VideoCodec = 'h264' | 'vp8';
-
-/** Audio codec option */
-type AudioCodec = 'aac' | 'opus';
-
 /** Output resolution preset */
 type Resolution = 'original' | '1080' | '720' | '480';
 
 /**
  * Video Format Conversion page.
- * Upload a video -> select target format and optional advanced settings -> convert.
+ * Upload a video (MP4, WebM, etc.) -> convert to MP4 (H.264 + AAC).
  *
- * Supports MP4 (H.264 + AAC) and WebM (VP8 + Opus) output formats.
- * VP8 is used instead of VP9 because VP9 exceeds wasm memory limits.
- * Advanced options include codec override, CRF quality, and resolution scaling.
+ * WebM output encoding does NOT work in ffmpeg.wasm:
+ * - Single-thread: VP8/libvpx crashes with stack overflow (memory access out of bounds)
+ * - Multi-thread: audio encoding (both libopus and libvorbis) causes pthread deadlock
+ * - VP8 video-only (-an) works on core-mt@0.12.10 but that version breaks video filters
+ *   (palettegen, filter_complex) used by other tools like VideoToGif
+ *
+ * WebM INPUT decoding works fine — WebM→MP4 conversion is supported.
+ * Advanced options include CRF quality and resolution scaling.
  * All processing happens client-side via ffmpeg.wasm.
  */
 export function VideoConvert() {
@@ -45,10 +41,6 @@ export function VideoConvert() {
   const [videoUrl, setVideoUrl] = useState<string>('');
 
   // Conversion settings
-  const [targetFormat, setTargetFormat] = useState<TargetFormat>('mp4');
-  const [videoCodec, setVideoCodec] = useState<VideoCodec>('h264');
-  // Note: VP8 is used for WebM instead of VP9 due to wasm memory constraints
-  const [audioCodec, setAudioCodec] = useState<AudioCodec>('aac');
   const [crf, setCrf] = useState<number>(23);
   const [resolution, setResolution] = useState<Resolution>('original');
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -101,24 +93,7 @@ export function VideoConvert() {
   }, [videoUrl]);
 
   /**
-   * Handle target format change.
-   * Automatically updates video and audio codec defaults based on the selected format.
-   * MP4 -> H.264 + AAC, WebM -> VP8 + Opus.
-   */
-  const handleFormatChange = useCallback((format: TargetFormat) => {
-    setTargetFormat(format);
-    if (format === 'mp4') {
-      setVideoCodec('h264');
-      setAudioCodec('aac');
-    } else {
-      setVideoCodec('vp8');
-      setAudioCodec('opus');
-    }
-  }, []);
-
-  /**
-   * Convert video using ffmpeg.wasm.
-   * Constructs the ffmpeg command based on selected format, codec, quality, and resolution.
+   * Convert video to MP4 using ffmpeg.wasm (H.264 + AAC).
    */
   const handleConvert = useCallback(async () => {
     if (!videoFile || !loaded) return;
@@ -140,37 +115,21 @@ export function VideoConvert() {
         ? videoFile.name.substring(videoFile.name.lastIndexOf('.'))
         : '.mp4';
       const inputName = `input${ext}`;
-      const outputName = `converted.${targetFormat}`;
+      const outputName = 'converted.mp4';
 
       await ffmpeg.writeFile(inputName, await fetchFile(videoFile));
       if (abortRef.current) return;
 
-      // Build ffmpeg arguments.
-      // Now using @ffmpeg/core-mt with enough memory for explicit codecs.
-      // Force -threads 1 to avoid slow wasm pthread overhead.
+      // Build ffmpeg arguments — MP4 output (H.264 + AAC).
       const args: string[] = ['-i', inputName];
 
-      // Video codec
-      if (videoCodec === 'h264') {
-        args.push('-c:v', 'libx264');
-        args.push('-preset', 'ultrafast');
-        args.push('-crf', String(crf));
-      } else {
-        args.push('-c:v', 'libvpx');
-        args.push('-b:v', '1M', '-crf', String(crf));
-        args.push('-cpu-used', '4', '-deadline', 'good');
-      }
+      // H.264 video encoding
+      args.push('-c:v', 'libx264');
+      args.push('-preset', 'ultrafast');
+      args.push('-crf', String(crf));
 
-      // Audio codec
-      if (audioCodec === 'aac') {
-        args.push('-c:a', 'aac', '-b:a', '128k');
-      } else {
-        args.push('-c:a', 'libopus', '-b:a', '128k');
-      }
-
-      // Force single-thread encoding — wasm pthread overhead makes
-      // multi-threaded encoding hang or run extremely slowly
-      args.push('-threads', '1');
+      // AAC audio encoding
+      args.push('-c:a', 'aac', '-b:a', '128k');
 
       // Resolution (if not original)
       if (resolution !== 'original') {
@@ -187,8 +146,7 @@ export function VideoConvert() {
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      const outputMime = targetFormat === 'mp4' ? 'video/mp4' : 'video/webm';
-      const blob = new Blob([data], { type: outputMime });
+      const blob = new Blob([data], { type: 'video/mp4' });
       setOutputVideo(blob);
 
       // Clean up ffmpeg temp files to free memory
@@ -205,7 +163,7 @@ export function VideoConvert() {
       }
       ffmpeg.off('progress', onProgress);
     }
-  }, [videoFile, loaded, ffmpeg, targetFormat, videoCodec, audioCodec, crf, resolution, t]);
+  }, [videoFile, loaded, ffmpeg, crf, resolution, t]);
 
   /** Reset output and return to editing */
   const handleContinueEdit = useCallback(() => {
@@ -224,12 +182,6 @@ export function VideoConvert() {
     }
     return 'MP4';
   }, [videoFile]);
-
-  /** Output MIME type based on target format */
-  const outputMime = targetFormat === 'mp4' ? 'video/mp4' : 'video/webm';
-
-  /** Output filename based on target format */
-  const outputFileName = `converted.${targetFormat}`;
 
   return (
     <div className="flex flex-col gap-6">
@@ -281,34 +233,15 @@ export function VideoConvert() {
 
           {/* Right: Settings panel */}
           <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-            {/* Target format selector */}
+            {/* Target format (MP4 only) */}
             <div>
               <h2 className="mb-2 text-lg font-semibold text-gray-800 dark:text-gray-100">
                 {t('videoConvert.targetFormat')}
               </h2>
               <div className="flex gap-2">
-                <button
-                  onClick={() => handleFormatChange('mp4')}
-                  className={`flex-1 rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
-                    targetFormat === 'mp4'
-                      ? 'bg-purple-600 text-white'
-                      : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-                  }`}
-                  aria-pressed={targetFormat === 'mp4'}
-                >
+                <span className="flex-1 rounded-xl bg-purple-600 px-4 py-2 text-center text-sm font-medium text-white">
                   MP4
-                </button>
-                <button
-                  onClick={() => handleFormatChange('webm')}
-                  className={`flex-1 rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
-                    targetFormat === 'webm'
-                      ? 'bg-purple-600 text-white'
-                      : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-                  }`}
-                  aria-pressed={targetFormat === 'webm'}
-                >
-                  WebM
-                </button>
+                </span>
               </div>
             </div>
 
@@ -330,68 +263,6 @@ export function VideoConvert() {
 
               {showAdvanced && (
                 <div className="mt-2 flex flex-col gap-4 rounded-xl bg-gray-50 p-4 dark:bg-gray-900/50">
-                  {/* Video codec */}
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-600 dark:text-gray-300">
-                      {t('videoConvert.videoCodec')}
-                    </label>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setVideoCodec('h264')}
-                        className={`flex-1 rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${
-                          videoCodec === 'h264'
-                            ? 'bg-purple-600 text-white'
-                            : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-                        }`}
-                        aria-pressed={videoCodec === 'h264'}
-                      >
-                        H.264
-                      </button>
-                      <button
-                        onClick={() => setVideoCodec('vp8')}
-                        className={`flex-1 rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${
-                          videoCodec === 'vp8'
-                            ? 'bg-purple-600 text-white'
-                            : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-                        }`}
-                        aria-pressed={videoCodec === 'vp8'}
-                      >
-                        VP8
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Audio codec */}
-                  <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-600 dark:text-gray-300">
-                      {t('videoConvert.audioCodec')}
-                    </label>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setAudioCodec('aac')}
-                        className={`flex-1 rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${
-                          audioCodec === 'aac'
-                            ? 'bg-purple-600 text-white'
-                            : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-                        }`}
-                        aria-pressed={audioCodec === 'aac'}
-                      >
-                        AAC
-                      </button>
-                      <button
-                        onClick={() => setAudioCodec('opus')}
-                        className={`flex-1 rounded-xl px-3 py-1.5 text-sm font-medium transition-colors ${
-                          audioCodec === 'opus'
-                            ? 'bg-purple-600 text-white'
-                            : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
-                        }`}
-                        aria-pressed={audioCodec === 'opus'}
-                      >
-                        Opus
-                      </button>
-                    </div>
-                  </div>
-
                   {/* Quality (CRF) slider */}
                   <div>
                     <label
@@ -490,10 +361,10 @@ export function VideoConvert() {
               {t('videoConvert.outputSize', { size: formatSize(outputVideo.size) })}
             </span>
           </div>
-          <Preview file={outputVideo} type={outputMime} />
+          <Preview file={outputVideo} type="video/mp4" />
           <WorkflowBar
             file={outputVideo}
-            fileName={outputFileName}
+            fileName="converted.mp4"
             currentTool="videoConvert"
             onContinueEdit={handleContinueEdit}
           />

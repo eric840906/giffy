@@ -162,6 +162,8 @@ export function VideoToGif() {
       const vf = `fps=${outputFps},scale=${outputWidth}:-1:flags=lanczos`;
 
       // Two-pass palette approach for high-quality GIF output
+      // Note: -threads 1 / -filter_threads 1 / -filter_complex_threads 1 are required
+      // to prevent pthread deadlocks in the ffmpeg.wasm multi-thread build (core-mt).
       let ret: number;
 
       // Pass 1: generate optimized palette
@@ -170,6 +172,7 @@ export function VideoToGif() {
         '-t', duration.toString(),
         '-i', inputName,
         '-vf', `${vf},palettegen=max_colors=${colorCount}`,
+        '-threads', '1',
         '-y', paletteName,
       ]);
       if (abortRef.current) return;
@@ -182,6 +185,9 @@ export function VideoToGif() {
           '-i', inputName,
           '-i', paletteName,
           '-filter_complex', `[0:v]${vf}[x];[x][1:v]paletteuse`,
+          '-threads', '1',
+          '-filter_threads', '1',
+          '-filter_complex_threads', '1',
           '-y', outputName,
         ]);
         if (abortRef.current) return;

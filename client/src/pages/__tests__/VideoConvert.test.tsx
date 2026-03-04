@@ -66,12 +66,11 @@ describe('VideoConvert', () => {
     expect(screen.getByText('拖放檔案到這裡')).toBeInTheDocument();
   });
 
-  it('shows format selector after file upload', () => {
+  it('shows MP4 format label after file upload', () => {
     renderPage();
     uploadVideoFile();
 
     expect(screen.getByText('MP4')).toBeInTheDocument();
-    expect(screen.getByText('WebM')).toBeInTheDocument();
   });
 
   it('shows convert button after file upload', () => {
@@ -100,27 +99,14 @@ describe('VideoConvert', () => {
     uploadVideoFile();
 
     expect(screen.getByText('原始資訊')).toBeInTheDocument();
-    // Verify the file size is displayed in the original info section
     expect(screen.getByText('13 B')).toBeInTheDocument();
   });
 
-  it('default format is MP4', () => {
+  it('shows MP4 as the output format', () => {
     renderPage();
     uploadVideoFile();
 
-    const mp4Button = screen.getByText('MP4');
-    expect(mp4Button.className).toContain('bg-purple-600');
-  });
-
-  it('switching to WebM highlights WebM button', () => {
-    renderPage();
-    uploadVideoFile();
-
-    const webmButton = screen.getByText('WebM');
-    const mp4Button = screen.getByText('MP4');
-
-    fireEvent.click(webmButton);
-    expect(webmButton.className).toContain('bg-purple-600');
-    expect(mp4Button.className).not.toContain('bg-purple-600');
+    const mp4Label = screen.getByText('MP4');
+    expect(mp4Label.className).toContain('bg-purple-600');
   });
 });

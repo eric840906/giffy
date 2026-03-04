@@ -2,8 +2,15 @@ import { useState, useRef, useCallback } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 
 /**
+ * Cache-busting version for /public/ffmpeg/ assets.
+ * Bump this after replacing any file in public/ffmpeg/ to bypass browser cache.
+ */
+const FFMPEG_ASSET_VERSION = '0.12.6-v2';
+
+/**
  * Hook for managing ffmpeg.wasm lifecycle.
- * Loads ffmpeg-core-mt (multi-thread build) from /public/ffmpeg/ (same origin).
+ * Loads @ffmpeg/core-mt@0.12.6 (multi-thread build) from /public/ffmpeg/ (same origin).
+ * Note: 0.12.10 has a larger stack but breaks video filters (palettegen, filter_complex).
  * Requires SharedArrayBuffer (COOP/COEP headers set by the server).
  *
  * @returns An object containing:
@@ -20,7 +27,7 @@ export function useFFmpeg() {
   const [error, setError] = useState<string | null>(null);
 
   /**
-   * Loads ffmpeg.wasm (multi-thread build) from same-origin /ffmpeg/ path.
+   * Loads ffmpeg.wasm (multi-thread build, v0.12.6) from same-origin /ffmpeg/ path.
    * Uses a ref guard to prevent duplicate calls (React strict mode).
    */
   const load = useCallback(async () => {
@@ -31,10 +38,11 @@ export function useFFmpeg() {
     setError(null);
 
     try {
+      const v = FFMPEG_ASSET_VERSION;
       await ffmpegRef.current.load({
-        coreURL: '/ffmpeg/ffmpeg-core.js',
-        wasmURL: '/ffmpeg/ffmpeg-core.wasm',
-        workerURL: '/ffmpeg/ffmpeg-core.worker.js',
+        coreURL: `/ffmpeg/ffmpeg-core.js?v=${v}`,
+        wasmURL: `/ffmpeg/ffmpeg-core.wasm?v=${v}`,
+        workerURL: `/ffmpeg/ffmpeg-core.worker.js?v=${v}`,
         classWorkerURL: '/ffmpeg/ffmpeg-worker.js',
       });
       setLoaded(true);
