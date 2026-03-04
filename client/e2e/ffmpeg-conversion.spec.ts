@@ -213,3 +213,41 @@ test.describe('Video Screenshot', () => {
     await expect(page.getByText('1 張截圖')).toBeVisible({ timeout: 10_000 });
   });
 });
+
+test.describe('Animated Image Convert', () => {
+  test('converts GIF to APNG', async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto('/image/animated-convert');
+
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
+
+    // Select APNG format
+    const formatSelect = page.locator('#target-format');
+    await formatSelect.selectOption('apng');
+
+    const convertBtn = page.getByRole('button', { name: /全部轉換/ });
+    await expect(convertBtn).toBeEnabled({ timeout: 60_000 });
+    await convertBtn.click();
+
+    await expect(page.getByText('轉換結果')).toBeVisible({ timeout: 90_000 });
+  });
+
+  test('converts GIF to animated WebP', async ({ page }) => {
+    test.setTimeout(120_000);
+    await page.goto('/image/animated-convert');
+
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
+
+    // Select WebP format
+    const formatSelect = page.locator('#target-format');
+    await formatSelect.selectOption('webp');
+
+    const convertBtn = page.getByRole('button', { name: /全部轉換/ });
+    await expect(convertBtn).toBeEnabled({ timeout: 60_000 });
+    await convertBtn.click();
+
+    await expect(page.getByText('轉換結果')).toBeVisible({ timeout: 90_000 });
+  });
+});

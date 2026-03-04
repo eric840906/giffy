@@ -85,6 +85,14 @@ export const TOOLS = [
     accept: 'image/*',
     multiple: true,
   },
+  {
+    id: 'animatedConvert',
+    path: '/image/animated-convert',
+    icon: '🎞️',
+    category: 'image' as const,
+    accept: 'image/gif,image/apng,image/png,image/webp',
+    multiple: true,
+  },
 ] as const;
 
 export type ToolId = (typeof TOOLS)[number]['id'];

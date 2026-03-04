@@ -63,6 +63,10 @@
       "videoResize": {
         "name": "Video Resize",
         "description": "Resize video resolution and dimensions"
+      },
+      "animatedConvert": {
+        "name": "Animated Image Convert",
+        "description": "Convert between GIF, APNG, and animated WebP"
       }
     }
   },
@@ -285,5 +289,21 @@
     "result": "Result",
     "outputSize": "Output size: {{size}}",
     "error": "Processing failed, please try again"
+  },
+  "animatedConvert": {
+    "title": "Animated Image Convert",
+    "uploadPrompt": "Upload animated images to convert format (GIF, APNG, WebP)",
+    "targetFormat": "Target Format",
+    "imageCount": "{{count}} images",
+    "addMore": "Add more images",
+    "removeImage": "Remove image",
+    "convert": "Convert All",
+    "convertProgress": "Converting {{current}}/{{total}}...",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Conversion Result",
+    "download": "Download",
+    "downloadAll": "Download All (ZIP)",
+    "sendToTool": "Send to Tool",
+    "error": "Conversion failed, please try again"
   }
 }

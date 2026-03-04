@@ -63,6 +63,10 @@
       "videoResize": {
         "name": "影片調整大小",
         "description": "調整影片的解析度和尺寸"
+      },
+      "animatedConvert": {
+        "name": "動圖格式轉換",
+        "description": "GIF、APNG、WebP 動圖互轉"
       }
     }
   },
@@ -285,5 +289,21 @@
     "result": "處理結果",
     "outputSize": "輸出大小：{{size}}",
     "error": "處理失敗，請重試"
+  },
+  "animatedConvert": {
+    "title": "動圖格式轉換",
+    "uploadPrompt": "上傳動圖以轉換格式（GIF、APNG、WebP）",
+    "targetFormat": "目標格式",
+    "imageCount": "{{count}} 張動圖",
+    "addMore": "新增更多動圖",
+    "removeImage": "移除動圖",
+    "convert": "全部轉換",
+    "convertProgress": "轉換中 {{current}}/{{total}}...",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "轉換結果",
+    "download": "下載",
+    "downloadAll": "全部下載（ZIP）",
+    "sendToTool": "傳到其他工具",
+    "error": "轉換失敗，請重試"
   }
 }
