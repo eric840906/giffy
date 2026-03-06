@@ -75,6 +75,10 @@
       "gifTextOverlay": {
         "name": "GIF Text Overlay",
         "description": "Add text effects to GIF animations"
+      },
+      "videoFilter": {
+        "name": "Video Filter",
+        "description": "Apply visual filters like brightness and contrast to videos"
       }
     }
   },
@@ -409,5 +413,26 @@
     "totalFrames": "Total Frames",
     "estimatedSize": "Estimated Size",
     "dragToReorder": "Drag to reorder"
+  },
+  "videoFilter": {
+    "title": "Video Filter",
+    "uploadPrompt": "Upload a video to apply visual filters",
+    "settings": "Filter Settings",
+    "brightness": "Brightness",
+    "contrast": "Contrast",
+    "saturation": "Saturation",
+    "grayscale": "Grayscale",
+    "sepia": "Sepia",
+    "blur": "Blur",
+    "sharpen": "Sharpen",
+    "sharpenNote": "(no preview)",
+    "invert": "Invert",
+    "reset": "Reset",
+    "apply": "Apply",
+    "applyProgress": "Processing {{progress}}%",
+    "loadingFFmpeg": "Loading processing engine...",
+    "result": "Result",
+    "outputSize": "Output size: {{size}}",
+    "error": "Processing failed, please try again"
   }
 }

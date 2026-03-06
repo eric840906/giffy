@@ -107,6 +107,13 @@ export const TOOLS = [
     category: 'gif' as const,
     accept: 'image/gif',
   },
+  {
+    id: 'videoFilter',
+    path: '/video/filter',
+    icon: '🎨',
+    category: 'video' as const,
+    accept: 'video/*',
+  },
 ] as const;
 
 export type ToolId = (typeof TOOLS)[number]['id'];

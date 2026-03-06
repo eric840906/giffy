@@ -75,6 +75,10 @@
       "gifTextOverlay": {
         "name": "GIF 加文字",
         "description": "在 GIF 動圖上加入文字效果"
+      },
+      "videoFilter": {
+        "name": "影片加濾鏡",
+        "description": "為影片套用亮度、對比等視覺濾鏡"
       }
     }
   },
@@ -409,5 +413,26 @@
     "totalFrames": "總幀數",
     "estimatedSize": "預估大小",
     "dragToReorder": "拖拉排序"
+  },
+  "videoFilter": {
+    "title": "影片加濾鏡",
+    "uploadPrompt": "上傳影片以套用視覺濾鏡",
+    "settings": "濾鏡設定",
+    "brightness": "亮度",
+    "contrast": "對比度",
+    "saturation": "飽和度",
+    "grayscale": "灰階",
+    "sepia": "復古",
+    "blur": "模糊",
+    "sharpen": "銳化",
+    "sharpenNote": "（預覽不可用）",
+    "invert": "反轉色",
+    "reset": "重設",
+    "apply": "套用",
+    "applyProgress": "處理中 {{progress}}%",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "result": "處理結果",
+    "outputSize": "輸出大小：{{size}}",
+    "error": "處理失敗，請重試"
   }
 }
