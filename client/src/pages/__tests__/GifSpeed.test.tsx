@@ -113,12 +113,12 @@ describe('GifSpeed', () => {
 
     // Default is 1x - should have active class
     const oneXButton = screen.getByText('1x');
-    expect(oneXButton.className).toContain('bg-purple-600');
+    expect(oneXButton.className).toContain('bg-mint-600');
 
     // Click 2x
     const twoXButton = screen.getByText('2x');
     fireEvent.click(twoXButton);
-    expect(twoXButton.className).toContain('bg-purple-600');
-    expect(oneXButton.className).not.toContain('bg-purple-600');
+    expect(twoXButton.className).toContain('bg-mint-600');
+    expect(oneXButton.className).not.toContain('bg-mint-600');
   });
 });

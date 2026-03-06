@@ -257,7 +257,7 @@ export function GifCropResize() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('gifCropResize.loadingFFmpeg')}
         </div>
       )}
@@ -398,7 +398,7 @@ export function GifCropResize() {
                   type="checkbox"
                   checked={lockAspect}
                   onChange={(e) => setLockAspect(e.target.checked)}
-                  className="rounded accent-purple-600"
+                  className="rounded accent-mint-600"
                 />
                 {t('gifCropResize.lockAspectRatio')}
               </label>
@@ -409,7 +409,7 @@ export function GifCropResize() {
               <button
                 onClick={handleApply}
                 disabled={isProcessing || !loaded || imageWidth === 0}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('gifCropResize.apply')}
               >
                 {isProcessing
@@ -435,7 +435,7 @@ export function GifCropResize() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}

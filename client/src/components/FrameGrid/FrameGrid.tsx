@@ -185,12 +185,12 @@ export function FrameGrid({
               tabIndex={0}
               className={`group relative cursor-pointer select-none rounded-xl border-2 transition-all ${
                 dragIndex === index
-                  ? 'border-purple-500 opacity-50'
+                  ? 'border-mint-500 opacity-50'
                   : dragOverIndex === index
-                    ? 'border-purple-400 bg-purple-50 dark:bg-purple-950/20'
+                    ? 'border-mint-400 bg-mint-50 dark:bg-mint-950/20'
                     : isSelected
-                      ? 'border-purple-500 bg-purple-50 ring-2 ring-purple-300 dark:bg-purple-950/20 dark:ring-purple-700'
-                      : 'border-gray-200 hover:border-purple-300 dark:border-gray-700 dark:hover:border-purple-600'
+                      ? 'border-mint-500 bg-mint-50 ring-2 ring-mint-300 dark:bg-mint-950/20 dark:ring-mint-700'
+                      : 'border-gray-200 hover:border-mint-300 dark:border-gray-700 dark:hover:border-mint-600'
               } ${disabled ? 'pointer-events-none opacity-60' : ''}`}
             >
               {/* Frame number badge */}

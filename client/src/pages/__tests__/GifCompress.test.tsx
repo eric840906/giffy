@@ -119,13 +119,13 @@ describe('GifCompress', () => {
 
     // Default is medium
     const mediumBtn = screen.getByText('中');
-    expect(mediumBtn.className).toContain('bg-purple-600');
+    expect(mediumBtn.className).toContain('bg-mint-600');
 
     // Click low
     const lowBtn = screen.getByText('低');
     fireEvent.click(lowBtn);
-    expect(lowBtn.className).toContain('bg-purple-600');
-    expect(mediumBtn.className).not.toContain('bg-purple-600');
+    expect(lowBtn.className).toContain('bg-mint-600');
+    expect(mediumBtn.className).not.toContain('bg-mint-600');
   });
 
   it('shows resize width input after upload', () => {

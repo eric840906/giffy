@@ -119,8 +119,8 @@ export function Upload({
         onClick={() => inputRef.current?.click()}
         className={`flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 transition-all ${
           isDragging
-            ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20'
-            : 'border-gray-300 bg-gray-50 hover:border-purple-400 hover:bg-purple-50/50 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-purple-500 dark:hover:bg-purple-950/10'
+            ? 'border-mint-500 bg-mint-50 dark:bg-mint-950/20'
+            : 'border-gray-300 bg-gray-50 hover:border-mint-400 hover:bg-mint-50/50 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-mint-500 dark:hover:bg-mint-950/10'
         }`}
         role="button"
         tabIndex={0}
@@ -130,7 +130,7 @@ export function Upload({
         }}
       >
         <div className="mb-3">
-          <CloudArrowUp size={48} weight="duotone" className="text-purple-500 dark:text-purple-400" />
+          <CloudArrowUp size={48} weight="duotone" className="text-mint-500 dark:text-mint-400" />
         </div>
         <p className="text-lg font-medium text-gray-700 dark:text-gray-200">
           {t('upload.dragDrop')}
@@ -138,7 +138,7 @@ export function Upload({
         <p className="text-sm text-gray-500 dark:text-gray-400">
           {t('upload.or')}
         </p>
-        <p className="mt-1 text-sm font-medium text-purple-600 dark:text-purple-400">
+        <p className="mt-1 text-sm font-medium text-mint-600 dark:text-mint-400">
           {t('upload.browse')}
         </p>
         <p className="mt-2 text-xs text-gray-400 dark:text-gray-500">

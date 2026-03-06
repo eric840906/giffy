@@ -207,7 +207,7 @@ export function VideoConvert() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('videoConvert.loadingFFmpeg')}
         </div>
       )}
@@ -276,7 +276,7 @@ export function VideoConvert() {
                 {t('videoConvert.targetFormat')}
               </h2>
               <div className="flex gap-2">
-                <span className="flex-1 rounded-xl bg-purple-600 px-4 py-2 text-center text-sm font-medium text-white">
+                <span className="flex-1 rounded-xl bg-mint-600 px-4 py-2 text-center text-sm font-medium text-white">
                   MP4
                 </span>
               </div>
@@ -315,7 +315,7 @@ export function VideoConvert() {
                       max={51}
                       value={crf}
                       onChange={(e) => setCrf(Number(e.target.value))}
-                      className="w-full accent-purple-600"
+                      className="w-full accent-mint-600"
                     />
                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                       {t('videoConvert.qualityHint')}
@@ -351,7 +351,7 @@ export function VideoConvert() {
               <button
                 onClick={handleConvert}
                 disabled={isProcessing || !loaded}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('videoConvert.convert')}
               >
                 {isProcessing
@@ -377,7 +377,7 @@ export function VideoConvert() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}

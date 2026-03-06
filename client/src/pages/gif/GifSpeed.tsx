@@ -193,7 +193,7 @@ export function GifSpeed() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('gifSpeed.loadingFFmpeg')}
         </div>
       )}
@@ -258,7 +258,7 @@ export function GifSpeed() {
                     onClick={() => { setSpeedMultiplier(s); setSpeedMode('preset'); }}
                     className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
                       speedMode === 'preset' && speedMultiplier === s
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -298,7 +298,7 @@ export function GifSpeed() {
               <button
                 onClick={handleApply}
                 disabled={isProcessing || !loaded}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('gifSpeed.apply')}
               >
                 {isProcessing
@@ -324,7 +324,7 @@ export function GifSpeed() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}

@@ -61,7 +61,7 @@ export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: Wor
     <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <button
         onClick={handleDownload}
-        className="rounded-xl bg-purple-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+        className="rounded-xl bg-mint-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700"
         aria-label={t('workflow.download')}
       >
         {t('workflow.download')}
@@ -96,7 +96,7 @@ export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: Wor
                 key={tool.id}
                 to={tool.path}
                 state={{ file, fileName }}
-                className="block px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-purple-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                className="block px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-mint-50 dark:text-gray-200 dark:hover:bg-gray-700"
                 onClick={() => setShowTools(false)}
               >
                 <tool.icon size={16} weight="duotone" className="mr-2 inline-block align-text-bottom" />

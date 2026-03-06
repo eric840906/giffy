@@ -346,7 +346,7 @@ export function AnimatedImageConvert() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('animatedConvert.loadingFFmpeg')}
         </div>
       )}
@@ -371,7 +371,7 @@ export function AnimatedImageConvert() {
             </p>
             <button
               onClick={() => addMoreInputRef.current?.click()}
-              className="rounded-xl border border-purple-300 px-4 py-1.5 text-sm font-medium text-purple-600 transition-colors hover:bg-purple-50 dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-950/20"
+              className="rounded-xl border border-mint-300 px-4 py-1.5 text-sm font-medium text-mint-600 transition-colors hover:bg-mint-50 dark:border-mint-700 dark:text-mint-400 dark:hover:bg-mint-950/20"
               aria-label={t('animatedConvert.addMore')}
             >
               {t('animatedConvert.addMore')}
@@ -436,7 +436,7 @@ export function AnimatedImageConvert() {
             <button
               onClick={handleConvert}
               disabled={isConverting || !loaded || images.length === 0}
-              className="rounded-xl bg-purple-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-xl bg-mint-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
               aria-label={t('animatedConvert.convert')}
             >
               {isConverting
@@ -454,7 +454,7 @@ export function AnimatedImageConvert() {
       {isConverting && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${convertTotal > 0 ? (convertCurrent / convertTotal) * 100 : 0}%` }}
             role="progressbar"
             aria-valuenow={convertCurrent}
@@ -483,7 +483,7 @@ export function AnimatedImageConvert() {
             </h2>
             <button
               onClick={handleDownloadAll}
-              className="rounded-xl bg-purple-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+              className="rounded-xl bg-mint-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700"
               aria-label={t('animatedConvert.downloadAll')}
             >
               {t('animatedConvert.downloadAll')}
@@ -511,7 +511,7 @@ export function AnimatedImageConvert() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleDownload(result.blob, result.fileName)}
-                      className="rounded-lg bg-purple-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-purple-700"
+                      className="rounded-lg bg-mint-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-mint-700"
                       aria-label={`${t('animatedConvert.download')} ${result.fileName}`}
                     >
                       {t('animatedConvert.download')}
@@ -529,7 +529,7 @@ export function AnimatedImageConvert() {
                             key={tool.id}
                             to={tool.path}
                             state={{ file: result.blob, fileName: result.fileName }}
-                            className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-purple-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                            className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-mint-50 dark:text-gray-200 dark:hover:bg-gray-700"
                           >
                             <tool.icon size={16} weight="duotone" className="mr-2 inline-block align-text-bottom" />
                             {t(`home.tools.${tool.id}.name`)}

@@ -109,6 +109,6 @@ describe('VideoConvert', () => {
     uploadVideoFile();
 
     const mp4Label = screen.getByText('MP4');
-    expect(mp4Label.className).toContain('bg-purple-600');
+    expect(mp4Label.className).toContain('bg-mint-600');
   });
 });

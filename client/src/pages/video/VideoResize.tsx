@@ -284,7 +284,7 @@ export function VideoResize() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('videoResize.loadingFFmpeg')}
         </div>
       )}
@@ -375,7 +375,7 @@ export function VideoResize() {
                       value={opt.value}
                       checked={preset === opt.value}
                       onChange={() => handlePresetChange(opt.value)}
-                      className="accent-purple-600"
+                      className="accent-mint-600"
                     />
                     <span className="text-gray-700 dark:text-gray-200">
                       {opt.label}
@@ -432,7 +432,7 @@ export function VideoResize() {
                     type="checkbox"
                     checked={lockAspectRatio}
                     onChange={(e) => setLockAspectRatio(e.target.checked)}
-                    className="accent-purple-600"
+                    className="accent-mint-600"
                   />
                   {t('videoResize.lockAspectRatio')}
                 </label>
@@ -444,7 +444,7 @@ export function VideoResize() {
               <button
                 onClick={handleResize}
                 disabled={isProcessing || !loaded}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('videoResize.resize')}
               >
                 {isProcessing
@@ -470,7 +470,7 @@ export function VideoResize() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}

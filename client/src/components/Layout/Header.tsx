@@ -20,21 +20,21 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur dark:border-gray-700 dark:bg-gray-900/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link to="/" className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-          {t('app.title')}
+        <Link to="/" className="flex items-center">
+          <img src="/logo.png" alt={t('app.title')} className="h-10" />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex" aria-label="main navigation">
-          <Link to="/" className="text-sm font-medium text-gray-600 transition-colors hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400">
+          <Link to="/" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
             {t('nav.home')}
           </Link>
-          <Link to="/gif/video-to-gif" className="text-sm font-medium text-gray-600 transition-colors hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400">
+          <Link to="/gif/video-to-gif" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
             {t('nav.gifTools')}
           </Link>
-          <Link to="/video/trim" className="text-sm font-medium text-gray-600 transition-colors hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400">
+          <Link to="/video/trim" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
             {t('nav.videoTools')}
           </Link>
-          <Link to="/image/convert" className="text-sm font-medium text-gray-600 transition-colors hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400">
+          <Link to="/image/convert" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
             {t('nav.imageTools')}
           </Link>
         </nav>

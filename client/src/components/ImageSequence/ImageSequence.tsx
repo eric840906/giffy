@@ -109,10 +109,10 @@ export function ImageSequence({ images, onReorder, onRemove }: ImageSequenceProp
             onDragEnd={handleDragEnd}
             className={`group relative cursor-grab rounded-2xl border-2 transition-all ${
               dragIndex === index
-                ? 'border-purple-500 opacity-50'
+                ? 'border-mint-500 opacity-50'
                 : dragOverIndex === index
-                  ? 'border-purple-400 bg-purple-50 dark:bg-purple-950/20'
-                  : 'border-gray-200 hover:border-purple-300 dark:border-gray-700 dark:hover:border-purple-600'
+                  ? 'border-mint-400 bg-mint-50 dark:bg-mint-950/20'
+                  : 'border-gray-200 hover:border-mint-300 dark:border-gray-700 dark:hover:border-mint-600'
             }`}
           >
             <div className="aspect-square overflow-hidden rounded-t-xl">

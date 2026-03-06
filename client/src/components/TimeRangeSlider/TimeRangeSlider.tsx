@@ -64,7 +64,7 @@ export function TimeRangeSlider({ duration, start, end, onChange }: TimeRangeSli
 
         {/* Selected range highlight */}
         <div
-          className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full bg-purple-400 dark:bg-purple-600"
+          className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full bg-mint-400 dark:bg-mint-600"
           style={{ left: `${startPercent}%`, width: `${endPercent - startPercent}%` }}
         />
 
@@ -76,7 +76,7 @@ export function TimeRangeSlider({ duration, start, end, onChange }: TimeRangeSli
           step={0.1}
           value={start}
           onChange={handleStartChange}
-          className="pointer-events-none absolute top-0 h-full w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-600 [&::-webkit-slider-thumb]:shadow-md"
+          className="pointer-events-none absolute top-0 h-full w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-mint-600 [&::-webkit-slider-thumb]:shadow-md"
           aria-label={t('videoToGif.start')}
         />
 
@@ -88,7 +88,7 @@ export function TimeRangeSlider({ duration, start, end, onChange }: TimeRangeSli
           step={0.1}
           value={end}
           onChange={handleEndChange}
-          className="pointer-events-none absolute top-0 h-full w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-600 [&::-webkit-slider-thumb]:shadow-md"
+          className="pointer-events-none absolute top-0 h-full w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-mint-600 [&::-webkit-slider-thumb]:shadow-md"
           aria-label={t('videoToGif.end')}
         />
       </div>

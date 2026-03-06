@@ -116,7 +116,7 @@ export function VideoControls({ videoRef, onTimeChange }: VideoControlsProps) {
       {/* Play/Pause button */}
       <button
         onClick={handleTogglePlay}
-        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-purple-600 text-white transition-colors hover:bg-purple-700"
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-mint-600 text-white transition-colors hover:bg-mint-700"
         aria-label={isPlaying ? t('videoCrop.pause') : t('videoCrop.play')}
       >
         {isPlaying ? (
@@ -138,7 +138,7 @@ export function VideoControls({ videoRef, onTimeChange }: VideoControlsProps) {
 
         {/* Progress fill */}
         <div
-          className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full bg-purple-400 dark:bg-purple-600"
+          className="absolute top-1/2 h-2 -translate-y-1/2 rounded-full bg-mint-400 dark:bg-mint-600"
           style={{ width: `${percent}%` }}
         />
 
@@ -149,7 +149,7 @@ export function VideoControls({ videoRef, onTimeChange }: VideoControlsProps) {
           step={0.1}
           value={currentTime}
           onChange={handleSeek}
-          className="absolute top-0 h-full w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-purple-600 [&::-webkit-slider-thumb]:shadow-md"
+          className="absolute top-0 h-full w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-mint-600 [&::-webkit-slider-thumb]:shadow-md"
           aria-label="Seek"
         />
       </div>

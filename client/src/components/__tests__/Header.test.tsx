@@ -18,9 +18,9 @@ describe('Header', () => {
     document.documentElement.classList.remove('dark');
   });
 
-  it('renders logo text', () => {
+  it('renders logo image', () => {
     renderHeader();
-    expect(screen.getByText('Giffy')).toBeInTheDocument();
+    expect(screen.getByAltText('Giffy')).toBeInTheDocument();
   });
 
   it('renders navigation links', () => {

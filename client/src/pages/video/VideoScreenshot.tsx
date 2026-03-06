@@ -291,7 +291,7 @@ export function VideoScreenshot() {
                     value="png"
                     checked={outputFormat === 'png'}
                     onChange={() => setOutputFormat('png')}
-                    className="text-purple-600 focus:ring-purple-500"
+                    className="text-mint-600 focus:ring-mint-500"
                   />
                   PNG
                 </label>
@@ -302,7 +302,7 @@ export function VideoScreenshot() {
                     value="jpg"
                     checked={outputFormat === 'jpg'}
                     onChange={() => setOutputFormat('jpg')}
-                    className="text-purple-600 focus:ring-purple-500"
+                    className="text-mint-600 focus:ring-mint-500"
                   />
                   JPG
                 </label>
@@ -313,7 +313,7 @@ export function VideoScreenshot() {
             <button
               onClick={handleCapture}
               disabled={isCapturing}
-              className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
               aria-label={t('videoScreenshot.capture')}
             >
               {isCapturing ? t('videoScreenshot.capturing') : t('videoScreenshot.capture')}
@@ -378,7 +378,7 @@ export function VideoScreenshot() {
                       {/* Download */}
                       <button
                         onClick={() => handleDownload(screenshot)}
-                        className="rounded-lg px-2 py-1 text-xs font-medium text-purple-600 transition-colors hover:bg-purple-50 dark:text-purple-400 dark:hover:bg-purple-950/30"
+                        className="rounded-lg px-2 py-1 text-xs font-medium text-mint-600 transition-colors hover:bg-mint-50 dark:text-mint-400 dark:hover:bg-mint-950/30"
                         aria-label={t('videoScreenshot.download')}
                         title={t('videoScreenshot.download')}
                       >
@@ -409,7 +409,7 @@ export function VideoScreenshot() {
                                 key={tool.id}
                                 to={tool.path}
                                 state={{ file: screenshot.blob, fileName: screenshot.fileName }}
-                                className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-purple-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                                className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-mint-50 dark:text-gray-200 dark:hover:bg-gray-700"
                                 onClick={() => setOpenDropdownId(null)}
                               >
                                 <tool.icon size={16} weight="duotone" className="mr-2 inline-block align-text-bottom" />

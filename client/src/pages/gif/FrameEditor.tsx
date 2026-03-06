@@ -563,7 +563,7 @@ export function FrameEditor() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('frameEditor.loadingFFmpeg')}
         </div>
       )}
@@ -607,7 +607,7 @@ export function FrameEditor() {
           </p>
           <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
             <div
-              className="h-2 rounded-full bg-purple-600 transition-all"
+              className="h-2 rounded-full bg-mint-600 transition-all"
               style={{ width: `${extractProgress}%` }}
               role="progressbar"
               aria-valuenow={extractProgress}
@@ -661,7 +661,7 @@ export function FrameEditor() {
                 {t('frameEditor.reverseAll')}
               </button>
               {selectedIds.size > 0 && (
-                <span className="text-xs text-purple-600 dark:text-purple-400">
+                <span className="text-xs text-mint-600 dark:text-mint-400">
                   {t('frameEditor.selection', { count: selectedIds.size })}
                 </span>
               )}
@@ -719,7 +719,7 @@ export function FrameEditor() {
                 <button
                   onClick={handleApplyGlobalDelay}
                   disabled={isProcessing}
-                  className="shrink-0 rounded-xl bg-purple-600 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+                  className="shrink-0 rounded-xl bg-mint-600 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-mint-700 disabled:opacity-50"
                 >
                   {t('frameEditor.applyToAll')}
                 </button>
@@ -756,7 +756,7 @@ export function FrameEditor() {
                     onClick={() => setLoopMode('infinite')}
                     className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-colors ${
                       loopMode === 'infinite'
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -766,7 +766,7 @@ export function FrameEditor() {
                     onClick={() => setLoopMode('custom')}
                     className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-colors ${
                       loopMode === 'custom'
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -808,7 +808,7 @@ export function FrameEditor() {
                 <button
                   onClick={handleApplyPerFrameDelay}
                   disabled={isProcessing || selectedIds.size === 0}
-                  className="shrink-0 rounded-xl bg-purple-600 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-purple-700 disabled:opacity-50"
+                  className="shrink-0 rounded-xl bg-mint-600 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-mint-700 disabled:opacity-50"
                 >
                   {t('frameEditor.applyToSelected')}
                 </button>
@@ -846,7 +846,7 @@ export function FrameEditor() {
                     onClick={() => setSizeMode('original')}
                     className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-colors ${
                       sizeMode === 'original'
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -856,7 +856,7 @@ export function FrameEditor() {
                     onClick={() => setSizeMode('custom')}
                     className={`rounded-xl px-3 py-1.5 text-xs font-medium transition-colors ${
                       sizeMode === 'custom'
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                   >
@@ -903,7 +903,7 @@ export function FrameEditor() {
               <button
                 onClick={handleGenerate}
                 disabled={isProcessing || !loaded || frames.length === 0}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('frameEditor.generate')}
               >
                 {isGenerating
@@ -929,7 +929,7 @@ export function FrameEditor() {
       {isGenerating && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${generateProgress}%` }}
             role="progressbar"
             aria-valuenow={generateProgress}

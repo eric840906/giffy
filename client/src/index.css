@@ -1,3 +1,17 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-mint-50: #effbf9;
+  --color-mint-100: #d0f5f0;
+  --color-mint-200: #a8ede6;
+  --color-mint-300: #8ee5dc;
+  --color-mint-400: #6fd9d0;
+  --color-mint-500: #5ed3ca;
+  --color-mint-600: #4ecdc4;
+  --color-mint-700: #3bb3ab;
+  --color-mint-800: #2e8e88;
+  --color-mint-900: #256e6a;
+  --color-mint-950: #0d3230;
+}

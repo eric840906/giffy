@@ -283,7 +283,7 @@ export function ImagesToGif() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('imagesToGif.loadingFFmpeg')}
         </div>
       )}
@@ -350,7 +350,7 @@ export function ImagesToGif() {
                 step={50}
                 value={delay}
                 onChange={(e) => setDelay(Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
               <div className="flex justify-between text-xs text-gray-400">
                 <span>50ms</span>
@@ -387,7 +387,7 @@ export function ImagesToGif() {
                 max={100}
                 value={quality}
                 onChange={(e) => setQuality(Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
               <div className="flex justify-between text-xs text-gray-400">
                 <span>1</span>
@@ -400,7 +400,7 @@ export function ImagesToGif() {
               <button
                 onClick={previewActive ? stopPreview : handlePreview}
                 disabled={isConverting || images.length === 0}
-                className="w-full rounded-xl border border-purple-300 px-4 py-2 text-sm font-medium text-purple-600 transition-colors hover:bg-purple-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-950/20"
+                className="w-full rounded-xl border border-mint-300 px-4 py-2 text-sm font-medium text-mint-600 transition-colors hover:bg-mint-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-mint-700 dark:text-mint-400 dark:hover:bg-mint-950/20"
                 aria-label={previewActive ? t('imagesToGif.stopPreview') : t('imagesToGif.preview')}
               >
                 {previewActive ? t('imagesToGif.stopPreview') : t('imagesToGif.preview')}
@@ -408,7 +408,7 @@ export function ImagesToGif() {
               <button
                 onClick={handleGenerate}
                 disabled={isConverting || !loaded || images.length === 0}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('imagesToGif.generate')}
               >
                 {isConverting
@@ -434,7 +434,7 @@ export function ImagesToGif() {
       {isConverting && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${convertProgress}%` }}
             role="progressbar"
             aria-valuenow={convertProgress}

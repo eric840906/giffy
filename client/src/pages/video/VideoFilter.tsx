@@ -266,7 +266,7 @@ export function VideoFilter() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('videoFilter.loadingFFmpeg')}
         </div>
       )}
@@ -341,7 +341,7 @@ export function VideoFilter() {
                 step={0.1}
                 value={filters.brightness}
                 onChange={(e) => updateFilter('brightness', Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
             </div>
 
@@ -359,7 +359,7 @@ export function VideoFilter() {
                 step={0.1}
                 value={filters.contrast}
                 onChange={(e) => updateFilter('contrast', Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
             </div>
 
@@ -377,7 +377,7 @@ export function VideoFilter() {
                 step={0.1}
                 value={filters.saturation}
                 onChange={(e) => updateFilter('saturation', Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
             </div>
 
@@ -387,7 +387,7 @@ export function VideoFilter() {
                 type="checkbox"
                 checked={filters.grayscale}
                 onChange={(e) => updateFilter('grayscale', e.target.checked)}
-                className="accent-purple-600"
+                className="accent-mint-600"
               />
               {t('videoFilter.grayscale')}
             </label>
@@ -398,7 +398,7 @@ export function VideoFilter() {
                 type="checkbox"
                 checked={filters.sepia}
                 onChange={(e) => updateFilter('sepia', e.target.checked)}
-                className="accent-purple-600"
+                className="accent-mint-600"
               />
               {t('videoFilter.sepia')}
             </label>
@@ -417,7 +417,7 @@ export function VideoFilter() {
                 step={1}
                 value={filters.blur}
                 onChange={(e) => updateFilter('blur', Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
             </div>
 
@@ -438,7 +438,7 @@ export function VideoFilter() {
                 step={0.1}
                 value={filters.sharpen}
                 onChange={(e) => updateFilter('sharpen', Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
               />
             </div>
 
@@ -448,7 +448,7 @@ export function VideoFilter() {
                 type="checkbox"
                 checked={filters.invert}
                 onChange={(e) => updateFilter('invert', e.target.checked)}
-                className="accent-purple-600"
+                className="accent-mint-600"
               />
               {t('videoFilter.invert')}
             </label>
@@ -465,7 +465,7 @@ export function VideoFilter() {
               <button
                 onClick={handleApply}
                 disabled={isProcessing || !loaded || !hasActiveFilters(filters)}
-                className="flex-1 rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex-1 rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('videoFilter.apply')}
               >
                 {isProcessing
@@ -491,7 +491,7 @@ export function VideoFilter() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}

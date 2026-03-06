@@ -225,7 +225,7 @@ export function FramePreview({ frames, loopCount }: FramePreviewProps) {
         {isPlaying ? (
           <button
             onClick={handlePause}
-            className="rounded-lg bg-purple-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+            className="rounded-lg bg-mint-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-mint-700"
             aria-label={t('frameEditor.pause')}
           >
             {t('frameEditor.pause')}
@@ -234,7 +234,7 @@ export function FramePreview({ frames, loopCount }: FramePreviewProps) {
           <button
             onClick={handlePlay}
             disabled={frames.length === 0}
-            className="rounded-lg bg-purple-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg bg-mint-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
             aria-label={t('frameEditor.play')}
           >
             {t('frameEditor.play')}

@@ -372,7 +372,7 @@ export function ImageCompress() {
             </p>
             <button
               onClick={() => addMoreInputRef.current?.click()}
-              className="rounded-xl border border-purple-300 px-4 py-1.5 text-sm font-medium text-purple-600 transition-colors hover:bg-purple-50 dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-950/20"
+              className="rounded-xl border border-mint-300 px-4 py-1.5 text-sm font-medium text-mint-600 transition-colors hover:bg-mint-50 dark:border-mint-700 dark:text-mint-400 dark:hover:bg-mint-950/20"
               aria-label={t('imageCompress.addMore')}
             >
               {t('imageCompress.addMore')}
@@ -439,7 +439,7 @@ export function ImageCompress() {
                   step={1}
                   value={quality}
                   onChange={(e) => setQuality(Number(e.target.value))}
-                  className="w-full accent-purple-600"
+                  className="w-full accent-mint-600"
                 />
               </div>
 
@@ -485,7 +485,7 @@ export function ImageCompress() {
           <button
             onClick={handleCompress}
             disabled={isCompressing || images.length === 0}
-            className="w-full rounded-xl bg-purple-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-xl bg-mint-600 px-6 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
             aria-label={t('imageCompress.compress')}
           >
             {isCompressing
@@ -502,7 +502,7 @@ export function ImageCompress() {
       {isCompressing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${compressTotal > 0 ? (compressCurrent / compressTotal) * 100 : 0}%` }}
             role="progressbar"
             aria-valuenow={compressCurrent}
@@ -536,7 +536,7 @@ export function ImageCompress() {
               </span>
               <button
                 onClick={handleDownloadAll}
-                className="rounded-xl bg-purple-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700"
+                className="rounded-xl bg-mint-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700"
                 aria-label={t('imageCompress.downloadAll')}
               >
                 {t('imageCompress.downloadAll')}
@@ -575,7 +575,7 @@ export function ImageCompress() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleDownload(result.blob, result.fileName)}
-                      className="rounded-lg bg-purple-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-purple-700"
+                      className="rounded-lg bg-mint-600 px-3 py-1 text-xs font-medium text-white transition-colors hover:bg-mint-700"
                       aria-label={`${t('imageCompress.download')} ${result.fileName}`}
                     >
                       {t('imageCompress.download')}
@@ -593,7 +593,7 @@ export function ImageCompress() {
                             key={tool.id}
                             to={tool.path}
                             state={{ file: result.blob, fileName: result.fileName }}
-                            className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-purple-50 dark:text-gray-200 dark:hover:bg-gray-700"
+                            className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-mint-50 dark:text-gray-200 dark:hover:bg-gray-700"
                           >
                             <tool.icon size={16} weight="duotone" className="mr-2 inline-block align-text-bottom" />
                             {t(`home.tools.${tool.id}.name`)}

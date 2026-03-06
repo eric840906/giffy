@@ -255,7 +255,7 @@ export function GifCompress() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('gifCompress.loadingFFmpeg')}
         </div>
       )}
@@ -327,7 +327,7 @@ export function GifCompress() {
                 step={1}
                 value={colors}
                 onChange={(e) => setColors(Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-mint-600"
                 aria-label={t('gifCompress.colors')}
               />
               <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
@@ -347,7 +347,7 @@ export function GifCompress() {
                     onClick={() => setLossyLevel(level)}
                     className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
                       lossyLevel === level
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                     aria-pressed={lossyLevel === level}
@@ -371,7 +371,7 @@ export function GifCompress() {
                     onClick={() => setDropFrames(n)}
                     className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
                       dropFrames === n
-                        ? 'bg-purple-600 text-white'
+                        ? 'bg-mint-600 text-white'
                         : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                     aria-pressed={dropFrames === n}
@@ -415,7 +415,7 @@ export function GifCompress() {
               <button
                 onClick={handleCompress}
                 disabled={isProcessing || !loaded}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('gifCompress.compress')}
               >
                 {isProcessing
@@ -441,7 +441,7 @@ export function GifCompress() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}

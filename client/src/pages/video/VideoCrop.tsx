@@ -239,7 +239,7 @@ export function VideoCrop() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('videoCrop.loadingFFmpeg')}
         </div>
       )}
@@ -346,7 +346,7 @@ export function VideoCrop() {
               <button
                 onClick={handleCrop}
                 disabled={isCropping || !loaded || frameWidth === 0}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label={t('videoCrop.crop')}
               >
                 {isCropping
@@ -372,7 +372,7 @@ export function VideoCrop() {
       {isCropping && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${cropProgress}%` }}
             role="progressbar"
             aria-valuenow={cropProgress}

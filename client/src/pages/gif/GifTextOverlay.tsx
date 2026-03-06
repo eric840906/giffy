@@ -658,7 +658,7 @@ export function GifTextOverlay() {
 
       {/* FFmpeg loading state */}
       {!loaded && (
-        <div className="rounded-xl bg-purple-50 p-4 text-center text-sm text-purple-600 dark:bg-purple-950/20 dark:text-purple-400">
+        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
           {ffmpegError || t('gifTextOverlay.loadingFFmpeg')}
         </div>
       )}
@@ -749,7 +749,7 @@ export function GifTextOverlay() {
                     data-testid="text-overlay-box"
                     className={`absolute cursor-move select-none whitespace-nowrap ${
                       isSelected
-                        ? 'ring-2 ring-purple-500 ring-offset-1'
+                        ? 'ring-2 ring-mint-500 ring-offset-1'
                         : ''
                     }`}
                     style={{
@@ -791,7 +791,7 @@ export function GifTextOverlay() {
             <button
               onClick={handleAddTextBox}
               disabled={isProcessing}
-              className="w-full rounded-xl border-2 border-dashed border-purple-300 px-4 py-2 text-sm font-medium text-purple-600 transition-colors hover:bg-purple-50 disabled:opacity-50 dark:border-purple-700 dark:text-purple-400 dark:hover:bg-purple-950/20"
+              className="w-full rounded-xl border-2 border-dashed border-mint-300 px-4 py-2 text-sm font-medium text-mint-600 transition-colors hover:bg-mint-50 disabled:opacity-50 dark:border-mint-700 dark:text-mint-400 dark:hover:bg-mint-950/20"
             >
               + {t('gifTextOverlay.addText')}
             </button>
@@ -806,7 +806,7 @@ export function GifTextOverlay() {
                     key={box.id}
                     className={`flex flex-col gap-2 rounded-xl border p-3 transition-colors ${
                       isActive
-                        ? 'border-purple-400 bg-purple-50/50 dark:border-purple-600 dark:bg-purple-950/20'
+                        ? 'border-mint-400 bg-mint-50/50 dark:border-mint-600 dark:bg-mint-950/20'
                         : 'border-gray-200 dark:border-gray-700'
                     }`}
                     onClick={() => setSelectedBoxId(box.id)}
@@ -997,7 +997,7 @@ export function GifTextOverlay() {
                           onClick={(e) => { e.stopPropagation(); updateTextBox(box.id, { frameRange: 'all' }); }}
                           className={`rounded-lg px-2 py-1 text-xs font-medium transition-colors ${
                             box.frameRange === 'all'
-                              ? 'bg-purple-600 text-white'
+                              ? 'bg-mint-600 text-white'
                               : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                           }`}
                         >
@@ -1007,7 +1007,7 @@ export function GifTextOverlay() {
                           onClick={(e) => { e.stopPropagation(); updateTextBox(box.id, { frameRange: 'custom' }); }}
                           className={`rounded-lg px-2 py-1 text-xs font-medium transition-colors ${
                             box.frameRange === 'custom'
-                              ? 'bg-purple-600 text-white'
+                              ? 'bg-mint-600 text-white'
                               : 'border border-gray-300 text-gray-600 hover:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700'
                           }`}
                         >
@@ -1062,7 +1062,7 @@ export function GifTextOverlay() {
               <button
                 onClick={handleApply}
                 disabled={isProcessing || !loaded || textBoxes.length === 0}
-                className="w-full rounded-xl bg-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-xl bg-mint-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isProcessing
                   ? t('gifTextOverlay.applyProgress', { progress: processProgress })
@@ -1087,7 +1087,7 @@ export function GifTextOverlay() {
       {isProcessing && (
         <div className="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
           <div
-            className="h-2 rounded-full bg-purple-600 transition-all"
+            className="h-2 rounded-full bg-mint-600 transition-all"
             style={{ width: `${processProgress}%` }}
             role="progressbar"
             aria-valuenow={processProgress}
