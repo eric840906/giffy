@@ -26,7 +26,9 @@ export function Home() {
             to={tool.path}
             className="group rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:scale-[1.02] hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
           >
-            <div className="mb-3 text-4xl">{tool.icon}</div>
+            <div className="mb-3">
+              <tool.icon size={32} weight="duotone" className="text-purple-500 dark:text-purple-400" />
+            </div>
             <h2 className="text-lg font-semibold text-gray-800 group-hover:text-purple-600 dark:text-gray-100 dark:group-hover:text-purple-400">
               {t(`home.tools.${tool.id}.name`)}
             </h2>

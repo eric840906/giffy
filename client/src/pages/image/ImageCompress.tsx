@@ -595,7 +595,7 @@ export function ImageCompress() {
                             state={{ file: result.blob, fileName: result.fileName }}
                             className="block px-3 py-2 text-xs text-gray-700 transition-colors hover:bg-purple-50 dark:text-gray-200 dark:hover:bg-gray-700"
                           >
-                            <span className="mr-2">{tool.icon}</span>
+                            <tool.icon size={16} weight="duotone" className="mr-2 inline-block align-text-bottom" />
                             {t(`home.tools.${tool.id}.name`)}
                           </Link>
                         ))}

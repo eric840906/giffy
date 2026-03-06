@@ -223,10 +223,10 @@ test.describe('Frame Editor', () => {
     await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
 
     // Wait for frame extraction to complete (action bar should appear)
-    await expect(page.getByText('全選')).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByRole('button', { name: '全選', exact: true })).toBeVisible({ timeout: 90_000 });
 
     // Verify frames were extracted (frame count should be visible)
-    await expect(page.getByText(/\d+ 幀/)).toBeVisible();
+    await expect(page.getByText(/^\d+ 幀$/)).toBeVisible();
 
     // Click generate
     const genBtn = page.getByRole('button', { name: /生成/ });

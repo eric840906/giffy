@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { SkipBack, SkipForward } from '@phosphor-icons/react';
 import type { FrameData } from '../FrameGrid/FrameGrid';
 
 interface FramePreviewProps {
@@ -218,7 +219,7 @@ export function FramePreview({ frames, loopCount }: FramePreviewProps) {
           className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
           aria-label={t('frameEditor.stepBackward')}
         >
-          ⏮
+          <SkipBack size={20} weight="duotone" />
         </button>
 
         {isPlaying ? (
@@ -246,7 +247,7 @@ export function FramePreview({ frames, loopCount }: FramePreviewProps) {
           className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
           aria-label={t('frameEditor.stepForward')}
         >
-          ⏭
+          <SkipForward size={20} weight="duotone" />
         </button>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CloudArrowUp } from '@phosphor-icons/react';
 import { MAX_FILE_SIZE, MAX_FILE_SIZE_MB } from '../../utils/constants';
 import { formatSize } from '../../utils/formatSize';
 
@@ -128,7 +129,9 @@ export function Upload({
           if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click();
         }}
       >
-        <div className="mb-3 text-4xl">📁</div>
+        <div className="mb-3">
+          <CloudArrowUp size={48} weight="duotone" className="text-purple-500 dark:text-purple-400" />
+        </div>
         <p className="text-lg font-medium text-gray-700 dark:text-gray-200">
           {t('upload.dragDrop')}
         </p>

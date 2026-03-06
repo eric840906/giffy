@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Sun, Moon, Translate } from '@phosphor-icons/react';
 import { useTheme } from '../../hooks/useTheme';
 
 /**
@@ -44,14 +45,15 @@ export function Header() {
             className="rounded-full p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
             aria-label={theme === 'light' ? t('theme.dark') : t('theme.light')}
           >
-            {theme === 'light' ? '\u{1F319}' : '\u{2600}\u{FE0F}'}
+            {theme === 'light' ? <Moon size={24} weight="duotone" /> : <Sun size={24} weight="duotone" />}
           </button>
           <button
             onClick={toggleLanguage}
-            className="rounded-full px-3 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            className="flex items-center gap-1 rounded-full px-3 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
             aria-label={i18n.language === 'zh-TW' ? 'EN' : '\u4E2D\u6587'}
           >
-            {i18n.language === 'zh-TW' ? 'EN' : '\u4E2D\u6587'}
+            <Translate size={20} weight="duotone" />
+            <span>{i18n.language === 'zh-TW' ? 'EN' : '\u4E2D\u6587'}</span>
           </button>
         </div>
       </div>
