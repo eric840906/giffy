@@ -16,6 +16,7 @@ import { AnimatedImageConvert } from './pages/image/AnimatedImageConvert';
 import { FrameEditor } from './pages/gif/FrameEditor';
 import { GifTextOverlay } from './pages/gif/GifTextOverlay';
 import { VideoFilter } from './pages/video/VideoFilter';
+import { ImageCompress } from './pages/image/ImageCompress';
 
 /**
  * Root application component with routing.
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/gif/frame-editor" element={<FrameEditor />} />
           <Route path="/gif/text-overlay" element={<GifTextOverlay />} />
           <Route path="/video/filter" element={<VideoFilter />} />
+          <Route path="/image/compress" element={<ImageCompress />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

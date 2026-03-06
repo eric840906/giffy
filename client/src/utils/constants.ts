@@ -114,6 +114,14 @@ export const TOOLS = [
     category: 'video' as const,
     accept: 'video/*',
   },
+  {
+    id: 'imageCompress',
+    path: '/image/compress',
+    icon: '🗜️',
+    category: 'image' as const,
+    accept: 'image/png,image/jpeg,image/webp',
+    multiple: true,
+  },
 ] as const;
 
 export type ToolId = (typeof TOOLS)[number]['id'];

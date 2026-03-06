@@ -79,6 +79,10 @@
       "videoFilter": {
         "name": "Video Filter",
         "description": "Apply visual filters like brightness and contrast to videos"
+      },
+      "imageCompress": {
+        "name": "Image Compress",
+        "description": "Batch compress PNG, JPG, and WebP images"
       }
     }
   },
@@ -434,5 +438,29 @@
     "result": "Result",
     "outputSize": "Output size: {{size}}",
     "error": "Processing failed, please try again"
+  },
+  "imageCompress": {
+    "title": "Image Compress",
+    "uploadPrompt": "Upload images to compress file size (PNG, JPG, WebP)",
+    "imageCount": "{{count}} images",
+    "addMore": "Add more images",
+    "removeImage": "Remove image",
+    "settings": "Compression Settings",
+    "quality": "Quality",
+    "qualityValue": "{{value}}%",
+    "maxDimension": "Max Width/Height (px)",
+    "maxDimensionHint": "Set to 0 to keep original size",
+    "outputFormat": "Output Format",
+    "keepOriginal": "Keep original",
+    "compress": "Compress",
+    "compressProgress": "Compressing {{current}}/{{total}}...",
+    "result": "Compression Result",
+    "download": "Download",
+    "downloadAll": "Download All (ZIP)",
+    "sendToTool": "Send to Tool",
+    "beforeAfter": "{{before}} → {{after}}",
+    "savings": "Saved {{percent}}%",
+    "totalSavings": "Total saved {{percent}}%",
+    "error": "Compression failed, please try again"
   }
 }
