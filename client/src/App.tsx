@@ -14,6 +14,7 @@ import { VideoResize } from './pages/video/VideoResize';
 import { ImageConvert } from './pages/image/ImageConvert';
 import { AnimatedImageConvert } from './pages/image/AnimatedImageConvert';
 import { FrameEditor } from './pages/gif/FrameEditor';
+import { GifTextOverlay } from './pages/gif/GifTextOverlay';
 
 /**
  * Root application component with routing.
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/image/convert" element={<ImageConvert />} />
           <Route path="/image/animated-convert" element={<AnimatedImageConvert />} />
           <Route path="/gif/frame-editor" element={<FrameEditor />} />
+          <Route path="/gif/text-overlay" element={<GifTextOverlay />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

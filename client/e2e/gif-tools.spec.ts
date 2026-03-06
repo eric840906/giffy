@@ -25,4 +25,10 @@ test.describe('GIF Tools', () => {
     await expect(page.getByText('動圖幀編輯器')).toBeVisible();
     await expect(page.getByText(/上傳 GIF/)).toBeVisible();
   });
+
+  test('GIF Text Overlay page loads with upload prompt', async ({ page }) => {
+    await page.goto('/gif/text-overlay');
+    await expect(page.getByText('GIF 加文字')).toBeVisible();
+    await expect(page.getByText(/上傳 GIF 以加入文字/)).toBeVisible();
+  });
 });

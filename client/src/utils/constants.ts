@@ -100,6 +100,13 @@ export const TOOLS = [
     category: 'gif' as const,
     accept: 'image/gif,image/apng,image/png,image/webp',
   },
+  {
+    id: 'gifTextOverlay',
+    path: '/gif/text-overlay',
+    icon: '✍️',
+    category: 'gif' as const,
+    accept: 'image/gif',
+  },
 ] as const;
 
 export type ToolId = (typeof TOOLS)[number]['id'];
