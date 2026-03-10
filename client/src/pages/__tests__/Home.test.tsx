@@ -17,7 +17,7 @@ describe('Home', () => {
     expect(screen.getByText('選擇工具開始編輯')).toBeInTheDocument();
   });
 
-  it('renders all 6 tool cards', () => {
+  it('renders all tool cards', () => {
     renderHome();
     const cards = screen.getAllByRole('link');
     expect(cards.length).toBeGreaterThanOrEqual(6);
@@ -28,8 +28,7 @@ describe('Home', () => {
     expect(screen.getByText('影片轉 GIF')).toBeInTheDocument();
     expect(screen.getByText('圖片合成 GIF')).toBeInTheDocument();
     expect(screen.getByText('GIF 編輯器')).toBeInTheDocument();
-    expect(screen.getByText('影片裁切（時間）')).toBeInTheDocument();
-    expect(screen.getByText('影片裁切（畫面）')).toBeInTheDocument();
+    expect(screen.getByText('影片編輯器')).toBeInTheDocument();
     expect(screen.getByText('圖片格式轉換')).toBeInTheDocument();
   });
 });

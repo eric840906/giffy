@@ -107,36 +107,40 @@ test.describe('GIF Editor - Compress', () => {
   });
 });
 
-test.describe('Video Trim', () => {
-  test('trims a video', async ({ page }) => {
+test.describe('Video Editor - Trim', () => {
+  test('trims a video via editor trim tab', async ({ page }) => {
     test.setTimeout(120_000);
-    await page.goto('/video/trim');
+    await page.goto('/video/editor');
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(path.join(fixtures, 'test-video.mp4'));
 
+    // Default tab is trim
     const trimBtn = page.getByRole('button', { name: /裁切/ });
     await expect(trimBtn).toBeEnabled({ timeout: 60_000 });
     await trimBtn.click();
 
-    await expect(page.getByText('裁切結果')).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText('編輯結果')).toBeVisible({ timeout: 90_000 });
     await expect(page.getByText(/輸出大小/)).toBeVisible();
   });
 });
 
-test.describe('Video Crop', () => {
-  test('crops a video frame', async ({ page }) => {
+test.describe('Video Editor - Crop', () => {
+  test('crops a video via editor crop tab', async ({ page }) => {
     test.setTimeout(120_000);
-    await page.goto('/video/crop');
+    await page.goto('/video/editor');
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(path.join(fixtures, 'test-video.mp4'));
+
+    // Switch to crop tab
+    await page.getByRole('tab', { name: /畫面裁切/ }).click();
 
     const cropBtn = page.getByRole('button', { name: /裁切區域/ });
     await expect(cropBtn).toBeEnabled({ timeout: 60_000 });
     await cropBtn.click();
 
-    await expect(page.getByText('裁切結果')).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText('編輯結果')).toBeVisible({ timeout: 90_000 });
     await expect(page.getByText(/輸出大小/)).toBeVisible();
   });
 });
@@ -175,13 +179,16 @@ test.describe('Image Convert', () => {
   });
 });
 
-test.describe('Video Resize', () => {
-  test('resizes a video to 480p', async ({ page }) => {
+test.describe('Video Editor - Resize', () => {
+  test('resizes a video to 480p via editor resize tab', async ({ page }) => {
     test.setTimeout(120_000);
-    await page.goto('/video/resize');
+    await page.goto('/video/editor');
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(path.join(fixtures, 'test-video.mp4'));
+
+    // Switch to resize tab
+    await page.getByRole('tab', { name: /調整大小/ }).click();
 
     // Wait for video to load and settings to appear
     await expect(page.getByText('預設大小')).toBeVisible({ timeout: 10_000 });
@@ -193,7 +200,7 @@ test.describe('Video Resize', () => {
     await expect(resizeBtn).toBeEnabled({ timeout: 60_000 });
     await resizeBtn.click();
 
-    await expect(page.getByText('調整結果')).toBeVisible({ timeout: 90_000 });
+    await expect(page.getByText('編輯結果')).toBeVisible({ timeout: 90_000 });
     await expect(page.getByText(/輸出大小/)).toBeVisible();
   });
 });

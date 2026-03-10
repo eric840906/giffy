@@ -3,15 +3,11 @@ import {
   FilmReel,
   Images,
   PencilSimple,
-  Scissors,
-  Selection,
   ArrowsClockwise,
   Camera,
-  ArrowsOut,
   Swap,
   FilmStrip,
   GridNine,
-  Palette,
   FileArrowDown,
 } from '@phosphor-icons/react';
 
@@ -26,15 +22,12 @@ export type ToolId =
   | 'videoToGif'
   | 'imagesToGif'
   | 'gifEditor'
-  | 'videoTrim'
-  | 'videoCrop'
+  | 'videoEditor'
   | 'videoConvert'
   | 'videoScreenshot'
-  | 'videoResize'
   | 'imageConvert'
   | 'animatedConvert'
   | 'frameEditor'
-  | 'videoFilter'
   | 'imageCompress';
 
 /** Tool category */
@@ -75,16 +68,9 @@ export const TOOLS: readonly ToolDefinition[] = [
     accept: 'image/gif',
   },
   {
-    id: 'videoTrim',
-    path: '/video/trim',
-    icon: Scissors,
-    category: 'video',
-    accept: 'video/*',
-  },
-  {
-    id: 'videoCrop',
-    path: '/video/crop',
-    icon: Selection,
+    id: 'videoEditor',
+    path: '/video/editor',
+    icon: PencilSimple,
     category: 'video',
     accept: 'video/*',
   },
@@ -99,13 +85,6 @@ export const TOOLS: readonly ToolDefinition[] = [
     id: 'videoScreenshot',
     path: '/video/screenshot',
     icon: Camera,
-    category: 'video',
-    accept: 'video/*',
-  },
-  {
-    id: 'videoResize',
-    path: '/video/resize',
-    icon: ArrowsOut,
     category: 'video',
     accept: 'video/*',
   },
@@ -131,13 +110,6 @@ export const TOOLS: readonly ToolDefinition[] = [
     icon: GridNine,
     category: 'gif',
     accept: 'image/gif,image/apng,image/png,image/webp',
-  },
-  {
-    id: 'videoFilter',
-    path: '/video/filter',
-    icon: Palette,
-    category: 'video',
-    accept: 'video/*',
   },
   {
     id: 'imageCompress',

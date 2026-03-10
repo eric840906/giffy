@@ -32,13 +32,9 @@
         "name": "GIF Editor",
         "description": "Crop, adjust speed, compress, add text — all-in-one GIF editing"
       },
-      "videoTrim": {
-        "name": "Video Trim",
-        "description": "Trim video start and end time"
-      },
-      "videoCrop": {
-        "name": "Video Crop",
-        "description": "Crop the video frame area"
+      "videoEditor": {
+        "name": "Video Editor",
+        "description": "Trim, crop, resize, filter — all-in-one video editing"
       },
       "videoConvert": {
         "name": "Video Convert",
@@ -52,10 +48,6 @@
         "name": "Video Screenshot",
         "description": "Capture specific frames from a video"
       },
-      "videoResize": {
-        "name": "Video Resize",
-        "description": "Resize video resolution and dimensions"
-      },
       "animatedConvert": {
         "name": "Animated Image Convert",
         "description": "Convert between GIF, APNG, and animated WebP"
@@ -63,10 +55,6 @@
       "frameEditor": {
         "name": "Frame Editor",
         "description": "Edit GIF/APNG/WebP animations frame by frame"
-      },
-      "videoFilter": {
-        "name": "Video Filter",
-        "description": "Apply visual filters like brightness and contrast to videos"
       },
       "imageCompress": {
         "name": "Image Compress",
@@ -230,6 +218,17 @@
     "tabSpeed": "Speed",
     "tabCompress": "Compress",
     "tabText": "Text",
+    "result": "Result",
+    "undo": "Undo"
+  },
+  "videoEditor": {
+    "title": "Video Editor",
+    "uploadPrompt": "Upload a video to start editing (trim, crop, resize, filter)",
+    "loadingFFmpeg": "Loading processing engine...",
+    "tabTrim": "Trim",
+    "tabCrop": "Crop",
+    "tabResize": "Resize",
+    "tabFilter": "Filter",
     "result": "Result",
     "undo": "Undo"
   },

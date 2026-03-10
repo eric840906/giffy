@@ -31,7 +31,7 @@ export function Header() {
           <Link to="/gif/video-to-gif" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
             {t('nav.gifTools')}
           </Link>
-          <Link to="/video/trim" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
+          <Link to="/video/editor" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">
             {t('nav.videoTools')}
           </Link>
           <Link to="/image/convert" className="text-sm font-medium text-gray-600 transition-colors hover:text-mint-600 dark:text-gray-300 dark:hover:text-mint-400">

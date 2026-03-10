@@ -24,15 +24,9 @@ test.describe('Workflow Navigation', () => {
 
     await page.goto('/');
 
-    // Click Video Trim card
-    await page.getByText('影片裁切（時間）').click();
-    await expect(page).toHaveURL('/video/trim');
-
-    await page.goto('/');
-
-    // Click Video Crop card
-    await page.getByText('影片裁切（畫面）').click();
-    await expect(page).toHaveURL('/video/crop');
+    // Click Video Editor card
+    await page.getByText('影片編輯器').click();
+    await expect(page).toHaveURL('/video/editor');
 
     await page.goto('/');
 
@@ -56,7 +50,7 @@ test.describe('Workflow Navigation', () => {
 
     // Click Video Tools nav
     await page.getByRole('link', { name: '影片工具' }).click();
-    await expect(page).toHaveURL('/video/trim');
+    await expect(page).toHaveURL('/video/editor');
 
     // Click Image Tools nav
     await page.getByRole('link', { name: '圖片工具' }).click();
@@ -69,8 +63,8 @@ test.describe('Workflow Navigation', () => {
 });
 
 test.describe('Workflow File Upload', () => {
-  test('Video Trim shows video player after file upload', async ({ page }) => {
-    await page.goto('/video/trim');
+  test('Video Editor shows tabs after file upload', async ({ page }) => {
+    await page.goto('/video/editor');
 
     // Create a tiny valid mp4 file and upload it
     const fileChooserPromise = page.waitForEvent('filechooser');
@@ -84,9 +78,13 @@ test.describe('Workflow File Upload', () => {
       buffer: Buffer.from('fake-video-data'),
     });
 
-    // Upload prompt should be hidden, trim button visible
-    await expect(page.getByText('上傳影片以裁切時間')).not.toBeVisible();
-    await expect(page.getByRole('button', { name: /裁切/ })).toBeVisible();
+    // Upload prompt should be hidden
+    await expect(page.getByText(/上傳影片開始編輯/)).not.toBeVisible();
+    // Tab navigation should appear
+    await expect(page.getByRole('tab', { name: '時間裁切' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: '畫面裁切' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: '調整大小' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: '濾鏡特效' })).toBeVisible();
   });
 
   test('Image Convert shows thumbnail grid and format selector after upload', async ({ page }) => {
