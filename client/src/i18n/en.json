@@ -28,9 +28,9 @@
         "name": "Images to GIF",
         "description": "Combine images into an animated GIF"
       },
-      "gifCropResize": {
-        "name": "GIF Crop/Resize",
-        "description": "Crop or resize GIF animations"
+      "gifEditor": {
+        "name": "GIF Editor",
+        "description": "Crop, adjust speed, compress, add text — all-in-one GIF editing"
       },
       "videoTrim": {
         "name": "Video Trim",
@@ -39,14 +39,6 @@
       "videoCrop": {
         "name": "Video Crop",
         "description": "Crop the video frame area"
-      },
-      "gifSpeed": {
-        "name": "GIF Speed",
-        "description": "Adjust GIF animation speed"
-      },
-      "gifCompress": {
-        "name": "GIF Compress",
-        "description": "Compress and optimize GIF file size"
       },
       "videoConvert": {
         "name": "Video Convert",
@@ -71,10 +63,6 @@
       "frameEditor": {
         "name": "Frame Editor",
         "description": "Edit GIF/APNG/WebP animations frame by frame"
-      },
-      "gifTextOverlay": {
-        "name": "GIF Text Overlay",
-        "description": "Add text effects to GIF animations"
       },
       "videoFilter": {
         "name": "Video Filter",
@@ -233,6 +221,17 @@
     "result": "Conversion Result",
     "outputSize": "Output size: {{size}}",
     "error": "Conversion failed, please try again"
+  },
+  "gifEditor": {
+    "title": "GIF Editor",
+    "uploadPrompt": "Upload a GIF to start editing (crop, speed, compress, text)",
+    "loadingFFmpeg": "Loading processing engine...",
+    "tabCrop": "Crop/Resize",
+    "tabSpeed": "Speed",
+    "tabCompress": "Compress",
+    "tabText": "Text",
+    "result": "Result",
+    "undo": "Undo"
   },
   "gifCompress": {
     "title": "GIF Compress",

@@ -14,21 +14,25 @@ test.describe('GIF Tools', () => {
     await expect(page.getByText('上傳多張圖片來合成 GIF 動畫')).toBeVisible();
   });
 
-  test('GIF Crop/Resize page loads with upload prompt', async ({ page }) => {
+  test('GIF Editor page loads with upload prompt', async ({ page }) => {
+    await page.goto('/gif/editor');
+    await expect(page.getByText('GIF 編輯器')).toBeVisible();
+    await expect(page.getByText(/上傳 GIF/)).toBeVisible();
+  });
+
+  test('Old GIF crop-resize path redirects to editor', async ({ page }) => {
     await page.goto('/gif/crop-resize');
-    await expect(page.getByText('GIF 裁切/縮放')).toBeVisible();
-    await expect(page.getByText('上傳 GIF 以進行裁切或縮放')).toBeVisible();
+    await expect(page.getByText('GIF 編輯器')).toBeVisible();
+  });
+
+  test('Old GIF text-overlay path redirects to editor', async ({ page }) => {
+    await page.goto('/gif/text-overlay');
+    await expect(page.getByText('GIF 編輯器')).toBeVisible();
   });
 
   test('Frame Editor page loads with upload prompt', async ({ page }) => {
     await page.goto('/gif/frame-editor');
     await expect(page.getByText('動圖幀編輯器')).toBeVisible();
     await expect(page.getByText(/上傳 GIF/)).toBeVisible();
-  });
-
-  test('GIF Text Overlay page loads with upload prompt', async ({ page }) => {
-    await page.goto('/gif/text-overlay');
-    await expect(page.getByText('GIF 加文字')).toBeVisible();
-    await expect(page.getByText(/上傳 GIF 以加入文字/)).toBeVisible();
   });
 });

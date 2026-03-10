@@ -37,7 +37,7 @@ describe('WorkflowBar', () => {
     renderBar();
     const btn = screen.getByRole('button', { name: '傳到其他工具' });
     await userEvent.click(btn);
-    expect(screen.getByText('GIF 裁切/縮放')).toBeInTheDocument();
+    expect(screen.getByText('GIF 編輯器')).toBeInTheDocument();
   });
 
   it('excludes current tool from send-to list', async () => {
@@ -72,8 +72,8 @@ describe('WorkflowBar', () => {
     renderBar();
     const btn = screen.getByRole('button', { name: '傳到其他工具' });
     await userEvent.click(btn);
-    expect(screen.getByText('GIF 裁切/縮放')).toBeInTheDocument();
+    expect(screen.getByText('GIF 編輯器')).toBeInTheDocument();
     await userEvent.keyboard('{Escape}');
-    expect(screen.queryByText('GIF 裁切/縮放')).not.toBeInTheDocument();
+    expect(screen.queryByText('GIF 編輯器')).not.toBeInTheDocument();
   });
 });

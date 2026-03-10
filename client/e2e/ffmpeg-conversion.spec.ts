@@ -51,10 +51,10 @@ test.describe('Images to GIF', () => {
   });
 });
 
-test.describe('GIF Crop/Resize', () => {
-  test('resizes a GIF', async ({ page }) => {
+test.describe('GIF Editor - Crop/Resize', () => {
+  test('resizes a GIF via editor crop tab', async ({ page }) => {
     test.setTimeout(120_000);
-    await page.goto('/gif/crop-resize');
+    await page.goto('/gif/editor');
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
@@ -65,42 +65,45 @@ test.describe('GIF Crop/Resize', () => {
     await applyBtn.click();
 
     await expect(page.getByText('處理結果')).toBeVisible({ timeout: 90_000 });
-    await expect(page.getByText(/輸出大小/)).toBeVisible();
   });
 });
 
-test.describe('GIF Speed', () => {
-  test('adjusts GIF speed', async ({ page }) => {
+test.describe('GIF Editor - Speed', () => {
+  test('adjusts GIF speed via editor speed tab', async ({ page }) => {
     test.setTimeout(120_000);
-    await page.goto('/gif/speed');
+    await page.goto('/gif/editor');
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
+
+    // Switch to speed tab
+    await page.getByRole('tab', { name: /速度/ }).click();
 
     const applyBtn = page.getByRole('button', { name: /套用/ });
     await expect(applyBtn).toBeEnabled({ timeout: 60_000 });
     await applyBtn.click();
 
     await expect(page.getByText('處理結果')).toBeVisible({ timeout: 90_000 });
-    await expect(page.getByText(/輸出大小/)).toBeVisible();
   });
 });
 
-test.describe('GIF Compress', () => {
-  test('compresses a GIF', async ({ page }) => {
+test.describe('GIF Editor - Compress', () => {
+  test('compresses a GIF via editor compress tab', async ({ page }) => {
     test.setTimeout(120_000);
-    await page.goto('/gif/compress');
+    await page.goto('/gif/editor');
 
     const fileInput = page.locator('input[type="file"]');
     await fileInput.setInputFiles(path.join(fixtures, 'test.gif'));
+
+    // Switch to compress tab
+    await page.getByRole('tab', { name: /壓縮/ }).click();
     await expect(page.getByText('壓縮設定')).toBeVisible({ timeout: 10_000 });
 
     const compressBtn = page.getByRole('button', { name: /壓縮/ });
     await expect(compressBtn).toBeEnabled({ timeout: 60_000 });
     await compressBtn.click();
 
-    await expect(page.getByText('壓縮結果')).toBeVisible({ timeout: 90_000 });
-    await expect(page.getByText(/輸出大小/)).toBeVisible();
+    await expect(page.getByText('處理結果')).toBeVisible({ timeout: 90_000 });
   });
 });
 

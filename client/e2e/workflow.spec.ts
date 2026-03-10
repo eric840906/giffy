@@ -18,9 +18,9 @@ test.describe('Workflow Navigation', () => {
 
     await page.goto('/');
 
-    // Click GIF Crop/Resize card
-    await page.getByText('GIF 裁切/縮放').click();
-    await expect(page).toHaveURL('/gif/crop-resize');
+    // Click GIF Editor card
+    await page.getByText('GIF 編輯器').click();
+    await expect(page).toHaveURL('/gif/editor');
 
     await page.goto('/');
 
@@ -109,8 +109,8 @@ test.describe('Workflow File Upload', () => {
     await expect(page.getByRole('combobox')).toBeVisible();
   });
 
-  test('GIF Crop/Resize shows editor after file upload', async ({ page }) => {
-    await page.goto('/gif/crop-resize');
+  test('GIF Editor shows tabs after file upload', async ({ page }) => {
+    await page.goto('/gif/editor');
 
     const fileChooserPromise = page.waitForEvent('filechooser');
     await page.getByText('選擇檔案').click();
@@ -123,8 +123,11 @@ test.describe('Workflow File Upload', () => {
     });
 
     // Upload prompt should be hidden
-    await expect(page.getByText('上傳 GIF 以進行裁切或縮放')).not.toBeVisible();
-    // Settings panel should appear
-    await expect(page.getByText('輸出設定')).toBeVisible();
+    await expect(page.getByText(/上傳 GIF 以開始編輯/)).not.toBeVisible();
+    // Tab navigation should appear
+    await expect(page.getByRole('tab', { name: '裁切/縮放' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: '速度調整' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: '壓縮' })).toBeVisible();
+    await expect(page.getByRole('tab', { name: '加文字' })).toBeVisible();
   });
 });

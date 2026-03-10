@@ -2,18 +2,15 @@ import type { Icon } from '@phosphor-icons/react';
 import {
   FilmReel,
   Images,
-  Crop,
+  PencilSimple,
   Scissors,
   Selection,
-  Timer,
-  Package,
   ArrowsClockwise,
   Camera,
   ArrowsOut,
   Swap,
   FilmStrip,
   GridNine,
-  TextT,
   Palette,
   FileArrowDown,
 } from '@phosphor-icons/react';
@@ -28,18 +25,15 @@ export const MAX_FILE_SIZE_MB = 50;
 export type ToolId =
   | 'videoToGif'
   | 'imagesToGif'
-  | 'gifCropResize'
+  | 'gifEditor'
   | 'videoTrim'
   | 'videoCrop'
-  | 'gifSpeed'
-  | 'gifCompress'
   | 'videoConvert'
   | 'videoScreenshot'
   | 'videoResize'
   | 'imageConvert'
   | 'animatedConvert'
   | 'frameEditor'
-  | 'gifTextOverlay'
   | 'videoFilter'
   | 'imageCompress';
 
@@ -74,9 +68,9 @@ export const TOOLS: readonly ToolDefinition[] = [
     multiple: true,
   },
   {
-    id: 'gifCropResize',
-    path: '/gif/crop-resize',
-    icon: Crop,
+    id: 'gifEditor',
+    path: '/gif/editor',
+    icon: PencilSimple,
     category: 'gif',
     accept: 'image/gif',
   },
@@ -93,20 +87,6 @@ export const TOOLS: readonly ToolDefinition[] = [
     icon: Selection,
     category: 'video',
     accept: 'video/*',
-  },
-  {
-    id: 'gifSpeed',
-    path: '/gif/speed',
-    icon: Timer,
-    category: 'gif',
-    accept: 'image/gif',
-  },
-  {
-    id: 'gifCompress',
-    path: '/gif/compress',
-    icon: Package,
-    category: 'gif',
-    accept: 'image/gif',
   },
   {
     id: 'videoConvert',
@@ -151,13 +131,6 @@ export const TOOLS: readonly ToolDefinition[] = [
     icon: GridNine,
     category: 'gif',
     accept: 'image/gif,image/apng,image/png,image/webp',
-  },
-  {
-    id: 'gifTextOverlay',
-    path: '/gif/text-overlay',
-    icon: TextT,
-    category: 'gif',
-    accept: 'image/gif',
   },
   {
     id: 'videoFilter',

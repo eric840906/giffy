@@ -3,9 +3,7 @@ import { Layout } from './components/Layout/Layout';
 import { Home } from './pages/Home/Home';
 import { VideoToGif } from './pages/gif/VideoToGif';
 import { ImagesToGif } from './pages/gif/ImagesToGif';
-import { GifCropResize } from './pages/gif/GifCropResize';
-import { GifSpeed } from './pages/gif/GifSpeed';
-import { GifCompress } from './pages/gif/GifCompress';
+import { GifEditor } from './pages/gif/GifEditor';
 import { VideoTrim } from './pages/video/VideoTrim';
 import { VideoCrop } from './pages/video/VideoCrop';
 import { VideoConvert } from './pages/video/VideoConvert';
@@ -14,7 +12,6 @@ import { VideoResize } from './pages/video/VideoResize';
 import { ImageConvert } from './pages/image/ImageConvert';
 import { AnimatedImageConvert } from './pages/image/AnimatedImageConvert';
 import { FrameEditor } from './pages/gif/FrameEditor';
-import { GifTextOverlay } from './pages/gif/GifTextOverlay';
 import { VideoFilter } from './pages/video/VideoFilter';
 import { ImageCompress } from './pages/image/ImageCompress';
 
@@ -30,9 +27,12 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/gif/video-to-gif" element={<VideoToGif />} />
           <Route path="/gif/images-to-gif" element={<ImagesToGif />} />
-          <Route path="/gif/crop-resize" element={<GifCropResize />} />
-          <Route path="/gif/speed" element={<GifSpeed />} />
-          <Route path="/gif/compress" element={<GifCompress />} />
+          <Route path="/gif/editor" element={<GifEditor />} />
+          {/* Redirects from old GIF tool paths */}
+          <Route path="/gif/crop-resize" element={<Navigate to="/gif/editor" state={{ tab: 'crop' }} replace />} />
+          <Route path="/gif/speed" element={<Navigate to="/gif/editor" state={{ tab: 'speed' }} replace />} />
+          <Route path="/gif/compress" element={<Navigate to="/gif/editor" state={{ tab: 'compress' }} replace />} />
+          <Route path="/gif/text-overlay" element={<Navigate to="/gif/editor" state={{ tab: 'text' }} replace />} />
           <Route path="/video/trim" element={<VideoTrim />} />
           <Route path="/video/crop" element={<VideoCrop />} />
           <Route path="/video/convert" element={<VideoConvert />} />
@@ -41,7 +41,6 @@ export default function App() {
           <Route path="/image/convert" element={<ImageConvert />} />
           <Route path="/image/animated-convert" element={<AnimatedImageConvert />} />
           <Route path="/gif/frame-editor" element={<FrameEditor />} />
-          <Route path="/gif/text-overlay" element={<GifTextOverlay />} />
           <Route path="/video/filter" element={<VideoFilter />} />
           <Route path="/image/compress" element={<ImageCompress />} />
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -27,7 +27,7 @@ describe('Home', () => {
     renderHome();
     expect(screen.getByText('影片轉 GIF')).toBeInTheDocument();
     expect(screen.getByText('圖片合成 GIF')).toBeInTheDocument();
-    expect(screen.getByText('GIF 裁切/縮放')).toBeInTheDocument();
+    expect(screen.getByText('GIF 編輯器')).toBeInTheDocument();
     expect(screen.getByText('影片裁切（時間）')).toBeInTheDocument();
     expect(screen.getByText('影片裁切（畫面）')).toBeInTheDocument();
     expect(screen.getByText('圖片格式轉換')).toBeInTheDocument();

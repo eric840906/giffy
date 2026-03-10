@@ -28,9 +28,9 @@
         "name": "圖片合成 GIF",
         "description": "將多張圖片合成為 GIF 動圖"
       },
-      "gifCropResize": {
-        "name": "GIF 裁切/縮放",
-        "description": "裁切或調整 GIF 的大小"
+      "gifEditor": {
+        "name": "GIF 編輯器",
+        "description": "裁切、調速、壓縮、加文字 — 一站完成 GIF 編輯"
       },
       "videoTrim": {
         "name": "影片裁切（時間）",
@@ -39,14 +39,6 @@
       "videoCrop": {
         "name": "影片裁切（畫面）",
         "description": "裁切影片的畫面區域"
-      },
-      "gifSpeed": {
-        "name": "GIF 速度調整",
-        "description": "調整 GIF 動圖的播放速度"
-      },
-      "gifCompress": {
-        "name": "GIF 壓縮/優化",
-        "description": "壓縮並優化 GIF 檔案大小"
       },
       "videoConvert": {
         "name": "影片轉檔",
@@ -71,10 +63,6 @@
       "frameEditor": {
         "name": "動圖幀編輯器",
         "description": "逐幀編輯 GIF/APNG/WebP 動圖"
-      },
-      "gifTextOverlay": {
-        "name": "GIF 加文字",
-        "description": "在 GIF 動圖上加入文字效果"
       },
       "videoFilter": {
         "name": "影片加濾鏡",
@@ -233,6 +221,17 @@
     "result": "轉換結果",
     "outputSize": "輸出大小：{{size}}",
     "error": "轉換失敗，請重試"
+  },
+  "gifEditor": {
+    "title": "GIF 編輯器",
+    "uploadPrompt": "上傳 GIF 以開始編輯（裁切、調速、壓縮、加文字）",
+    "loadingFFmpeg": "正在載入處理引擎...",
+    "tabCrop": "裁切/縮放",
+    "tabSpeed": "速度調整",
+    "tabCompress": "壓縮",
+    "tabText": "加文字",
+    "result": "處理結果",
+    "undo": "復原"
   },
   "gifCompress": {
     "title": "GIF 壓縮/優化",
