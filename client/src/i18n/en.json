@@ -44,10 +44,6 @@
         "name": "Image Convert",
         "description": "Batch convert PNG, JPG, WebP formats"
       },
-      "videoScreenshot": {
-        "name": "Video Screenshot",
-        "description": "Capture specific frames from a video"
-      },
       "animatedConvert": {
         "name": "Animated Image Convert",
         "description": "Convert between GIF, APNG, and animated WebP"
@@ -257,22 +253,6 @@
     "beforeAfter": "{{before}} → {{after}}",
     "savings": "Saved {{percent}}%",
     "error": "Compression failed, please try again"
-  },
-  "videoScreenshot": {
-    "title": "Video Screenshot",
-    "uploadPrompt": "Upload a video to capture frames",
-    "outputFormat": "Output Format",
-    "capture": "Capture Screenshot",
-    "capturing": "Capturing...",
-    "screenshots": "Screenshots",
-    "screenshotCount": "{{count}} screenshots",
-    "noScreenshots": "No screenshots captured yet",
-    "timestamp": "{{time}}",
-    "download": "Download",
-    "remove": "Remove",
-    "sendToTool": "Send to Tool",
-    "error": "Capture failed, please try again",
-    "outputSize": "{{size}}"
   },
   "videoResize": {
     "title": "Video Resize",

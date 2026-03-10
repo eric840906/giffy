@@ -4,7 +4,6 @@ import {
   Images,
   PencilSimple,
   ArrowsClockwise,
-  Camera,
   Swap,
   FilmStrip,
   GridNine,
@@ -24,7 +23,6 @@ export type ToolId =
   | 'gifEditor'
   | 'videoEditor'
   | 'videoConvert'
-  | 'videoScreenshot'
   | 'imageConvert'
   | 'animatedConvert'
   | 'frameEditor'
@@ -78,13 +76,6 @@ export const TOOLS: readonly ToolDefinition[] = [
     id: 'videoConvert',
     path: '/video/convert',
     icon: ArrowsClockwise,
-    category: 'video',
-    accept: 'video/*',
-  },
-  {
-    id: 'videoScreenshot',
-    path: '/video/screenshot',
-    icon: Camera,
     category: 'video',
     accept: 'video/*',
   },

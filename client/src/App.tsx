@@ -6,7 +6,6 @@ import { ImagesToGif } from './pages/gif/ImagesToGif';
 import { GifEditor } from './pages/gif/GifEditor';
 import { VideoEditor } from './pages/video/VideoEditor';
 import { VideoConvert } from './pages/video/VideoConvert';
-import { VideoScreenshot } from './pages/video/VideoScreenshot';
 import { ImageConvert } from './pages/image/ImageConvert';
 import { AnimatedImageConvert } from './pages/image/AnimatedImageConvert';
 import { FrameEditor } from './pages/gif/FrameEditor';
@@ -37,7 +36,6 @@ export default function App() {
           <Route path="/video/resize" element={<Navigate to="/video/editor" state={{ tab: 'resize' }} replace />} />
           <Route path="/video/filter" element={<Navigate to="/video/editor" state={{ tab: 'filter' }} replace />} />
           <Route path="/video/convert" element={<VideoConvert />} />
-          <Route path="/video/screenshot" element={<VideoScreenshot />} />
           <Route path="/image/convert" element={<ImageConvert />} />
           <Route path="/image/animated-convert" element={<AnimatedImageConvert />} />
           <Route path="/gif/frame-editor" element={<FrameEditor />} />

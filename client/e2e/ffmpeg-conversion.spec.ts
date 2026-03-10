@@ -205,25 +205,6 @@ test.describe('Video Editor - Resize', () => {
   });
 });
 
-test.describe('Video Screenshot', () => {
-  test('captures a screenshot from video', async ({ page }) => {
-    test.setTimeout(120_000);
-    await page.goto('/video/screenshot');
-
-    const fileInput = page.locator('input[type="file"]');
-    await fileInput.setInputFiles(path.join(fixtures, 'test-video.mp4'));
-
-    // Wait for video to load
-    await expect(page.locator('video')).toBeVisible({ timeout: 10_000 });
-
-    const captureBtn = page.getByRole('button', { name: /擷取/ });
-    await expect(captureBtn).toBeEnabled({ timeout: 10_000 });
-    await captureBtn.click();
-
-    await expect(page.getByText('1 張截圖')).toBeVisible({ timeout: 10_000 });
-  });
-});
-
 test.describe('Frame Editor', () => {
   test('extracts frames from GIF and generates output', async ({ page }) => {
     test.setTimeout(180_000);
