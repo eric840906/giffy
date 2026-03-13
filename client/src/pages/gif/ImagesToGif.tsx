@@ -245,7 +245,7 @@ export function ImagesToGif() {
       const data = await ffmpeg.readFile('output.gif');
       if (abortRef.current) return;
 
-      const blob = new Blob([data], { type: 'image/gif' });
+      const blob = new Blob([data as BlobPart], { type: 'image/gif' });
       setOutputGif(blob);
     } catch (err) {
       console.error('Generation failed:', err);

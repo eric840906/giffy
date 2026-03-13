@@ -209,7 +209,7 @@ export function VideoToGif() {
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      const blob = new Blob([data], { type: 'image/gif' });
+      const blob = new Blob([data as BlobPart], { type: 'image/gif' });
       setOutputGif(blob);
 
       // Clean up ffmpeg temp files to free memory

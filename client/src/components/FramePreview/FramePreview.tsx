@@ -23,7 +23,7 @@ export function FramePreview({ frames, loopCount }: FramePreviewProps) {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loopsCompleted, setLoopsCompleted] = useState(0);
+  const [, setLoopsCompleted] = useState(0);
 
   /** Track whether the component is mounted to avoid state updates after unmount */
   const mountedRef = useRef(true);

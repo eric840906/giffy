@@ -150,7 +150,7 @@ export function VideoConvert() {
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      const blob = new Blob([data], { type: 'video/mp4' });
+      const blob = new Blob([data as BlobPart], { type: 'video/mp4' });
       setOutputVideo(blob);
 
       // Clean up ffmpeg temp files to free memory

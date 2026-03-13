@@ -139,7 +139,7 @@ export function ResizeTab({
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      const blob = new Blob([data], { type: 'video/mp4' });
+      const blob = new Blob([data as BlobPart], { type: 'video/mp4' });
       onProcessComplete(blob);
 
       await ffmpeg.deleteFile(inputName);

@@ -203,7 +203,7 @@ export function ImageConvert() {
 
         converted.push({
           originalName: file.name,
-          blob: new Blob([data], { type: MIME_MAP[targetFormat] }),
+          blob: new Blob([data as BlobPart], { type: MIME_MAP[targetFormat] }),
           fileName: outputName,
         });
 

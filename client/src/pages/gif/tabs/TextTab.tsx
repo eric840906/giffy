@@ -368,7 +368,7 @@ export function TextTab({
           const data = await ffmpeg.readFile(frameName);
           if (abortRef.current) break;
 
-          frameBlobs.push(new Blob([data], { type: 'image/png' }));
+          frameBlobs.push(new Blob([data as BlobPart], { type: 'image/png' }));
 
           let delay = 100;
           if (ptsTimes.length >= i + 1) {
@@ -491,7 +491,7 @@ export function TextTab({
       const outputData = await ffmpeg.readFile('output.gif');
       if (abortRef.current) return;
 
-      onProcessComplete(new Blob([outputData], { type: 'image/gif' }));
+      onProcessComplete(new Blob([outputData as BlobPart], { type: 'image/gif' }));
     } catch (err) {
       console.error('Processing failed:', err);
       if (!abortRef.current) {

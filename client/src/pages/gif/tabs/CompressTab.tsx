@@ -127,7 +127,7 @@ export function CompressTab({
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      const blob = new Blob([data], { type: 'image/gif' });
+      const blob = new Blob([data as BlobPart], { type: 'image/gif' });
       onProcessComplete(blob);
 
       await ffmpeg.deleteFile(inputName);

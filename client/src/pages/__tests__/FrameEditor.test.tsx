@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { describe, it, expect, vi, beforeAll, beforeEach, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest';
 import { FrameEditor } from '../gif/FrameEditor';
 
 const mockExec = vi.fn().mockResolvedValue(0);

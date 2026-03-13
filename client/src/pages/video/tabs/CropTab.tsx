@@ -13,8 +13,8 @@ import type { VideoTabProps } from './index';
 export function CropTab({
   videoFile,
   videoUrl,
-  videoWidth,
-  videoHeight,
+  videoWidth: _videoWidth,
+  videoHeight: _videoHeight,
   ffmpeg,
   ffmpegLoaded,
   isProcessing,
@@ -122,7 +122,7 @@ export function CropTab({
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      const blob = new Blob([data], { type: 'video/mp4' });
+      const blob = new Blob([data as BlobPart], { type: 'video/mp4' });
       onProcessComplete(blob);
 
       await ffmpeg.deleteFile(inputName);

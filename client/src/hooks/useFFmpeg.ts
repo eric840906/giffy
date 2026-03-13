@@ -40,10 +40,10 @@ export function useFFmpeg() {
     try {
       const v = FFMPEG_ASSET_VERSION;
       await ffmpegRef.current.load({
-        coreURL: `/ffmpeg/ffmpeg-core.js?v=${v}`,
-        wasmURL: `/ffmpeg/ffmpeg-core.wasm?v=${v}`,
-        workerURL: `/ffmpeg/ffmpeg-core.worker.js?v=${v}`,
-        classWorkerURL: '/ffmpeg/ffmpeg-worker.js',
+        coreURL: `${import.meta.env.BASE_URL}ffmpeg/ffmpeg-core.js?v=${v}`,
+        wasmURL: `${import.meta.env.BASE_URL}ffmpeg/ffmpeg-core.wasm?v=${v}`,
+        workerURL: `${import.meta.env.BASE_URL}ffmpeg/ffmpeg-core.worker.js?v=${v}`,
+        classWorkerURL: `${import.meta.env.BASE_URL}ffmpeg/ffmpeg-worker.js`,
       });
       setLoaded(true);
     } catch (err) {

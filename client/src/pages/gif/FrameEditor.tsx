@@ -220,7 +220,7 @@ export function FrameEditor() {
 
             extractedFrames.push({
               id: nextFrameId(),
-              blob: new Blob([data], { type: 'image/png' }),
+              blob: new Blob([data as BlobPart], { type: 'image/png' }),
               delay,
               originalIndex: i,
             });
@@ -524,7 +524,7 @@ export function FrameEditor() {
       const data = await ffmpeg.readFile(outputName);
       if (abortRef.current) return;
 
-      setOutputBlob(new Blob([data], { type: MIME_MAP[outputFormat] }));
+      setOutputBlob(new Blob([data as BlobPart], { type: MIME_MAP[outputFormat] }));
     } catch (err) {
       console.error('Generation failed:', err);
       if (!abortRef.current) {
