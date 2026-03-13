@@ -7,6 +7,7 @@ import { ImageSequence } from '../../components/ImageSequence/ImageSequence';
 import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
+import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 
 /** Default conversion settings */
@@ -34,7 +35,7 @@ function qualityToColorCount(q: number): number {
 export function ImagesToGif() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
+  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
 
   /** Ref to abort in-flight ffmpeg operations on unmount */
   const abortRef = useRef(false);
@@ -281,13 +282,6 @@ export function ImagesToGif() {
         {t('imagesToGif.title')}
       </h1>
 
-      {/* FFmpeg loading state */}
-      {!loaded && (
-        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
-          {ffmpegError || t('imagesToGif.loadingFFmpeg')}
-        </div>
-      )}
-
       {/* Upload section */}
       {images.length === 0 && (
         <div>
@@ -464,6 +458,7 @@ export function ImagesToGif() {
           />
         </div>
       )}
+      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { fetchFile } from '@ffmpeg/util';
 import JSZip from 'jszip';
 import { Upload } from '../../components/Upload/Upload';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
+import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 import { TOOLS } from '../../utils/constants';
 
@@ -37,7 +38,7 @@ const MIME_MAP: Record<OutputFormat, string> = {
 export function ImageConvert() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
+  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
 
   /** Ref to abort in-flight ffmpeg operations on unmount */
   const abortRef = useRef(false);
@@ -272,13 +273,6 @@ export function ImageConvert() {
         {t('imageConvert.title')}
       </h1>
 
-      {/* FFmpeg loading state */}
-      {!loaded && (
-        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
-          {ffmpegError || t('imageConvert.loadingFFmpeg')}
-        </div>
-      )}
-
       {/* Upload section: shown when no images selected */}
       {images.length === 0 && (
         <div>
@@ -472,6 +466,8 @@ export function ImageConvert() {
           </div>
         </div>
       )}
+
+      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }

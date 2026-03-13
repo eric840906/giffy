@@ -79,9 +79,11 @@
     "selectTool": "Select tool"
   },
   "ffmpeg": {
-    "loading": "Loading processing engine...",
-    "loadingProgress": "Loading {{progress}}%",
-    "ready": "Processing engine ready"
+    "loadingTitle": "Preparing editing tools",
+    "loadingMessage": "First load requires downloading the processing engine (~30MB)",
+    "progress": "{{percent}}%",
+    "error": "Loading failed",
+    "retry": "Retry"
   },
   "videoToGif": {
     "title": "Video to GIF",

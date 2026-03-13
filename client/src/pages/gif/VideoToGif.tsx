@@ -7,6 +7,7 @@ import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { TimeRangeSlider } from '../../components/TimeRangeSlider/TimeRangeSlider';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
+import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 
 /** Default conversion settings */
@@ -34,7 +35,7 @@ function qualityToColorCount(q: number): number {
 export function VideoToGif() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
+  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   /** Ref to abort in-flight ffmpeg operations on unmount */
@@ -256,13 +257,6 @@ export function VideoToGif() {
         {t('videoToGif.title')}
       </h1>
 
-      {/* FFmpeg loading state */}
-      {!loaded && (
-        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
-          {ffmpegError || t('videoToGif.loadingFFmpeg')}
-        </div>
-      )}
-
       {/* Upload section */}
       {!videoFile && (
         <div>
@@ -450,6 +444,7 @@ export function VideoToGif() {
           />
         </div>
       )}
+      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }

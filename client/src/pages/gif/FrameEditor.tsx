@@ -7,6 +7,7 @@ import { FrameGrid, type FrameData } from '../../components/FrameGrid/FrameGrid'
 import { FramePreview } from '../../components/FramePreview/FramePreview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
+import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 
 /** Available speed multiplier presets */
@@ -57,7 +58,7 @@ function nextFrameId(): string {
 export function FrameEditor() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
+  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
 
   /** Ref to abort in-flight ffmpeg operations on unmount */
   const abortRef = useRef(false);
@@ -561,13 +562,6 @@ export function FrameEditor() {
         {t('frameEditor.title')}
       </h1>
 
-      {/* FFmpeg loading state */}
-      {!loaded && (
-        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
-          {ffmpegError || t('frameEditor.loadingFFmpeg')}
-        </div>
-      )}
-
       {/* Upload section */}
       {!inputFile && (
         <div>
@@ -962,6 +956,7 @@ export function FrameEditor() {
           />
         </div>
       )}
+      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }

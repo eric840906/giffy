@@ -35,4 +35,9 @@ describe('useFFmpeg', () => {
     const { result } = renderHook(() => useFFmpeg());
     expect(result.current.error).toBeNull();
   });
+
+  it('exposes progress state as 0 initially', () => {
+    const { result } = renderHook(() => useFFmpeg());
+    expect(result.current.progress).toBe(0);
+  });
 });

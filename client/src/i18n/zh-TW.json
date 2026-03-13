@@ -79,9 +79,11 @@
     "selectTool": "選擇工具"
   },
   "ffmpeg": {
-    "loading": "正在載入處理引擎...",
-    "loadingProgress": "載入中 {{progress}}%",
-    "ready": "處理引擎已就緒"
+    "loadingTitle": "正在準備編輯工具",
+    "loadingMessage": "首次載入需下載處理引擎（約 30MB）",
+    "progress": "{{percent}}%",
+    "error": "載入失敗",
+    "retry": "重試"
   },
   "videoToGif": {
     "title": "影片轉 GIF",

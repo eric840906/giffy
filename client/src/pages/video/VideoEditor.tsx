@@ -5,6 +5,7 @@ import { Upload } from '../../components/Upload/Upload';
 import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
+import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 import { TrimTab, CropTab, ResizeTab, FilterTab } from './tabs';
 
@@ -34,7 +35,7 @@ const TABS: readonly TabDef[] = [
 export function VideoEditor() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, load } = useFFmpeg();
+  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
 
   /** Ref to track whether router state was already handled */
   const handledStateRef = useRef<File | null>(null);
@@ -193,13 +194,6 @@ export function VideoEditor() {
         {t('videoEditor.title')}
       </h1>
 
-      {/* FFmpeg loading state */}
-      {!loaded && (
-        <div className="rounded-xl bg-mint-50 p-4 text-center text-sm text-mint-600 dark:bg-mint-950/20 dark:text-mint-400">
-          {ffmpegError || t('videoEditor.loadingFFmpeg')}
-        </div>
-      )}
-
       {/* Upload section */}
       {!videoFile && (
         <div>
@@ -341,6 +335,8 @@ export function VideoEditor() {
           />
         </div>
       )}
+
+      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }
