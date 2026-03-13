@@ -21,7 +21,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur dark:border-gray-700 dark:bg-gray-900/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center">
-          <img src={`${import.meta.env.BASE_URL}logo.png`} alt={t('app.title')} className="h-10" />
+          <img src="/logo.png" alt={t('app.title')} className="h-10" />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex" aria-label="main navigation">
