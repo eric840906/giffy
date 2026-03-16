@@ -5,7 +5,6 @@ import { Upload } from '../../components/Upload/Upload';
 import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
-import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 import { CropResizeTab, SpeedTab, CompressTab, TextTab } from './tabs';
 
@@ -34,7 +33,7 @@ const TABS: readonly TabDef[] = [
 export function GifEditor() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
+  const { ffmpeg, loaded, load } = useFFmpeg();
 
   /** Ref to track whether router state was already handled */
   const handledStateRef = useRef<File | null>(null);
@@ -58,10 +57,10 @@ export function GifEditor() {
 
   /** Load ffmpeg on mount */
   useEffect(() => {
-    if (!loaded && !ffmpegLoading) {
+    if (!loaded) {
       load();
     }
-  }, [loaded, ffmpegLoading, load]);
+  }, [loaded, load]);
 
   /** Handle initial tab from router state (e.g., redirects from old URLs) */
   useEffect(() => {
@@ -322,7 +321,6 @@ export function GifEditor() {
           />
         </div>
       )}
-      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }

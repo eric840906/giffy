@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { FFmpegProvider } from './hooks/useFFmpeg';
 import { Layout } from './components/Layout/Layout';
 import { Home } from './pages/Home/Home';
 import { VideoToGif } from './pages/gif/VideoToGif';
@@ -18,6 +19,7 @@ import { ImageCompress } from './pages/image/ImageCompress';
 export default function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <FFmpegProvider>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -43,6 +45,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      </FFmpegProvider>
     </BrowserRouter>
   );
 }

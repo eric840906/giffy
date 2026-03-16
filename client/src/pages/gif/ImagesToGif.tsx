@@ -7,7 +7,6 @@ import { ImageSequence } from '../../components/ImageSequence/ImageSequence';
 import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
-import { FFmpegLoadingModal } from '../../components/FFmpegLoadingModal/FFmpegLoadingModal';
 import { formatSize } from '../../utils/formatSize';
 
 /** Default conversion settings */
@@ -35,7 +34,7 @@ function qualityToColorCount(q: number): number {
 export function ImagesToGif() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { ffmpeg, loaded, loading: ffmpegLoading, error: ffmpegError, progress: ffmpegProgress, load } = useFFmpeg();
+  const { ffmpeg, loaded, load } = useFFmpeg();
 
   /** Ref to abort in-flight ffmpeg operations on unmount */
   const abortRef = useRef(false);
@@ -103,10 +102,10 @@ export function ImagesToGif() {
 
   /** Load ffmpeg on mount */
   useEffect(() => {
-    if (!loaded && !ffmpegLoading) {
+    if (!loaded) {
       load();
     }
-  }, [loaded, ffmpegLoading, load]);
+  }, [loaded, load]);
 
   /** Handle file from workflow (passed via router state) */
   useEffect(() => {
@@ -458,7 +457,6 @@ export function ImagesToGif() {
           />
         </div>
       )}
-      <FFmpegLoadingModal loading={ffmpegLoading} loaded={loaded} progress={ffmpegProgress} error={ffmpegError} onRetry={load} />
     </div>
   );
 }

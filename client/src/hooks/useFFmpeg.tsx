@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useContext, createContext, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 
 /**
@@ -40,21 +41,22 @@ async function fetchWithProgress(
   return URL.createObjectURL(blob);
 }
 
+interface FFmpegContextValue {
+  ffmpeg: FFmpeg;
+  loaded: boolean;
+  loading: boolean;
+  progress: number;
+  error: string | null;
+  load: () => Promise<void>;
+}
+
+const FFmpegContext = createContext<FFmpegContextValue | null>(null);
+
 /**
- * Hook for managing ffmpeg.wasm lifecycle.
- * Loads @ffmpeg/core-mt@0.12.6 (multi-thread build) from /public/ffmpeg/ (same origin).
- * Pre-fetches the .wasm file (~32MB) with progress tracking.
- * Requires SharedArrayBuffer (COOP/COEP headers set by the server).
- *
- * @returns An object containing:
- *   - ffmpeg: The FFmpeg instance
- *   - loaded: Whether ffmpeg has been loaded successfully
- *   - loading: Whether ffmpeg is currently loading
- *   - progress: Download progress (0–100)
- *   - error: Error message if load failed
- *   - load: Function to trigger ffmpeg loading
+ * Provider that holds a single FFmpeg instance shared across all pages.
+ * Wrap the app (inside BrowserRouter) with this provider.
  */
-export function useFFmpeg() {
+export function FFmpegProvider({ children }: { children: ReactNode }) {
   const ffmpegRef = useRef(new FFmpeg());
   const loadingRef = useRef(false);
   const [loaded, setLoaded] = useState(false);
@@ -108,12 +110,30 @@ export function useFFmpeg() {
     }
   }, [loaded]);
 
-  return {
-    ffmpeg: ffmpegRef.current,
-    loaded,
-    loading,
-    progress,
-    error,
-    load,
-  };
+  const value = useMemo(
+    () => ({ ffmpeg: ffmpegRef.current, loaded, loading, progress, error, load }),
+    [loaded, loading, progress, error, load],
+  );
+
+  return <FFmpegContext.Provider value={value}>{children}</FFmpegContext.Provider>;
+}
+
+/**
+ * Hook for accessing the shared ffmpeg.wasm instance.
+ * Must be used within an FFmpegProvider.
+ *
+ * @returns An object containing:
+ *   - ffmpeg: The FFmpeg instance
+ *   - loaded: Whether ffmpeg has been loaded successfully
+ *   - loading: Whether ffmpeg is currently loading
+ *   - progress: Download progress (0–100)
+ *   - error: Error message if load failed
+ *   - load: Function to trigger ffmpeg loading
+ */
+export function useFFmpeg(): FFmpegContextValue {
+  const ctx = useContext(FFmpegContext);
+  if (!ctx) {
+    throw new Error('useFFmpeg must be used within an FFmpegProvider');
+  }
+  return ctx;
 }
