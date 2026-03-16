@@ -34,7 +34,7 @@ async function fetchWithProgress(
     if (done) break;
     chunks.push(value);
     received += value.length;
-    onProgress(Math.round((received / total) * 100));
+    onProgress(Math.min(100, Math.round((received / total) * 100)));
   }
 
   const blob = new Blob(chunks as BlobPart[], { type: 'application/wasm' });
