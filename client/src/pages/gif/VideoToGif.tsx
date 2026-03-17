@@ -13,16 +13,16 @@ import { formatSize } from '../../utils/formatSize';
 const DEFAULTS = {
   width: 480,
   fps: 10,
-  quality: 75,
+  quality: 100,
 };
 
 /**
- * Map quality (1-100) to color count (16-256) for palette-based GIF generation.
+ * Map quality (1-100) to color count (64-256) for palette-based GIF generation.
  * @param q - Quality value from 1 to 100
- * @returns Number of colors for the palette (16-256)
+ * @returns Number of colors for the palette (64-256)
  */
 function qualityToColorCount(q: number): number {
-  return Math.round(16 + (q / 100) * (256 - 16));
+  return Math.round(64 + (q / 100) * (256 - 64));
 }
 
 /**
