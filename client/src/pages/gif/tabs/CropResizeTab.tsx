@@ -44,13 +44,9 @@ export function CropResizeTab({
     }
   }, [imageWidth, imageHeight]);
 
-  /** Handle crop rectangle change from CropOverlay */
+  /** Handle crop rectangle change from CropOverlay (does not affect resize dimensions) */
   const handleCropChange = useCallback((newCrop: CropRect) => {
     setCrop(newCrop);
-    const cropW = Math.round(newCrop.width);
-    const cropH = Math.round(newCrop.height);
-    setOutputWidth(cropW);
-    setOutputHeight(cropH);
   }, []);
 
   /** Reset crop to full image */
@@ -210,8 +206,9 @@ export function CropResizeTab({
               type="number"
               min={1}
               max={4096}
-              value={outputWidth}
-              onChange={(e) => handleWidthChange(Number(e.target.value) || 1)}
+              value={outputWidth || ''}
+              onChange={(e) => handleWidthChange(Number(e.target.value) || 0)}
+              onBlur={() => setOutputWidth(Math.max(1, Math.min(4096, outputWidth)))}
               className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             />
           </div>
@@ -226,8 +223,9 @@ export function CropResizeTab({
               type="number"
               min={1}
               max={4096}
-              value={outputHeight}
-              onChange={(e) => handleHeightChange(Number(e.target.value) || 1)}
+              value={outputHeight || ''}
+              onChange={(e) => handleHeightChange(Number(e.target.value) || 0)}
+              onBlur={() => setOutputHeight(Math.max(1, Math.min(4096, outputHeight)))}
               className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
             />
           </div>
