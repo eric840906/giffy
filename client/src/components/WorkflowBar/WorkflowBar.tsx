@@ -56,7 +56,18 @@ export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: Wor
     URL.revokeObjectURL(url);
   }, [file, editName, fileName]);
 
-  const otherTools = TOOLS.filter((tool) => tool.id !== currentTool);
+  const otherTools = TOOLS.filter((tool) => {
+    if (tool.id === currentTool) return false;
+    // Match file MIME type against the tool's accept patterns
+    const mimeType = file.type;
+    if (!mimeType) return true;
+    return tool.accept.split(',').some((pattern) => {
+      const p = pattern.trim();
+      if (p === mimeType) return true;
+      if (p.endsWith('/*') && mimeType.startsWith(p.replace('/*', '/'))) return true;
+      return false;
+    });
+  });
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
