@@ -76,7 +76,8 @@
     "download": "Download",
     "continueEdit": "Continue Editing",
     "sendToTool": "Send to Tool",
-    "selectTool": "Select tool"
+    "selectTool": "Select tool",
+    "fileName": "File name"
   },
   "ffmpeg": {
     "loadingTitle": "Preparing editing tools",

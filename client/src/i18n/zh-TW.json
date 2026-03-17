@@ -76,7 +76,8 @@
     "download": "下載",
     "continueEdit": "繼續編輯",
     "sendToTool": "傳到其他工具",
-    "selectTool": "選擇工具"
+    "selectTool": "選擇工具",
+    "fileName": "檔案名稱"
   },
   "ffmpeg": {
     "loadingTitle": "正在準備編輯工具",

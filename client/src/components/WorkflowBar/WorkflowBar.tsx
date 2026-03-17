@@ -21,6 +21,7 @@ interface WorkflowBarProps {
 export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: WorkflowBarProps) {
   const { t } = useTranslation();
   const [showTools, setShowTools] = useState(false);
+  const [editName, setEditName] = useState(fileName);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   /** Close dropdown on click-outside or Escape key */
@@ -45,20 +46,35 @@ export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: Wor
     };
   }, [showTools]);
 
-  /** Download the processed file */
+  /** Download the processed file with user-editable name */
   const handleDownload = useCallback(() => {
     const url = URL.createObjectURL(file);
     const a = document.createElement('a');
     a.href = url;
-    a.download = fileName;
+    a.download = editName || fileName;
     a.click();
     URL.revokeObjectURL(url);
-  }, [file, fileName]);
+  }, [file, editName, fileName]);
 
   const otherTools = TOOLS.filter((tool) => tool.id !== currentTool);
 
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      {/* Editable file name */}
+      <div className="flex items-center gap-2">
+        <label htmlFor="workflow-filename" className="shrink-0 text-sm font-medium text-gray-600 dark:text-gray-300">
+          {t('workflow.fileName')}
+        </label>
+        <input
+          id="workflow-filename"
+          type="text"
+          value={editName}
+          onChange={(e) => setEditName(e.target.value)}
+          className="min-w-0 flex-1 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
+        />
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
       <button
         onClick={handleDownload}
         className="rounded-xl bg-mint-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-mint-700"
@@ -105,6 +121,7 @@ export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: Wor
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   );
