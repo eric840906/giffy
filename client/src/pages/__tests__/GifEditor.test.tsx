@@ -129,7 +129,7 @@ describe('GifEditor', () => {
     uploadFileAndLoadImage();
 
     expect(screen.getByText('輸出設定')).toBeInTheDocument();
-    expect(screen.getByLabelText(/寬度/)).toBeInTheDocument();
+    expect(screen.getByLabelText('寬度 (px)')).toBeInTheDocument();
   });
 
   it('switches to speed tab', () => {
