@@ -124,12 +124,40 @@ export function TrimTab({
       />
 
       {videoDuration > 0 && (
-        <TimeRangeSlider
-          duration={videoDuration}
-          start={startTime}
-          end={endTime}
-          onChange={handleTimeRangeChange}
-        />
+        <>
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                if (videoRef.current) {
+                  const ct = videoRef.current.currentTime;
+                  setStartTime(Math.min(ct, endTime - 0.1));
+                }
+              }}
+              disabled={isProcessing}
+              className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              {t('videoTrim.setStart')}
+            </button>
+            <button
+              onClick={() => {
+                if (videoRef.current) {
+                  const ct = videoRef.current.currentTime;
+                  setEndTime(Math.max(ct, startTime + 0.1));
+                }
+              }}
+              disabled={isProcessing}
+              className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            >
+              {t('videoTrim.setEnd')}
+            </button>
+          </div>
+          <TimeRangeSlider
+            duration={videoDuration}
+            start={startTime}
+            end={endTime}
+            onChange={handleTimeRangeChange}
+          />
+        </>
       )}
 
       <button

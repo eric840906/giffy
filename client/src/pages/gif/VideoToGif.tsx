@@ -302,12 +302,40 @@ export function VideoToGif() {
             />
 
             {videoDuration > 0 && (
-              <TimeRangeSlider
-                duration={videoDuration}
-                start={startTime}
-                end={endTime}
-                onChange={handleTimeRangeChange}
-              />
+              <>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      if (videoRef.current) {
+                        const t = videoRef.current.currentTime;
+                        setStartTime(Math.min(t, endTime - 0.1));
+                      }
+                    }}
+                    disabled={isConverting}
+                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    {t('videoToGif.setStart')}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (videoRef.current) {
+                        const t = videoRef.current.currentTime;
+                        setEndTime(Math.max(t, startTime + 0.1));
+                      }
+                    }}
+                    disabled={isConverting}
+                    className="rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-100 disabled:opacity-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+                  >
+                    {t('videoToGif.setEnd')}
+                  </button>
+                </div>
+                <TimeRangeSlider
+                  duration={videoDuration}
+                  start={startTime}
+                  end={endTime}
+                  onChange={handleTimeRangeChange}
+                />
+              </>
             )}
           </div>
 

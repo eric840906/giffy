@@ -103,7 +103,9 @@
     "loadingFFmpeg": "正在載入處理引擎...",
     "result": "轉換結果",
     "outputSize": "輸出大小：{{size}}",
-    "error": "轉換失敗，請重試"
+    "error": "轉換失敗，請重試",
+    "setStart": "設為起點",
+    "setEnd": "設為終點"
   },
   "imagesToGif": {
     "title": "圖片合成 GIF",
@@ -153,7 +155,9 @@
     "loadingFFmpeg": "正在載入處理引擎...",
     "result": "裁切結果",
     "outputSize": "輸出大小：{{size}}",
-    "error": "裁切失敗，請重試"
+    "error": "裁切失敗，請重試",
+    "setStart": "設為起點",
+    "setEnd": "設為終點"
   },
   "videoCrop": {
     "title": "影片裁切（畫面）",

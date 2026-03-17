@@ -103,7 +103,9 @@
     "loadingFFmpeg": "Loading processing engine...",
     "result": "Conversion Result",
     "outputSize": "Output size: {{size}}",
-    "error": "Conversion failed, please try again"
+    "error": "Conversion failed, please try again",
+    "setStart": "Set Start",
+    "setEnd": "Set End"
   },
   "imagesToGif": {
     "title": "Images to GIF",
@@ -153,7 +155,9 @@
     "loadingFFmpeg": "Loading processing engine...",
     "result": "Trim Result",
     "outputSize": "Output size: {{size}}",
-    "error": "Trimming failed, please try again"
+    "error": "Trimming failed, please try again",
+    "setStart": "Set Start",
+    "setEnd": "Set End"
   },
   "videoCrop": {
     "title": "Video Crop",
