@@ -6,10 +6,10 @@ import { Preview } from '../../components/Preview/Preview';
 import { WorkflowBar } from '../../components/WorkflowBar/WorkflowBar';
 import { useFFmpeg } from '../../hooks/useFFmpeg';
 import { formatSize } from '../../utils/formatSize';
-import { CropResizeTab, SpeedTab, CompressTab, TextTab } from './tabs';
+import { CropTab, GifResizeTab, SpeedTab, CompressTab, TextTab } from './tabs';
 
 /** Available tab IDs */
-type TabId = 'crop' | 'speed' | 'compress' | 'text';
+type TabId = 'crop' | 'resize' | 'speed' | 'compress' | 'text';
 
 /** Tab definition for navigation */
 interface TabDef {
@@ -20,6 +20,7 @@ interface TabDef {
 /** Ordered tab definitions */
 const TABS: readonly TabDef[] = [
   { id: 'crop', labelKey: 'gifEditor.tabCrop' },
+  { id: 'resize', labelKey: 'gifEditor.tabResize' },
   { id: 'speed', labelKey: 'gifEditor.tabSpeed' },
   { id: 'compress', labelKey: 'gifEditor.tabCompress' },
   { id: 'text', labelKey: 'gifEditor.tabText' },
@@ -249,7 +250,12 @@ export function GifEditor() {
           {/* Tab panels — hidden (not unmounted) when output exists */}
           {visitedTabs.has('crop') && (
             <div style={{ display: activeTab === 'crop' && !outputGif ? undefined : 'none' }} role="tabpanel">
-              <CropResizeTab key={`crop-${fileVersion}`} {...tabProps} />
+              <CropTab key={`crop-${fileVersion}`} {...tabProps} />
+            </div>
+          )}
+          {visitedTabs.has('resize') && (
+            <div style={{ display: activeTab === 'resize' && !outputGif ? undefined : 'none' }} role="tabpanel">
+              <GifResizeTab key={`resize-${fileVersion}`} {...tabProps} />
             </div>
           )}
           {visitedTabs.has('speed') && (

@@ -108,7 +108,8 @@ describe('GifEditor', () => {
     const file = new File(['gif-content'], 'test.gif', { type: 'image/gif' });
     fireEvent.change(input, { target: { files: [file] } });
 
-    expect(screen.getByRole('tab', { name: '裁切/縮放' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: '裁切' })).toBeInTheDocument();
+    expect(screen.getByRole('tab', { name: '縮放' })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: '速度調整' })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: '壓縮' })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: '加文字' })).toBeInTheDocument();
@@ -120,7 +121,7 @@ describe('GifEditor', () => {
     const file = new File(['gif-content'], 'test.gif', { type: 'image/gif' });
     fireEvent.change(input, { target: { files: [file] } });
 
-    const cropTab = screen.getByRole('tab', { name: '裁切/縮放' });
+    const cropTab = screen.getByRole('tab', { name: '裁切' });
     expect(cropTab).toHaveAttribute('aria-selected', 'true');
   });
 
@@ -128,8 +129,8 @@ describe('GifEditor', () => {
     renderPage();
     uploadFileAndLoadImage();
 
-    expect(screen.getByText('輸出設定')).toBeInTheDocument();
-    expect(screen.getByLabelText('寬度 (px)')).toBeInTheDocument();
+    expect(screen.getByText('裁切區域')).toBeInTheDocument();
+    expect(screen.getByLabelText('X 位置')).toBeInTheDocument();
   });
 
   it('switches to speed tab', () => {
@@ -186,7 +187,7 @@ describe('GifEditor', () => {
     expect(twoXBtn.className).toContain('bg-mint-600');
 
     // Switch to crop tab and back
-    fireEvent.click(screen.getByRole('tab', { name: '裁切/縮放' }));
+    fireEvent.click(screen.getByRole('tab', { name: '裁切' }));
     fireEvent.click(screen.getByRole('tab', { name: '速度調整' }));
 
     // 2x should still be selected
@@ -199,6 +200,10 @@ describe('GifEditor', () => {
     uploadFileAndLoadImage();
 
     // Crop tab: apply button
+    expect(screen.getByRole('button', { name: /套用/ })).toBeInTheDocument();
+
+    // Resize tab: apply button
+    fireEvent.click(screen.getByRole('tab', { name: '縮放' }));
     expect(screen.getByRole('button', { name: /套用/ })).toBeInTheDocument();
 
     // Speed tab: apply button
