@@ -114,7 +114,7 @@ export function WorkflowBar({ file, fileName, currentTool, onContinueEdit }: Wor
         </button>
 
         {showTools && (
-          <div className="absolute left-0 top-full z-10 mt-2 rounded-xl border border-gray-200 bg-white p-2 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+          <div className="absolute left-0 bottom-full z-10 mb-2 rounded-xl border border-gray-200 bg-white p-2 shadow-lg dark:border-gray-700 dark:bg-gray-800">
             <p className="px-2 pb-1.5 text-xs font-medium text-gray-400 dark:text-gray-500">
               {t('workflow.selectTool')}
             </p>
